@@ -1,0 +1,35 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        failure_transport: failed
+
+        # The bus that is going to be injected when injecting MessageBusInterface
+        default_bus: default.bus
+
+        buses:
+            default.bus:
+
+            command.bus:
+                middleware:
+                #- validation
+                #- doctrine_transaction
+
+            query.bus:
+                middleware:
+                #- validation
+
+            event.bus:
+                #default_middleware: allow_no_handlers
+                middleware:
+                #- validation
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async: '%env(ASYNC_TRANSPORT_DSN)%'
+            failed: '%env(FAILED_TRANSPORT_DSN)%'
+            sync: '%env(SYNC_TRANSPORT_DSN)%'
+
+        routing:
+            'Masfernandez\Shared\Domain\Bus\Command\SyncCommandInterface': sync
+            'Masfernandez\Shared\Domain\Bus\Query\SyncQueryInterface': sync
+            'Masfernandez\Shared\Domain\Bus\Event\AsyncEventInterface': async

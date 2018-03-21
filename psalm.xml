@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="https://getpsalm.org/schema/config"
+       xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+       phpVersion="8.0.0"
+       errorLevel="4"
+       autoloader="apps/MusicLabelApp/Catalog/backend/config/bootstrap.php"
+>
+    <!-- @todo errorLevel="1" -->
+
+    <projectFiles>
+        <directory name="apps/MusicLabelApp/Catalog/backend/src/"/>
+        <directory name="src/"/>
+        <directory name="tests/"/>
+        <ignoreFiles>
+            <directory name="vendor/"/>
+        </ignoreFiles>
+    </projectFiles>
+    <issueHandlers>
+
+        <MissingPropertyType errorLevel="info"/>
+
+        <RedundantPropertyInitializationCheck>
+            <errorLevel type="suppress">
+                <file name="src/MusicLabel/Shared/Domain/Model/Album/AlbumId.php"/>
+                <file name="src/MusicLabel/Catalog/Domain/Model/Album/AlbumTitle.php"/>
+                <file name="src/MusicLabel/Catalog/Domain/Model/Album/AlbumPublishingDate.php"/>
+                <file name="src/MusicLabel/Catalog/Domain/Model/Album/AlbumPublishingDate.php"/>
+            </errorLevel>
+        </RedundantPropertyInitializationCheck>
+
+        <LessSpecificImplementedReturnType>
+            <errorLevel type="suppress">
+                <directory name="src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/Repository/"/>
+            </errorLevel>
+        </LessSpecificImplementedReturnType>
+
+        <!-- TESTS -->
+        <InvalidArgument>
+            <errorLevel type="suppress">
+                <directory name="tests/"/>
+            </errorLevel>
+        </InvalidArgument>
+
+        <UndefinedMagicMethod>
+            <errorLevel type="suppress">
+                <directory name="tests/"/>
+            </errorLevel>
+        </UndefinedMagicMethod>
+
+        <UndefinedMethod>
+            <errorLevel type="suppress">
+                <directory name="tests/"/>
+            </errorLevel>
+        </UndefinedMethod>
+
+        <!-- INFRA -->
+        <UndefinedInterfaceMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Messenger\Stamp\StampInterface::getResult"/>
+                <referencedMethod name="Doctrine\DBAL\Driver\ResultStatement::fetchAllNumeric"/>
+            </errorLevel>
+        </UndefinedInterfaceMethod>
+
+        <UnimplementedInterfaceMethod>
+            <errorLevel type="suppress">
+                <file name="apps/MusicLabelApp/Catalog/backend/src/Kernel.php"/>
+            </errorLevel>
+        </UnimplementedInterfaceMethod>
+
+        <RedundantPropertyInitializationCheck>
+            <errorLevel type="suppress">
+                <file name="src/Shared/Domain/ValueObject/UuidValueObject.php"/>
+                <file name="src/Shared/Domain/ValueObject/ValueObjectBase.php"/>
+            </errorLevel>
+        </RedundantPropertyInitializationCheck>
+
+        <InvalidDocblock>
+            <errorLevel type="suppress">
+                <directory name="vendor/"/>
+            </errorLevel>
+        </InvalidDocblock>
+
+    </issueHandlers>
+</psalm>

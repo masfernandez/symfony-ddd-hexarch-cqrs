@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+
+    nginx:
+        image: masfernandez/nginx-dev:latest
+        volumes:
+            - ./docker/nginx/etc/nginx/certs/dev:/etc/nginx/certs:ro
+    php:
+        image: masfernandez/php8-dev:latest
+        volumes:
+            - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
+            - ./docker/php/usr/local/etc/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini

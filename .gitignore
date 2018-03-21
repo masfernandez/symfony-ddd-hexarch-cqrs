@@ -1,0 +1,14 @@
+# IDE
+!.idea/runConfigurationsShared/
+
+# project
+build/
+var/
+vendor/
+.phpunit.result.cache
+phpunit.xml
+
+# docker
+supervisord.pid
+
+!.gitkeep

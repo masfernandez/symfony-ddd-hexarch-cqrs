@@ -1,0 +1,94 @@
+{
+    "name": "masfernandez/symfony-ddd-hexarch-cqrs",
+    "description": "",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Miguel Ángel Sánchez Fernández",
+            "email": "mangel.sanfer@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Masfernandez\\": "src/",
+            "Masfernandez\\MusicLabelApp\\Catalog\\Infrastructure\\Backend\\": "apps/MusicLabelApp/Catalog/backend/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Masfernandez\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "composer/package-versions-deprecated": "1.11.99.1",
+        "doctrine/annotations": "^1.11",
+        "doctrine/doctrine-bundle": "^2.2",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.8",
+        "lambdish/phunctional": "^2.1",
+        "ramsey/uuid-doctrine": "^1.6",
+        "sensio/framework-extra-bundle": "^5.6",
+        "symfony/amqp-messenger": "5.2.*",
+        "symfony/console": "5.2.*",
+        "symfony/doctrine-messenger": "5.2.*",
+        "symfony/dotenv": "5.2.*",
+        "symfony/error-handler": "5.2.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "5.2.*",
+        "symfony/messenger": "5.2.*",
+        "symfony/monolog-bundle": "^3.6",
+        "symfony/uid": "5.2.*",
+        "symfony/validator": "5.2.*",
+        "symfony/yaml": "5.2.*"
+    },
+    "require-dev": {
+        "behat/behat": "^3.8",
+        "behatch/contexts": "^3.3",
+        "brianium/paratest": "^6.1",
+        "friends-of-behat/mink": "^1.8",
+        "friends-of-behat/mink-browserkit-driver": "^1.4",
+        "friends-of-behat/mink-extension": "^2.4",
+        "friends-of-behat/symfony-extension": "2.2.x-dev",
+        "fzaninotto/faker": "^1.9",
+        "masfernandez/nginx-proxy-local-development": "dev-master",
+        "mockery/mockery": "^1.4",
+        "phpstan/phpstan": "^0.12.64",
+        "phpunit/phpunit": "^9.5",
+        "rector/rector": "^0.9.3",
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "^3.5.8",
+        "symfony/maker-bundle": "^1.26",
+        "symfony/phpunit-bridge": "^5.2",
+        "symfony/stopwatch": "^5.2",
+        "vimeo/psalm": "^4.3"
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.2.*"
+        },
+        "bin-dir": "apps/MusicLabelApp/Catalog/backend/bin"
+    }
+}
