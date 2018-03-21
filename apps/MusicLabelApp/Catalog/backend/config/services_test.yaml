@@ -1,0 +1,37 @@
+services:
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Private services by default
+
+
+    # Include Tests
+    Masfernandez\Tests\:
+        resource: '%app.root_path%/tests/'
+
+
+    # Behatch services
+    Behatch\HttpCall\Request:
+        arguments:
+            - '@behat.mink'
+
+    Behatch\Context\RestContext:
+        arguments:
+            - '@Behatch\HttpCall\Request'
+
+    Behatch\HttpCall\HttpCallResultPool:
+        class: Behatch\HttpCall\HttpCallResultPool
+
+    Behatch\Context\JsonContext:
+        arguments:
+            - '@Behatch\HttpCall\HttpCallResultPool'
+
+
+    # Aliases
+    Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Repository\DoctrineAlbumRepository'
+    Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface: '@Masfernandez\Shared\Infrastructure\Bus\Event\InMemory\InMemoryEventPublisher'
+    Masfernandez\Shared\Application\Service\TransactionalSession: '@Masfernandez\Shared\Infrastructure\Service\NoTransactionalSession'
+
+    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner: '@Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner'

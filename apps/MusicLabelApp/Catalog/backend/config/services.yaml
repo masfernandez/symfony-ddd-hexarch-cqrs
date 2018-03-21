@@ -1,0 +1,51 @@
+parameters:
+
+    app.root_path: '%kernel.project_dir%/../../../..'
+
+services:
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Private services by default
+
+        bind:
+            $queryBus: '@query.bus'
+            $commandBus: '@command.bus'
+            $eventBus: '@event.bus'
+
+
+    _instanceof:
+        Masfernandez\Shared\Domain\Bus\Command\CommandHandlerInterface:
+            tags: [{name: messenger.message_handler, bus: command.bus}]
+
+        Masfernandez\Shared\Domain\Bus\Query\QueryHandlerInterface:
+            tags: [{name: messenger.message_handler, bus: query.bus}]
+
+        Masfernandez\Shared\Domain\Bus\Event\EventHandlerInterface:
+            tags: [{name: messenger.message_handler, bus: event.bus}]
+
+        Masfernandez\Shared\Application\Service\ApplicationServiceInterface:
+            tags: ['application_service']
+
+
+    # Symfony
+    Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\:
+        resource: '%kernel.project_dir%/src/'
+        exclude:
+            - '%kernel.project_dir%/src/DependencyInjection/'
+            - '%kernel.project_dir%/src/Entity/'
+            - '%kernel.project_dir%/src/Kernel.php'
+            - '%kernel.project_dir%/src/Tests/'
+
+
+    # Controllers
+    Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\:
+        resource: '%kernel.project_dir%/src/Controller/'
+        tags: ['controller.service_arguments']
+
+
+    # Business logic
+    Masfernandez\:
+        resource: '%app.root_path%/src/'

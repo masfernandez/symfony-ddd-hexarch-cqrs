@@ -1,0 +1,21 @@
+parameters:
+
+services:
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Private services by default
+
+    #Masfernandez\Shared\Application\Service\ApplicationServiceInterface $albumCreator: '@album_creator_decorator'
+
+    # Aliases
+    Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Repository\DoctrineAlbumRepository'
+    Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface: '@Masfernandez\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventPublisher'
+    Masfernandez\Shared\Application\Service\TransactionalSession: '@Masfernandez\Shared\Infrastructure\Service\DoctrineTransactionalSession'
+
+    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner: '@Masfernandez\Tests\Shared\Infrastructure\Persistence\MySql\MySqlCleaner'
+
+
+

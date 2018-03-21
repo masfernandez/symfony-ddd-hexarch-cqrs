@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity repository-class="Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository"
+            name="Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album"
+            table="album">
+
+        <id name="id" type="AlbumId" column="id"/>
+        <field name="title" type="AlbumTitle" column="title" length="60" nullable="false"/>
+        <field name="publishing_date" type="AlbumPublishingDate" column="publishing_date"/>
+
+        <many-to-many field="artists"
+                      target-entity="Masfernandez\MusicLabel\Catalog\Domain\Model\Artist\Artist"
+                      inversed-by="albums"
+                      fetch="LAZY">
+            <join-table name="albums_artists">
+                <join-columns>
+                    <join-column name="album_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="artist_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+    </entity>
+
+</doctrine-mapping>

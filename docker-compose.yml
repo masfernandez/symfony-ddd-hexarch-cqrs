@@ -1,0 +1,109 @@
+version: "3.4"
+
+services:
+
+    nginx:
+        container_name: ${COMPOSE_PROJECT_NAME}-nginx
+        image: masfernandez/nginx-prod:latest
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - php
+        volumes:
+            - .:/var/www/html
+            - ./docker/nginx/etc/nginx/certs/prod:/etc/nginx/certs:ro
+            - ./var/log/nginx:/var/log/nginx
+            # vhost
+            - ./docker/nginx/etc/nginx/conf.d/backend.127.0.0.1.xip.io.conf:/etc/nginx/conf.d/wildcard.127.0.0.1.xip.io.conf
+            # config
+            - ./docker/nginx/etc/nginx/conf.d/00-log-settings.conf:/etc/nginx/conf.d/00-log-settings.conf
+        networks:
+            - php
+
+    php:
+        container_name: ${COMPOSE_PROJECT_NAME}-php
+        image: masfernandez/php8-prod:latest
+        volumes:
+            - .:/var/www/html
+            # config
+            - ./docker/php/usr/local/etc/php/conf.d/symfony.prod.ini:/usr/local/etc/php/conf.d/symfony.ini
+            - ./docker/php/etc/supervisor/conf.d/messenger-worker.conf:/etc/supervisor.d/messenger-worker.ini
+        depends_on:
+            - mysql
+            - rabbitmq
+        networks:
+            - db
+            - php
+
+    mysql:
+        container_name: ${COMPOSE_PROJECT_NAME}-mysql
+        image: mysql:8.0
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;'
+        volumes:
+            - ./var/db/mysql/data:/var/lib/mysql
+            - ./docker/mysql/etc/mysql/conf.d:/etc/mysql/conf.d
+        environment:
+            - MYSQL_HOST=localhost
+            - MYSQL_ROOT_HOST=%
+            - MYSQL_ROOT_USER=root
+            - MYSQL_ROOT_PASSWORD=toor
+        ports:
+            - 3306:3306
+        cap_add:
+            - SYS_NICE  # CAP_SYS_NICE
+        networks:
+            - db
+
+    rabbitmq:
+        container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
+        image: rabbitmq:3.7-management
+        restart: unless-stopped
+        ports:
+            - 15672:15672
+        environment:
+            - RABBITMQ_DEFAULT_USER=root
+            - RABBITMQ_DEFAULT_PASS=toor
+        networks:
+            - php
+
+    elasticsearch:
+        container_name: ${COMPOSE_PROJECT_NAME}-elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+        environment:
+            discovery.type: "single-node"
+        ports:
+            - "9200:9200"
+        networks:
+            - elk_stack
+
+    logstash:
+        container_name: ${COMPOSE_PROJECT_NAME}-logstash
+        image: docker.elastic.co/logstash/logstash:7.9.3
+        depends_on:
+            - elasticsearch
+        volumes:
+            - ./docker/elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+            - ./docker/elk/logstash/conf.d:/etc/logstash/conf.d
+            - ./var/log/symfony:/var/www/html/var/log
+            - ./var/log/nginx:/var/log/nginx
+        networks:
+            - elk_stack
+
+    kibana:
+        container_name: ${COMPOSE_PROJECT_NAME}-kibana
+        depends_on:
+            - elasticsearch
+        image: docker.elastic.co/kibana/kibana:7.9.3
+        environment:
+            SERVER_NAME: localhost
+            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+        networks:
+            - elk_stack
+        ports:
+            - "5601:5601"
+
+networks:
+    db:
+    php:
+    elk_stack:

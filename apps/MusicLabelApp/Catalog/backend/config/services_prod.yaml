@@ -1,0 +1,15 @@
+parameters:
+
+services:
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Private services by default
+
+
+    # Aliases
+    Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Repository\DoctrineAlbumRepository'
+    Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface: '@Masfernandez\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventPublisher'
+    Masfernandez\Shared\Application\Service\TransactionalSession: '@Masfernandez\Shared\Infrastructure\Service\DoctrineTransactionalSession'

@@ -1,0 +1,22 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        driver: 'pdo_mysql'
+        server_version: '8.0'
+        charset: utf8mb4
+        logging: '%kernel.debug%'
+
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            # MusicLabel / Catalog
+            Masfernandez\MusicLabel\Catalog\Domain\Model:
+                is_bundle: false
+                type: xml
+                dir: '%app.root_path%/src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/db-mappings'
+                prefix: 'Masfernandez\MusicLabel\Catalog\Domain\Model'
+                alias: Masfernandez\MusicLabel\Catalog\Domain\Model
+
+            # Others bounded contexts here...

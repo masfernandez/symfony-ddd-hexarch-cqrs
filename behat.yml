@@ -1,0 +1,43 @@
+default:
+
+  extensions:
+
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: apps/MusicLabelApp/Catalog/backend/config/bootstrap.php
+      kernel:
+        class: Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Kernel
+        path: apps/MusicLabelApp/Catalog/backend/src/Kernel.php
+        environment: test
+
+    Behatch\Extension: ~
+
+    Behat\MinkExtension:
+      sessions:
+        symfony:
+          symfony: ~
+
+
+  # vendor/bin/behat (or compose behat)
+  suites:
+#    default:
+#      contexts:
+#        - Behatch\Context\JsonContext
+#        - Behatch\Context\RestContext
+#        - Behat\MinkExtension\Context\MinkContext
+
+    # vendor/bin/behat -s Catalog features/MusicLabel/Catalog
+    # vendor/bin/behat -s Catalog features/MusicLabel/Catalog/AlbumGet.feature
+    Catalog:
+      paths: [ features/MusicLabel/Catalog ]
+      contexts:
+        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\DataBaseCleanerContext
+        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
+        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumJsonContext
+        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
+
+    # vendor/bin/behat -s OtherContext features/MusicLabel/Management
+    # (it will ask to generate steps)
+    OtherContext:
+      paths: [ features/MusicLabel/Management ]
+      contexts:
+        - Masfernandez\Tests\Shared\Infrastructure\Behat\Management\OtherContext
