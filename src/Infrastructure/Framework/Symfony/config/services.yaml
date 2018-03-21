@@ -1,0 +1,62 @@
+parameters:
+    locale: 'es'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+        bind:
+            $queryBus: '@tactician.commandbus.query'
+            $commandBus: '@tactician.commandbus.command'
+
+    _instanceof:
+
+        App\Domain\Bus\CommandHandlerInterface:
+            public: true
+            tags:
+                - { name: tactician.handler, typehints: true, bus: command }
+
+        App\Domain\Bus\QueryHandlerInterface:
+            public: true
+            tags:
+                - { name: tactician.handler, typehints: true, bus: query }
+
+    #
+    # Structure
+    #
+
+    App\:
+        resource: '%kernel.project_dir%/src/*'
+        exclude: '%kernel.project_dir%/src/Infrastructure/{Framework,Persistence/Doctrine/Migrations,UserInterface/Web/Public,UserInterface/Web/SlimPublic}'
+
+    #
+    # Controllers
+    #
+
+    App\Infrastructure\UserInterface\Web\Controller\:
+        resource: '%kernel.project_dir%/src/Infrastructure/UserInterface/Web/Controller/*'
+        tags: ['controller.service_arguments']
+
+    #
+    # Forms
+    #
+
+    App\Infrastructure\Framework\Symfony\Forms\:
+        resource: '%kernel.project_dir%/src/Infrastructure/Framework/Symfony/Forms/*'
+
+    #
+    # Listeners
+    #
+
+#    test_listener:
+#        class: App\Domain\BusCustom\LoadBusHandlersListener
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request }
+
+    #
+    # Alias
+    #
+    App\Domain\Model\Album\AlbumRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository'
+    App\Domain\Model\Artist\ArtistRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\ArtistRepository'

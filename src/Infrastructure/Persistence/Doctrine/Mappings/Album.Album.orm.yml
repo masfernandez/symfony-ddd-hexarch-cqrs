@@ -1,0 +1,40 @@
+App\Domain\Model\Album\Album:
+    type: entity
+    table: album
+
+    repositoryClass: App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository
+    id:
+        id:
+            type: AlbumId
+#            generator:
+#                strategy: CUSTOM
+#            customIdGenerator:
+#                class: Ramsey\Uuid\Doctrine\UuidGenerator
+
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 500
+        publishing_date:
+            type: datetime
+
+    lifecycleCallbacks:
+        prePersist: [ ]
+        postPersist: [ ]
+        preUpdate: [ ]
+        preRemove: [ ]
+        postLoad: [ ]
+
+    manyToMany:
+        artists:
+            targetEntity: App\Domain\Model\Artist\Artist
+            inversedBy: albums
+            joinTable:
+                name: albums_artists
+                joinColumns:
+                    album_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    artist_id:
+                        referencedColumnName: id
