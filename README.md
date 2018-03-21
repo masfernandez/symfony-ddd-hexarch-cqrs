@@ -1,14 +1,14 @@
 # symfony4-ddd-hexarch-cqrs.
 
 Main features:
-- Docker
-- Symfony 4
-- DDD guidelines
-- Hexagonal Architecture 
-- SOLID
-- Albums parts with CQRS pattern (command and query bus)
-- No anemic models pattern
-- Webpack, Yarn, Babel, Bootstrap 4 and some other frontend tools
+- [x] Docker
+- [x] Symfony 4
+- [x] DDD guidelines
+- [x] Hexagonal Architecture 
+- [x] SOLID
+- [x] Albums parts with CQRS pattern (command and query bus)
+- [x] No anemic models pattern
+- [x] Webpack, Yarn, Babel, Bootstrap 4 and some other frontend tools
 
 
 ## Installation
@@ -74,7 +74,7 @@ Main features:
     cp .env.dist .env
     ```
 
-**Run the code**
+## Run the code
 
 ```
 sudo php -S 127.0.0.1:80 -t src/Infrastructure/UserInterface/Web/Public
@@ -94,16 +94,16 @@ bin/phpunit
 
 **Note**: There is no 100% coverage test @todo
 
-##Assets
+## Assets
 
 Common tasks:
 
 ```
-# generaate development assets
+# generate development assets
 yarn build:dev
 ```
 
 ```
-# generaate production (minify and optimize) assets
+# generate production (minify and optimize) assets
 yarn build:prod
 ```
