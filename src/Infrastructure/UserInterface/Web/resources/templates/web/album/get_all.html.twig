@@ -1,0 +1,43 @@
+{% extends "web/layout.html.twig" %}
+
+{% block title %}
+    Albums
+{% endblock %}
+
+{% block body %}
+    {# Page Content #}
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="mt-5">Albums</h1>
+                <p class="lead">This is the page for Albums management. You can also manage related Artist for each Album.</p>
+
+            </div>
+        </div>
+
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-lg-12 text-right">
+                <div>
+                    <a class="btn btn-primary" role="button" href=" {{ path('web_app_album_add') }}">New album</a>
+                </div>
+            </div>
+        </div>
+
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="accordion">
+                    {% for album in albums %}
+                        {% include "web/album/album.html.twig" with {album: album} %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

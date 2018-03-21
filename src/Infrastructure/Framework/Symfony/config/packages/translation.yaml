@@ -1,0 +1,9 @@
+framework:
+    default_locale: '%locale%'
+
+    translator:
+        paths:
+            - '%kernel.project_dir%/src/Infrastructure/Framework/Symfony/translations'
+        fallbacks:
+            - '%locale%'
+        enabled: false

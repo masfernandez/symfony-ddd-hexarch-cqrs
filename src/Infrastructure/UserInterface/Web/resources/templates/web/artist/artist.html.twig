@@ -1,0 +1,5 @@
+<p>
+    <a href="{{ path('web_app_artist_update', {'id': artist.id}) }}"><i class="far fa-edit"></i></a>
+    <a href="{{ path('web_app_artist_delete', {'id': artist.id}) }}"><i class="far fa-trash-alt"></i></a>
+    {{ artist.name|e }}, {{ artist.specialisation|e }}.
+</p>

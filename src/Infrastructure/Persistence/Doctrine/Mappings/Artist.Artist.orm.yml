@@ -1,0 +1,37 @@
+App\Domain\Model\Artist\Artist:
+    type: entity
+    table: artist
+    repositoryClass: App\Infrastructure\Persistence\Doctrine\Repository\ArtistRepository
+    id:
+        id:
+            type: uuid
+            generator:
+                strategy: CUSTOM
+            customIdGenerator:
+                class: Ramsey\Uuid\Doctrine\UuidGenerator
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 500
+        specialisation:
+            type: string
+            nullable: false
+            length: 500
+        adding_date:
+            type: datetimetz
+
+    lifecycleCallbacks:
+        prePersist: [ ]
+        postPersist: [ ]
+        preUpdate: [ ]
+        preRemove: [ ]
+        postLoad: [ ]
+
+    manyToOne:
+        album:
+            targetEntity: App\Domain\Model\Album\Album
+            inversedBy: artists
+            joinColumn:
+                name: album_id
+                referencedColumnName: id

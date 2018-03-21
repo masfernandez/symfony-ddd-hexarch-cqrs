@@ -1,0 +1,33 @@
+{% extends "web/layout.html.twig" %}
+
+{% block title %}
+    Albums
+{% endblock %}
+
+{% block body %}
+    {# Page Content #}
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="mt-5">Artists</h1>
+                <p class="lead">This is the page for Artist management.</p>
+
+            </div>
+        </div>
+
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="accordion">
+                    {% for artist in artists %}
+                        {% include "web/artist/artist.html.twig" with {artist: artist} %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
