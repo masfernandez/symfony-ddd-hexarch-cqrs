@@ -73,7 +73,11 @@ Main features:
     ```
     cp .env.dist .env
     ```
-
+7. Clear symfony cache
+    ```
+    sudo bin/console cache:clear
+    ```
+    
 ## Run the code
 
 ```
