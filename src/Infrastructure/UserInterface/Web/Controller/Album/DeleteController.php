@@ -36,7 +36,7 @@ class DeleteController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
+     * @param string $id
      * @return RedirectResponse
      */
     public function action(Request $request, $id)

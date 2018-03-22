@@ -9,6 +9,7 @@
 namespace App\Application\UseCase\Album\Query\GetOne;
 
 use App\Domain\Bus\QueryInterface;
+use App\Domain\Model\Album\AlbumId;
 
 /**
  * Class GetOneQuery
@@ -17,16 +18,16 @@ use App\Domain\Bus\QueryInterface;
 final class GetOneQuery implements QueryInterface
 {
     /**
-     * @var int
+     * @var AlbumId
      */
     public $id;
 
     /**
      * GetOneQuery constructor.
-     * @param int $id
+     * @param string $id
      */
-    public function __construct(int $id)
+    public function __construct(string $id)
     {
-        $this->id = $id;
+        $this->id = new AlbumId($id);
     }
 }

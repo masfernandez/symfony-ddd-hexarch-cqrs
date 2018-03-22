@@ -9,6 +9,8 @@
 namespace App\Application\UseCase\Artist\Service;
 
 use App\Application\UseCase\Artist\Dto\ArtistDto;
+use App\Application\UseCase\Artist\Dto\FindOneArtistDto;
+use App\Domain\Model\Artist\ArtistId;
 use App\Domain\Model\Artist\ArtistRepositoryInterface;
 
 class FindOneArtistService
@@ -28,7 +30,7 @@ class FindOneArtistService
     }
 
     /**
-     * @param $dto
+     * @param FindOneArtistDto $dto
      * @return ArtistDto
      */
     public function handle($dto)

@@ -11,6 +11,7 @@ namespace App\Tests\Application\UseCase\Album;
 use App\Application\TransactionManager;
 use App\Application\UseCase\Album\Command\Add\AddCommand;
 use App\Application\UseCase\Album\Command\Add\AddHandler;
+use App\Domain\Model\Album\AlbumId;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -35,8 +36,9 @@ class AddHandlerTest extends TestCase
 
         $albumRepository = $this->createMock(AlbumRepositoryInterface::class);
         $albumRepository->expects($this->any())->method('save');
+        $albumRepository->expects($this->any())->method('nextIdentity')->willReturn(new AlbumId());
 
-        $command = new AddCommand($albumName,$date);
+        $command = new AddCommand($albumName, $date);
         $handler = new AddHandler($albumRepository, $transactionManager);
         try {
             $handler->handle($command);

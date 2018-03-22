@@ -46,7 +46,8 @@ class GetAllHandler implements QueryHandlerInterface
                 $album->getId(),
                 $album->getTitle(),
                 $album->getPublishingDate(),
-                $album->getArtists());
+                (array)$album->getArtists()
+            );
         }, $albums);
     }
 }

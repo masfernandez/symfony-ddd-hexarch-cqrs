@@ -35,17 +35,17 @@ class AddArtistDto
     private $adding_date;
 
     /**
-     * AddArtistToAlbumDto constructor.
-     * @param int $albumId
+     * AddArtistDto constructor.
      * @param string $name
      * @param string $specialisation
+     * @param string $albumId
      */
-    public function __construct(int $albumId, string $name, string $specialisation)
+    public function __construct(string $name, string $specialisation, string $albumId = null)
     {
-        $this->albumId = $albumId;
         $this->name = $name;
         $this->specialisation = $specialisation;
         $this->adding_date = new \DateTime();
+        $this->albumId = $albumId;
     }
 
     /**
@@ -73,9 +73,9 @@ class AddArtistDto
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getAlbumId(): int
+    public function getAlbumId(): string
     {
         return $this->albumId;
     }

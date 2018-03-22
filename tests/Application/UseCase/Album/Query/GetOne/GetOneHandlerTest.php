@@ -8,33 +8,33 @@
 
 namespace App\Tests\Application\UseCase\Album\Query\GetOne;
 
-use App\Application\TransactionManager;
-use App\Application\UseCase\Album\Command\Update\UpdateCommand;
-use App\Application\UseCase\Album\Command\Update\UpdateHandler;
 use App\Application\UseCase\Album\Query\GetOne\GetOneHandler;
 use App\Application\UseCase\Album\Query\GetOne\GetOneQuery;
 use App\Domain\Model\Album\Album;
+use App\Domain\Model\Album\AlbumId;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
-use App\Infrastructure\Persistence\InMemory\Repository\AlbumRepository;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
+/**
+ * Class GetOneHandlerTest
+ * @package App\Tests\Application\UseCase\Album\Query\GetOne
+ */
 class GetOneHandlerTest extends TestCase
 {
     public function testHandle()
     {
+        $albumId = new AlbumId(Uuid::uuid4()->toString());
+        $album = new Album($albumId,'title',new \DateTime());
         $albumRepositoryMock = $this->createMock(AlbumRepositoryInterface::class);
-        //@todo findOne will return an album
-        $albumRepositoryMock->expects($this->any())->method('findOne')->willReturn(new Album());
+        $albumRepositoryMock->expects($this->any())->method('findOne')->willReturn($album);
 
         try {
             $command = new GetOneQuery(1);
             $handler = new GetOneHandler($albumRepositoryMock);
-            $album = $handler->handle($command);
-            //@todo check album
+            $this->assertTrue($album->getId()->id() === $handler->handle($command)->getId());
         } catch (\Exception $exception) {
             $this->fail();
         }
-
-        $this->assertTrue(true);
     }
 }

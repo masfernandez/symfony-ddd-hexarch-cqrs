@@ -15,6 +15,7 @@ use App\Infrastructure\Framework\Symfony\Forms\ArtistType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AddController
@@ -45,18 +46,23 @@ class AddController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
-     * @return mixed
+     * @return Response
      * @throws \Exception
      */
-    public function action(Request $request, $id)
+    public function action(Request $request)
     {
-        $form = $this->formFactory->create(ArtistType::class, new ArtistDto(null,'','',$id));
+        $form = $this->formFactory->create(ArtistType::class, [
+            'albumId' => $request->query->get('albumId', null)
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->addArtistToAlbum->handle(new AddArtistDto($id, $data['name'], $data['specialisation']));
+            $this->addArtistToAlbum->handle(new AddArtistDto(
+                $data['name'],
+                $data['specialisation'],
+                $data['albumId']
+            ));
             return $this->redirectToRoute('web_app_album_getall');
         }
 

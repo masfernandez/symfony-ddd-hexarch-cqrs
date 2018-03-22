@@ -41,7 +41,7 @@ web_app_artist_getAll:
     methods:  [GET|POST]
 
 web_app_artist_add:
-    path: /album/{id}/artist
+    path: /artist
     defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Artist\AddController:action' }
     methods:  [GET|POST]
 

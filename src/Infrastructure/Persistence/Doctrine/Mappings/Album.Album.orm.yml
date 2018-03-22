@@ -5,11 +5,11 @@ App\Domain\Model\Album\Album:
     repositoryClass: App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository
     id:
         id:
-            type: uuid
-            generator:
-                strategy: CUSTOM
-            customIdGenerator:
-                class: Ramsey\Uuid\Doctrine\UuidGenerator
+            type: AlbumId
+#            generator:
+#                strategy: CUSTOM
+#            customIdGenerator:
+#                class: Ramsey\Uuid\Doctrine\UuidGenerator
 
     fields:
         title:

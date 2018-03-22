@@ -17,17 +17,17 @@ use App\Domain\Model\Artist\ArtistRepositoryInterface;
 class ArtistRepository implements ArtistRepositoryInterface
 {
     /**
+     * @var array
+     */
+    private $artists = [];
+
+    /**
      * @inheritDoc
      */
     public function nextIdentity()
     {
         // TODO: Implement nextIdentity() method.
     }
-
-    /**
-     * @var array
-     */
-    private $artists = [];
 
     /**
      * @inheritDoc

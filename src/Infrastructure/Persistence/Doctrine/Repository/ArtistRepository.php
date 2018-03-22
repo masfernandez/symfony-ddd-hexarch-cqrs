@@ -33,7 +33,7 @@ class ArtistRepository extends ServiceEntityRepository implements ArtistReposito
      */
     public function nextIdentity()
     {
-        // TODO: Implement nextIdentity() method.
+        return new ArtistId();
     }
 
     /**

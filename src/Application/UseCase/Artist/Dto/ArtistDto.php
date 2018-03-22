@@ -15,7 +15,7 @@ namespace App\Application\UseCase\Artist\Dto;
 class ArtistDto
 {
     /**
-     * @var int
+     * @var string
      */
     private $id;
 
@@ -30,18 +30,18 @@ class ArtistDto
     private $specialisation;
 
     /**
-     * @var int
+     * @var string
      */
     private $album;
 
     /**
      * ArtistDto constructor.
-     * @param int $id
+     * @param string|null $id
      * @param string $name
      * @param string $specialisation
-     * @param int $album
+     * @param string|null $album
      */
-    public function __construct(int $id = null, string $name, string $specialisation, int $album = null)
+    public function __construct(string $id = null, string $name, string $specialisation, string $album = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -50,9 +50,9 @@ class ArtistDto
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -74,9 +74,9 @@ class ArtistDto
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getAlbum(): int
+    public function getAlbum(): string
     {
         return $this->album;
     }

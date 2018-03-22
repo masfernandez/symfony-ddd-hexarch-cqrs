@@ -52,8 +52,7 @@ class AddHandler implements CommandHandlerInterface
             $album = new Album(
                 $this->albumRepository->nextIdentity(),
                 $command->title,
-                $command->publishing_date,
-                new ArrayCollection()
+                $command->publishing_date
             );
             $this->albumRepository->save($album);
             $this->transactionManager->commit();

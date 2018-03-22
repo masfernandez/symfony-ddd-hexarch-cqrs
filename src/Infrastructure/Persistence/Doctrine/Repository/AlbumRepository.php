@@ -54,7 +54,7 @@ class AlbumRepository extends ServiceEntityRepository implements AlbumRepository
      */
     public function remove($albumId)
     {
-        $album = $this->findOne($albumId->id());
+        $album = $this->findOne($albumId);
 
         if (!$album instanceof Album) {
             //@todo exception
@@ -83,6 +83,6 @@ class AlbumRepository extends ServiceEntityRepository implements AlbumRepository
      */
     public function nextIdentity()
     {
-        // TODO: Implement nextIdentity() method.
+        return new AlbumId();
     }
 }

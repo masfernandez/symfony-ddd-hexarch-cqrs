@@ -9,9 +9,6 @@
 namespace App\Tests\UserInterface\Presentation\UserInterface\Web\Controller\Album;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\DomCrawler\Link;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UpdateAlbumTest

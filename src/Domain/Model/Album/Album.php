@@ -10,7 +10,6 @@ namespace App\Domain\Model\Album;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Album
@@ -18,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 class Album
 {
     /**
-     * @var Uuid
+     * @var AlbumId
      */
     private $id;
 

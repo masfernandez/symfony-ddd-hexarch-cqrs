@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "815b01e775e0791f486dfc575e7b9d7d",
+    "content-hash": "26d3fb1ed3d875f097c7035339d509d6",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2999,16 +2999,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "60df153a907b187cc3fd050dd6de7746ddc833b7"
+                "reference": "c936864823ac60508e37d8fb1d9bc6a02d03ffa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/60df153a907b187cc3fd050dd6de7746ddc833b7",
-                "reference": "60df153a907b187cc3fd050dd6de7746ddc833b7",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/c936864823ac60508e37d8fb1d9bc6a02d03ffa7",
+                "reference": "c936864823ac60508e37d8fb1d9bc6a02d03ffa7",
                 "shasum": ""
             },
             "require": {
@@ -3060,7 +3060,7 @@
                 "scaffold",
                 "scaffolding"
             ],
-            "time": "2018-03-17T19:51:02+00:00"
+            "time": "2018-03-21T13:40:46+00:00"
         },
         {
             "name": "symfony/options-resolver",

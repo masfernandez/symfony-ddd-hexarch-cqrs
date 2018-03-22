@@ -10,6 +10,7 @@ namespace App\Application\UseCase\Artist\Service;
 
 use App\Application\TransactionManager;
 use App\Application\UseCase\Artist\Dto\AddArtistDto;
+use App\Domain\Model\Album\AlbumId;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
 use App\Domain\Model\Artist\Artist;
 use App\Domain\Model\Artist\ArtistRepositoryInterface;
@@ -58,8 +59,9 @@ class AddArtistService
     {
         $this->transactionManager->begin();
         try {
-            $album = $this->albumRepository->findOne($dto->getAlbumId());
+            $album = $this->albumRepository->findOne(new AlbumId($dto->getAlbumId()));
             $artist = new Artist(
+                $this->artistRepository->nextIdentity(),
                 $dto->getName(),
                 $dto->getSpecialisation(),
                 new \DateTime(),

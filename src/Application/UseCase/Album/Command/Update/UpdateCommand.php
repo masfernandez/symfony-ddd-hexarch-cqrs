@@ -9,6 +9,7 @@
 namespace App\Application\UseCase\Album\Command\Update;
 
 use App\Domain\Bus\CommandInterface;
+use App\Domain\Model\Album\AlbumId;
 
 /**
  * Class UpdateCommand
@@ -17,7 +18,7 @@ use App\Domain\Bus\CommandInterface;
 final class UpdateCommand implements CommandInterface
 {
     /**
-     * @var int
+     * @var AlbumId
      */
     public $id;
 
@@ -33,13 +34,13 @@ final class UpdateCommand implements CommandInterface
 
     /**
      * UpdateCommand constructor.
-     * @param int $id
+     * @param string $id
      * @param string $title
      * @param \DateTime $publishing_date
      */
-    public function __construct(int $id, string $title, \DateTime $publishing_date)
+    public function __construct(string $id, string $title, \DateTime $publishing_date)
     {
-        $this->id = $id;
+        $this->id = new AlbumId($id);
         $this->title = $title;
         $this->publishing_date = $publishing_date;
     }

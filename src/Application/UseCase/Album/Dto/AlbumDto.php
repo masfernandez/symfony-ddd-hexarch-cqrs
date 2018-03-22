@@ -8,6 +8,7 @@
 
 namespace App\Application\UseCase\Album\Dto;
 
+use App\Domain\Model\Artist\Artist;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -17,7 +18,7 @@ use Doctrine\Common\Collections\Collection;
 final class AlbumDto
 {
     /**
-     * @var int
+     * @var string
      */
     private $id;
 
@@ -32,18 +33,18 @@ final class AlbumDto
     private $publishingDate;
 
     /**
-     * @var array
+     * @var Artist[]
      */
     private $artists;
 
     /**
      * AlbumDto constructor.
-     * @param int $id
+     * @param string $id
      * @param string $title
      * @param \DateTime $publishingDate
-     * @param Collection $artists
+     * @param Artist[]
      */
-    public function __construct(int $id, string $title, \DateTime $publishingDate, Collection $artists)
+    public function __construct(string $id, string $title, \DateTime $publishingDate, array $artists)
     {
         $this->id = $id;
         $this->title = $title;
@@ -52,9 +53,9 @@ final class AlbumDto
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getId(): string
     {
         return $this->id;
     }
@@ -100,15 +101,15 @@ final class AlbumDto
     }
 
     /**
-     * @return Collection
+     * @return Artist[]
      */
-    public function getArtists(): Collection
+    public function getArtists(): array
     {
         return $this->artists;
     }
 
     /**
-     * @param array $artists
+     * @param Artist[]
      */
     public function setArtists(array $artists): void
     {

@@ -44,8 +44,8 @@ class UpdateHandlerTest extends TestCase
         $transactionManagerMock->expects($this->any())->method('rollback');
 
         try {
-            $command = new UpdateCommand($albumId,$albumName,$date);
-            $handler = new UpdateHandler($albumRepositoryMock,$transactionManagerMock);
+            $command = new UpdateCommand($albumId, $albumName, $date);
+            $handler = new UpdateHandler($albumRepositoryMock, $transactionManagerMock);
             $handler->handle($command);
         } catch (\Exception $exception) {
             $this->fail();

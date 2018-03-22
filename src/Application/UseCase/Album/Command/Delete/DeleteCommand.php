@@ -9,6 +9,7 @@
 namespace App\Application\UseCase\Album\Command\Delete;
 
 use App\Domain\Bus\CommandInterface;
+use App\Domain\Model\Album\AlbumId;
 
 /**
  * Class DeleteCommand
@@ -17,12 +18,16 @@ use App\Domain\Bus\CommandInterface;
 final class DeleteCommand implements CommandInterface
 {
     /**
-     * @var int
+     * @var AlbumId
      */
     public $id;
 
-    public function __construct(int $id)
+    /**
+     * DeleteCommand constructor.
+     * @param string $id
+     */
+    public function __construct(string $id)
     {
-        $this->id = $id;
+        $this->id = new AlbumId($id);
     }
 }

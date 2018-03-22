@@ -9,6 +9,7 @@
 namespace App\Infrastructure\Persistence\InMemory\Repository;
 
 use App\Domain\Model\Album\Album;
+use App\Domain\Model\Album\AlbumId;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
 
 /**
@@ -27,7 +28,7 @@ class AlbumRepository implements AlbumRepositoryInterface
      */
     public function nextIdentity()
     {
-        // TODO: Implement nextIdentity() method.
+        return new AlbumId();
     }
 
     /**
@@ -43,7 +44,7 @@ class AlbumRepository implements AlbumRepositoryInterface
      */
     public function save($album)
     {
-        $this->albums[$album->getId()] = $album;
+        $this->albums[$album->getId()->id()] = $album;
     }
 
     /**
@@ -51,12 +52,12 @@ class AlbumRepository implements AlbumRepositoryInterface
      */
     public function findOne($albumId)
     {
-        $album = $this->albums[$albumId];
+        $album = $this->albums[$albumId->id()];
 
         if (!$album instanceof Album) {
             //@todo exception
         }
-        return $this->albums[$albumId];
+        return $this->albums[$albumId->id()];
     }
 
     /**
@@ -64,6 +65,6 @@ class AlbumRepository implements AlbumRepositoryInterface
      */
     public function remove($albumId)
     {
-        unset($this->albums[$albumId]);
+        unset($this->albums[$albumId->id()]);
     }
 }

@@ -19,6 +19,16 @@
         <br/><br/>
 
         <div class="row">
+            <div class="col-lg-12 text-right">
+                <div>
+                    <a class="btn btn-primary" role="button" href=" {{ path('web_app_artist_add') }}">New artist</a>
+                </div>
+            </div>
+        </div>
+
+        <br/><br/>
+
+        <div class="row">
             <div class="col-lg-12">
                 <div id="accordion">
                     {% for artist in artists %}

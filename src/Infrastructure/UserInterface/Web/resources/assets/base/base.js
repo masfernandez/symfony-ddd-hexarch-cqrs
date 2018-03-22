@@ -13,3 +13,13 @@ $("#menu-toggle").click(function(e) {
   e.preventDefault();
   $("#wrapper").toggleClass("toggled");
 });
+
+$(document).ready(function () {
+    let links = $('.navbar ul li a');
+    $.each(links, function (key, va) {
+        if (va.href === document.URL) {
+            $(this).addClass('active');
+            $(this).parent().parent().addClass('active');
+        }
+    });
+});

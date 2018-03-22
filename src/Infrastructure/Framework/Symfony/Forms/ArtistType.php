@@ -10,6 +10,8 @@ namespace App\Infrastructure\Framework\Symfony\Forms;
 
 use App\Application\UseCase\Artist\Dto\ArtistDto;
 use App\Domain\Model\Album\Album;
+use App\Domain\Model\Album\AlbumId;
+use App\Domain\Model\Artist\ArtistId;
 use App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -70,15 +72,15 @@ class ArtistType extends AbstractType implements DataMapperInterface
     }
 
     /**
-     * @param ArtistDto $data
+     * @param array $data
      * @param FormInterface[]|\Traversable $forms
      */
     public function mapDataToForms($data, $forms): void
     {
         $forms = iterator_to_array($forms);
-        $forms['name']->setData($data == null ?: $data->getName());
-        $forms['specialisation']->setData($data == null ?: $data->getSpecialisation());
-        $forms['album']->setData($data == null ?: $this->albumRepository->findOne($data->getAlbum()));
+        $forms['name']->setData(@$data['name'] ?? '');
+        $forms['specialisation']->setData(@$data['specialisation'] ?? '');
+        $forms['album']->setData($this->albumRepository->findOne(new AlbumId($data['albumId'])));
     }
 
     /**

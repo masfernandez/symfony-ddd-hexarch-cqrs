@@ -12,6 +12,7 @@ use App\Application\UseCase\Artist\Dto\FindOneArtistDto;
 use App\Application\UseCase\Artist\Dto\UpdateArtistDto;
 use App\Application\UseCase\Artist\Service\FindOneArtistService;
 use App\Application\UseCase\Artist\Service\UpdateArtistService;
+use App\Domain\Model\Artist\ArtistId;
 use App\Infrastructure\Framework\Symfony\Forms\ArtistType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -63,7 +64,11 @@ class UpdateController extends Controller
     public function action(Request $request, $id)
     {
         $artistDto = $this->findOneArtistService->handle(new FindOneArtistDto($id));
-        $form = $this->formFactory->create(ArtistType::class, $artistDto);
+        $form = $this->formFactory->create(ArtistType::class, [
+            'name' => $artistDto->getName(),
+            'specialisation' => $artistDto->getName(),
+            'albumId' => $artistDto->getAlbum(),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

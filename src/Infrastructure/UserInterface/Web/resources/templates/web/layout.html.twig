@@ -16,12 +16,27 @@
                     <li class="nav-item {% if app.request.get('_route') == "web_app_home" %}active{% endif %}">
                         <a class="nav-link" href="{{ path('web_app_home') }}">Home</a>
                     </li>
-                    <li class="nav-item {% if app.request.get('_route') == "web_app_album_getall" %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('web_app_album_getall') }}">Albums</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Albums</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('web_app_album_getall') }}">All albums</a>
+                            <a class="dropdown-item" href="{{ path('web_app_album_add') }}">Add new</a>
+                        </div>
                     </li>
-                    <li class="nav-item {% if app.request.get('_route') == "web_app_artist_getAll" %}active{% endif %}">
-                        <a class="nav-link" href="{{ path('web_app_artist_getAll') }}">Artist</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Artists</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('web_app_artist_getAll') }}">All artists</a>
+                            <a class="dropdown-item" href="{{ path('web_app_artist_add') }}">Add new</a>
+                        </div>
                     </li>
+
+                    <!--
+                    <li class="nav-item {% if app.request.get('_route') == "web_app_album_getall" %}active{% endif %}"></li>
+                    <li class="nav-item {% if app.request.get('_route') == "web_app_artist_getAll" %}active{% endif %}"></li>
+                    -->
                 </ul>
             </div>
         </div>

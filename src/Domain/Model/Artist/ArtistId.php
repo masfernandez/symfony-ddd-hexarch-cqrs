@@ -30,20 +30,20 @@ class ArtistId
     }
 
     /**
+     * @param ArtistId $artistId
+     * @return bool
+     */
+    public function equals(ArtistId $artistId)
+    {
+        return $this->id() === $artistId->id();
+    }
+
+    /**
      * @return string
      */
     public function id()
     {
         return $this->id;
-    }
-
-    /**
-     * @param AlbumId $userId
-     * @return bool
-     */
-    public function equals(AlbumId $userId)
-    {
-        return $this->id() === $userId->id();
     }
 
     /**

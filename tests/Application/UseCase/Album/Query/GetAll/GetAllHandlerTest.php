@@ -8,12 +8,8 @@
 
 namespace App\Tests\Application\UseCase\Album\Query\GetAll;
 
-use App\Application\TransactionManager;
-use App\Application\UseCase\Album\Command\Update\UpdateCommand;
-use App\Application\UseCase\Album\Command\Update\UpdateHandler;
 use App\Application\UseCase\Album\Query\GetAll\GetAllHandler;
 use App\Application\UseCase\Album\Query\GetAll\GetAllQuery;
-use App\Domain\Model\Album\Album;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 

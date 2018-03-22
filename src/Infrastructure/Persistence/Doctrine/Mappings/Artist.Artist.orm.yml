@@ -4,11 +4,11 @@ App\Domain\Model\Artist\Artist:
     repositoryClass: App\Infrastructure\Persistence\Doctrine\Repository\ArtistRepository
     id:
         id:
-            type: uuid
-            generator:
-                strategy: CUSTOM
-            customIdGenerator:
-                class: Ramsey\Uuid\Doctrine\UuidGenerator
+            type: ArtistId
+#            generator:
+#                strategy: CUSTOM
+#            customIdGenerator:
+#                class: Ramsey\Uuid\Doctrine\UuidGenerator
     fields:
         name:
             type: string

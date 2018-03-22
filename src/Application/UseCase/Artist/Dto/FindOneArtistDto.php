@@ -8,6 +8,8 @@
 
 namespace App\Application\UseCase\Artist\Dto;
 
+use App\Domain\Model\Artist\ArtistId;
+
 /**
  * Class FindOneArtistDto
  * @package App\Application\UseCase\Artist\Dto
@@ -21,17 +23,17 @@ class FindOneArtistDto
 
     /**
      * FindOneArtistDto constructor.
-     * @param int $artistId
+     * @param string $artistId
      */
-    public function __construct(int $artistId)
+    public function __construct(string $artistId)
     {
-        $this->artistId = $artistId;
+        $this->artistId = new ArtistId($artistId);
     }
 
     /**
-     * @return int
+     * @return ArtistId
      */
-    public function getArtistId(): int
+    public function getArtistId(): ArtistId
     {
         return $this->artistId;
     }

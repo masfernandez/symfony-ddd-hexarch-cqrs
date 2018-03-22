@@ -10,10 +10,12 @@ namespace App\Tests\Infrastructure\Persistence\InMemory\Repository;
 
 use App\Domain\Model\Album\Album;
 use App\Infrastructure\Persistence\InMemory\Repository\AlbumRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 
-
+/**
+ * Class AlbumRepositoryTest
+ * @package App\Tests\Infrastructure\Persistence\InMemory\Repository
+ */
 class AlbumRepositoryTest extends TestCase
 {
     /**
@@ -27,12 +29,11 @@ class AlbumRepositoryTest extends TestCase
         $album = new Album(
             $albumRepository->nextIdentity(),
             $albumName,
-            $date,
-            new ArrayCollection()
+            $date
         );
         $albumRepository->save($album);
 
-        if(count($albumRepository->findAll()) != 1) {
+        if (count($albumRepository->findAll()) != 1) {
             $this->fail();
         }
 
@@ -50,12 +51,11 @@ class AlbumRepositoryTest extends TestCase
         $album = new Album(
             $albumRepository->nextIdentity(),
             $albumName,
-            $date,
-            new ArrayCollection()
+            $date
         );
         $albumRepository->save($album);
 
-        if(count($albumRepository->findAll()) != 1) {
+        if (count($albumRepository->findAll()) != 1) {
             $this->fail();
         }
 
