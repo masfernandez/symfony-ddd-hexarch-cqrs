@@ -7,6 +7,7 @@
  */
 
 namespace App\Domain\Model\Artist;
+use App\Domain\Model\Artist\Exception\ArtistException;
 
 /**
  * Interface ArtistRepositoryInterface
@@ -22,18 +23,20 @@ interface ArtistRepositoryInterface
     /**
      * @param Artist $artist
      */
-    public function save($artist);
+    public function save(Artist $artist);
 
     /**
      * @param ArtistId $artistId
      * @return Artist
+     * @throws ArtistException
      */
-    public function findOne($artistId);
+    public function findOne(ArtistId $artistId) : Artist;
 
     /**
      * @param ArtistId $artistId
+     * @throws ArtistException
      */
-    public function remove($artistId);
+    public function remove(ArtistId $artistId);
 
     /**
      * @return ArtistId

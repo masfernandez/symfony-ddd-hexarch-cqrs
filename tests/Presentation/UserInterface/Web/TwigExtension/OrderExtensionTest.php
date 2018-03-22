@@ -16,6 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class OrderExtensionTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function test()
     {
         //@todo OrderExtensionTest:test

@@ -16,6 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class FindOneArtistServiceTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function testHandle()
     {
         //@todo FindOneArtistServiceTest:testHandle

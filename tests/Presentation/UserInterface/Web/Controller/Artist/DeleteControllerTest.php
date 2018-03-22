@@ -16,6 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class DeleteControllerTest extends WebTestCase
 {
+    /**
+     * @test
+     */
     public function testAction()
     {
         //@todo DeleteArtistTest:testAction

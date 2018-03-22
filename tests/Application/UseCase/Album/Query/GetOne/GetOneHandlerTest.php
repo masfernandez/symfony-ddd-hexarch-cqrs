@@ -22,6 +22,9 @@ use Ramsey\Uuid\Uuid;
  */
 class GetOneHandlerTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function testHandle()
     {
         $albumId = new AlbumId(Uuid::uuid4()->toString());

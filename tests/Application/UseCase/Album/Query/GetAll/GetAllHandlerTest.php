@@ -13,10 +13,14 @@ use App\Application\UseCase\Album\Query\GetAll\GetAllQuery;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class GetAllHandlerTest
+ * @package App\Tests\Application\UseCase\Album\Query\GetAll
+ */
 class GetAllHandlerTest extends TestCase
 {
     /**
-     *
+     * @test
      */
     public function testHandle()
     {

@@ -11,6 +11,7 @@ namespace App\Infrastructure\Persistence\Doctrine\Repository;
 use App\Domain\Model\Artist\Artist;
 use App\Domain\Model\Artist\ArtistId;
 use App\Domain\Model\Artist\ArtistRepositoryInterface;
+use App\Domain\Model\Artist\Exception\ArtistException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -39,7 +40,7 @@ class ArtistRepository extends ServiceEntityRepository implements ArtistReposito
     /**
      * @inheritDoc
      */
-    public function save($artist)
+    public function save(Artist $artist)
     {
         $this->_em->persist($artist);
         $this->_em->flush();
@@ -48,11 +49,12 @@ class ArtistRepository extends ServiceEntityRepository implements ArtistReposito
     /**
      * @inheritDoc
      */
-    public function findOne($artistId)
+    public function findOne(ArtistId $artistId) : Artist
     {
         $artist = parent::find($artistId);
-        if (!$artist instanceof Artist) {
-            //@todo exception
+
+        if(!$artist instanceof Artist) {
+            throw new ArtistException();
         }
 
         return $artist;
@@ -61,7 +63,7 @@ class ArtistRepository extends ServiceEntityRepository implements ArtistReposito
     /**
      * @inheritDoc
      */
-    public function remove($artistId)
+    public function remove(ArtistId $artistId)
     {
         $this->_em->remove($artistId);
         $this->_em->flush();

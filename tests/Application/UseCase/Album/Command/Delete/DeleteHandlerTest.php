@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 class DeleteHandlerTest extends TestCase
 {
     /**
-     *
+     * @test
      */
     public function testHandle()
     {

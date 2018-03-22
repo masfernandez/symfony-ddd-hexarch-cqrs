@@ -11,6 +11,7 @@ namespace App\Application\UseCase\Album\Query\GetOne;
 use App\Application\UseCase\Album\Dto\AlbumDto;
 use App\Domain\Bus\QueryHandlerInterface;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
+use App\Domain\Model\Album\Exception\AlbumException;
 
 /**
  * Class GetOneHandler
@@ -35,15 +36,21 @@ class GetOneHandler implements QueryHandlerInterface
     /**
      * @param GetOneQuery $query
      * @return AlbumDto
+     * @throws AlbumException
      */
     public function handle(GetOneQuery $query)
     {
-        $album = $this->albumRepository->findOne($query->id);
+        try {
+            $album = $this->albumRepository->findOne($query->id);
+        } catch (AlbumException $ex) {
+            throw $ex;
+        }
+
         return new AlbumDto(
             $album->getId(),
             $album->getTitle(),
             $album->getPublishingDate(),
-            $album->getArtists()
+            (array)$album->getArtists()
         );
     }
 }

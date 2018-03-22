@@ -16,6 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class UpdateControllerTest extends WebTestCase
 {
+    /**
+     * @test
+     */
     public function testAction()
     {
         //@todo UpdateArtistTest:testAction

@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 class Artist
 {
     /**
-     * @var Uuid
+     * @var ArtistId
      */
     private $id;
 
@@ -73,7 +73,7 @@ class Artist
     /**
      * Get id.
      *
-     * @return Uuid
+     * @return ArtistId
      */
     public function getId()
     {

@@ -16,6 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class UpdateArtistServiceTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function testHandle()
     {
         //@todo UpdateArtistServiceTest:testHandle

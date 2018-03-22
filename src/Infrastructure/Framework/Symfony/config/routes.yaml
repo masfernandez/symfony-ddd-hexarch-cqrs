@@ -12,17 +12,17 @@ web_app_home:
 #
 
 web_app_album_getall:
-    path: /albums
+    path: /album
     defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\GetAllController:action' }
     methods:  [GET]
 
 web_app_album_add:
-    path: /album
+    path: /album/new
     defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\AddController:action' }
     methods:  [GET|POST]
 
 web_app_album_update:
-    path: /album/{id}
+    path: /album/edit/{id}
     defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\UpdateController:action' }
     methods:  [GET|POST]
 

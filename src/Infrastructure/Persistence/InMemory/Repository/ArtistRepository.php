@@ -8,7 +8,10 @@
 
 namespace App\Infrastructure\Persistence\InMemory\Repository;
 
+use App\Domain\Model\Artist\Artist;
+use App\Domain\Model\Artist\ArtistId;
 use App\Domain\Model\Artist\ArtistRepositoryInterface;
+use App\Domain\Model\Artist\Exception\ArtistException;
 
 /**
  * Class ArtistRepository
@@ -26,7 +29,7 @@ class ArtistRepository implements ArtistRepositoryInterface
      */
     public function nextIdentity()
     {
-        // TODO: Implement nextIdentity() method.
+        new ArtistId();
     }
 
     /**
@@ -40,29 +43,36 @@ class ArtistRepository implements ArtistRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save($album)
+    public function save(Artist $artist)
     {
-        $this->artists[$album->getId()] = $album;
+        $this->artists[$artist->getId()->id()] = $artist;
     }
 
     /**
      * @inheritDoc
      */
-    public function findOne($albumId)
+    public function findOne(ArtistId $artistId) : Artist
     {
-        $album = $this->artists[$albumId];
+        $artist = $this->artists[$artistId->id()];
 
-        if (!$album instanceof Album) {
-            //@todo exception
+        if (!$artist instanceof Artist) {
+            //@todo msg
+            throw new ArtistException();
         }
-        return $this->artists[$albumId];
+
+        return $artist;
     }
 
     /**
      * @inheritDoc
      */
-    public function remove($albumId)
+    public function remove(ArtistId $artistId)
     {
-        unset($this->artists[$albumId]);
+        if (!isset($this->artists[$artistId->id()])) {
+            //@todo msg
+            throw new ArtistException();
+        }
+
+        unset($this->artists[$artistId->id()]);
     }
 }

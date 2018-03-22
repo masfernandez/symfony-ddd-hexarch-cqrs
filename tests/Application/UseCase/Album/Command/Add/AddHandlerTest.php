@@ -22,9 +22,9 @@ use PHPUnit\Framework\TestCase;
 class AddHandlerTest extends TestCase
 {
     /**
-     *
+     * @test
      */
-    public function testHandle()
+    public function handle()
     {
         $albumName = 'Album test phpunit';
         $date = new \DateTime();

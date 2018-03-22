@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class UpdateHandlerTest extends TestCase
 {
     /**
-     *
+     * @test
      */
     public function testHandle()
     {

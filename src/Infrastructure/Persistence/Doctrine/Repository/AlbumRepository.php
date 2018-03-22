@@ -11,6 +11,7 @@ namespace App\Infrastructure\Persistence\Doctrine\Repository;
 use App\Domain\Model\Album\Album;
 use App\Domain\Model\Album\AlbumId;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
+use App\Domain\Model\Album\Exception\AlbumException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -39,12 +40,8 @@ class AlbumRepository extends ServiceEntityRepository implements AlbumRepository
     /**
      * @inheritDoc
      */
-    public function save($album)
+    public function save(Album $album)
     {
-        if (!$album instanceof Album) {
-            //@todo exception
-        }
-
         $this->_em->persist($album);
         $this->_em->flush();
     }
@@ -52,12 +49,13 @@ class AlbumRepository extends ServiceEntityRepository implements AlbumRepository
     /**
      * @inheritDoc
      */
-    public function remove($albumId)
+    public function remove(AlbumId $albumId)
     {
         $album = $this->findOne($albumId);
 
         if (!$album instanceof Album) {
-            //@todo exception
+            //@todo msg
+            throw new AlbumException();
         }
 
         $this->_em->remove($album);
@@ -67,12 +65,13 @@ class AlbumRepository extends ServiceEntityRepository implements AlbumRepository
     /**
      * @inheritDoc
      */
-    public function findOne($albumId)
+    public function findOne(AlbumId $albumId) : Album
     {
         $album = parent::find($albumId);
 
         if (!$album instanceof Album) {
-            //@todo exception
+            //@todo msg
+            throw new AlbumException();
         }
 
         return $album;

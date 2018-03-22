@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 class ArtistRepositoryTest extends TestCase
 {
     /**
-     *
+     * @test
      */
     public function testSave()
     {
@@ -26,7 +26,7 @@ class ArtistRepositoryTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testRemove()
     {
@@ -35,7 +35,7 @@ class ArtistRepositoryTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testFindOne()
     {
@@ -44,7 +44,7 @@ class ArtistRepositoryTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testFindAll()
     {

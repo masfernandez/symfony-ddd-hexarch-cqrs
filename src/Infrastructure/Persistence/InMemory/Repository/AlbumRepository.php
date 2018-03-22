@@ -11,6 +11,7 @@ namespace App\Infrastructure\Persistence\InMemory\Repository;
 use App\Domain\Model\Album\Album;
 use App\Domain\Model\Album\AlbumId;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
+use App\Domain\Model\Artist\Exception\ArtistException;
 
 /**
  * Class AlbumRepository
@@ -42,7 +43,7 @@ class AlbumRepository implements AlbumRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function save($album)
+    public function save(Album $album)
     {
         $this->albums[$album->getId()->id()] = $album;
     }
@@ -50,21 +51,28 @@ class AlbumRepository implements AlbumRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function findOne($albumId)
+    public function findOne(AlbumId $albumId) : Album
     {
         $album = $this->albums[$albumId->id()];
 
         if (!$album instanceof Album) {
-            //@todo exception
+            //@todo msg
+            throw new ArtistException();
         }
-        return $this->albums[$albumId->id()];
+
+        return $album;
     }
 
     /**
      * @inheritDoc
      */
-    public function remove($albumId)
+    public function remove(AlbumId $albumId)
     {
+        if (!isset($this->albums[$albumId->id()])) {
+            //@todo msg
+            throw new ArtistException();
+        }
+
         unset($this->albums[$albumId->id()]);
     }
 }

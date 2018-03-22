@@ -84,7 +84,34 @@ And open in browser: [http://localhost](http://localhost)
 
 ## Running the tests
 
-First create the database and execute migrations from installation section of this document and then:
+1.  Software requirements:
+    
+    Install software requirements in the 'Installation' section of this document. 
+
+2.  Creates docker testing database container:
+    ```
+    docker run --name db_testing --rm \
+        -e MYSQL_HOST=127.0.0.1 \
+        -e MYSQL_ROOT_HOST=% \
+        -e MYSQL_DATABASE=db_testing \
+        -e MYSQL_ROOT_USER=root \
+        -e MYSQL_ROOT_PASSWORD=root \
+        -e MYSQL_USER=dev \
+        -e MYSQL_PASSWORD=dev \
+        -p 3307:3306 \
+        -v `pwd`/src/Infrastructure/Docker/mysql_testing/:/etc/mysql/conf.d/ \
+        -v `pwd`/var/storage/db_testing/:/var/lib/mysql \
+        -d mysql:5.7 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    ```
+3.  Configure test environment:
+
+    ```
+    cp .env-test.dist .env
+    ```
+4.  Execute migrations (schema):
+    ```
+    bin/console doctrine:migrations:migrate --no-interaction
+    ```
 
 **Run the tests:**
 

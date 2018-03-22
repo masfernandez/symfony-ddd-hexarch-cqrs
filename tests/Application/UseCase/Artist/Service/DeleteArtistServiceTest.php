@@ -16,6 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class DeleteArtistServiceTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function testHandle()
     {
         //@todo DeleteArtistServiceTest:testHandle

@@ -16,6 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class AddControllerTest extends WebTestCase
 {
+    /**
+     * @test
+     */
     public function testAction()
     {
         //@todo AddArtistToAlbumTest:testAction

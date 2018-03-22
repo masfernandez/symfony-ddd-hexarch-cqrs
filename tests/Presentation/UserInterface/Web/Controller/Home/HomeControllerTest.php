@@ -19,6 +19,8 @@ class HomeControllerTest extends WebTestCase
 {
     /**
      * Functional test Home
+     *
+     * @test
      */
     public function testAction()
     {

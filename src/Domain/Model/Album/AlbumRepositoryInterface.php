@@ -8,6 +8,8 @@
 
 namespace App\Domain\Model\Album;
 
+use App\Domain\Model\Album\Exception\AlbumException;
+
 /**
  * Interface AlbumRepositoryInterface
  * @package App\Domain\Model\Album
@@ -22,18 +24,20 @@ interface AlbumRepositoryInterface
     /**
      * @param Album $album
      */
-    public function save($album);
+    public function save(Album $album);
 
     /**
      * @param AlbumId $albumId
      * @return Album
+     * @throws AlbumException
      */
-    public function findOne($albumId);
+    public function findOne(AlbumId $albumId) : Album;
 
     /**
      * @param AlbumId $albumId
+     * @throws AlbumException
      */
-    public function remove($albumId);
+    public function remove(AlbumId $albumId);
 
     /**
      * @return AlbumId

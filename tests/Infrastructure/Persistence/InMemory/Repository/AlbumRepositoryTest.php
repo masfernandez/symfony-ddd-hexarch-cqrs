@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class AlbumRepositoryTest extends TestCase
 {
     /**
-     *
+     * @test
      */
     public function testSave()
     {
@@ -41,7 +41,7 @@ class AlbumRepositoryTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testRemove()
     {
@@ -64,7 +64,7 @@ class AlbumRepositoryTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testFindOne()
     {
@@ -73,7 +73,7 @@ class AlbumRepositoryTest extends TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function testFindAll()
     {

@@ -63,7 +63,7 @@ class AddController extends Controller
                 $data['specialisation'],
                 $data['albumId']
             ));
-            return $this->redirectToRoute('web_app_album_getall');
+            return $this->redirectToRoute('web_app_artist_getAll');
         }
 
         return $this->render('web/artist/new_artist.html.twig', array(
