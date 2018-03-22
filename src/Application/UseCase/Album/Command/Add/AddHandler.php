@@ -12,7 +12,6 @@ use App\Application\TransactionManager;
 use App\Domain\Bus\CommandHandlerInterface;
 use App\Domain\Model\Album\Album;
 use App\Domain\Model\Album\AlbumRepositoryInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class AddHandler

@@ -49,11 +49,11 @@ class ArtistRepository extends ServiceEntityRepository implements ArtistReposito
     /**
      * @inheritDoc
      */
-    public function findOne(ArtistId $artistId) : Artist
+    public function findOne(ArtistId $artistId): Artist
     {
         $artist = parent::find($artistId);
 
-        if(!$artist instanceof Artist) {
+        if (!$artist instanceof Artist) {
             throw new ArtistException();
         }
 

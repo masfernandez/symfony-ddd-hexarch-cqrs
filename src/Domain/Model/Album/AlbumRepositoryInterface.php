@@ -31,7 +31,7 @@ interface AlbumRepositoryInterface
      * @return Album
      * @throws AlbumException
      */
-    public function findOne(AlbumId $albumId) : Album;
+    public function findOne(AlbumId $albumId): Album;
 
     /**
      * @param AlbumId $albumId

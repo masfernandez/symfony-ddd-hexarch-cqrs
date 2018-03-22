@@ -12,7 +12,6 @@ use App\Application\UseCase\Artist\Dto\FindOneArtistDto;
 use App\Application\UseCase\Artist\Dto\UpdateArtistDto;
 use App\Application\UseCase\Artist\Service\FindOneArtistService;
 use App\Application\UseCase\Artist\Service\UpdateArtistService;
-use App\Domain\Model\Artist\ArtistId;
 use App\Infrastructure\Framework\Symfony\Forms\ArtistType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormFactoryInterface;

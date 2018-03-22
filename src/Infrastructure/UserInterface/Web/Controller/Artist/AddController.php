@@ -9,7 +9,6 @@
 namespace App\Infrastructure\UserInterface\Web\Controller\Artist;
 
 use App\Application\UseCase\Artist\Dto\AddArtistDto;
-use App\Application\UseCase\Artist\Dto\ArtistDto;
 use App\Application\UseCase\Artist\Service\AddArtistService;
 use App\Infrastructure\Framework\Symfony\Forms\ArtistType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

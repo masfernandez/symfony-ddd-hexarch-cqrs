@@ -65,7 +65,7 @@ class AlbumRepository extends ServiceEntityRepository implements AlbumRepository
     /**
      * @inheritDoc
      */
-    public function findOne(AlbumId $albumId) : Album
+    public function findOne(AlbumId $albumId): Album
     {
         $album = parent::find($albumId);
 

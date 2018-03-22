@@ -7,6 +7,7 @@
  */
 
 namespace App\Domain\Model\Artist;
+
 use App\Domain\Model\Artist\Exception\ArtistException;
 
 /**
@@ -30,7 +31,7 @@ interface ArtistRepositoryInterface
      * @return Artist
      * @throws ArtistException
      */
-    public function findOne(ArtistId $artistId) : Artist;
+    public function findOne(ArtistId $artistId): Artist;
 
     /**
      * @param ArtistId $artistId

@@ -29,7 +29,7 @@ class ArtistRepository implements ArtistRepositoryInterface
      */
     public function nextIdentity()
     {
-        new ArtistId();
+        return new ArtistId();
     }
 
     /**
@@ -51,7 +51,7 @@ class ArtistRepository implements ArtistRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function findOne(ArtistId $artistId) : Artist
+    public function findOne(ArtistId $artistId): Artist
     {
         $artist = $this->artists[$artistId->id()];
 

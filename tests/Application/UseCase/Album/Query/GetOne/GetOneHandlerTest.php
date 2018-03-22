@@ -28,7 +28,7 @@ class GetOneHandlerTest extends TestCase
     public function testHandle()
     {
         $albumId = new AlbumId(Uuid::uuid4()->toString());
-        $album = new Album($albumId,'title',new \DateTime());
+        $album = new Album($albumId, 'title', new \DateTime());
         $albumRepositoryMock = $this->createMock(AlbumRepositoryInterface::class);
         $albumRepositoryMock->expects($this->any())->method('findOne')->willReturn($album);
 

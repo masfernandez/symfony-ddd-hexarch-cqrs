@@ -8,6 +8,11 @@
 
 namespace App\Tests\Infrastructure\Persistence\InMemory\Repository;
 
+use App\Domain\Model\Album\Album;
+use App\Domain\Model\Artist\Artist;
+use App\Domain\Model\Artist\Exception\ArtistException;
+use App\Infrastructure\Persistence\InMemory\Repository\AlbumRepository;
+use App\Infrastructure\Persistence\InMemory\Repository\ArtistRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,8 +26,31 @@ class ArtistRepositoryTest extends TestCase
      */
     public function testSave()
     {
-        //@todo ArtistRepositoryTest:testSave
-        $this->assertTrue(true);
+        $albumRepository = new AlbumRepository();
+        $artistRepository = new ArtistRepository();
+        $albumName = 'Album test phpunit';
+        $date = new \DateTime();
+        $album = new Album(
+            $albumRepository->nextIdentity(),
+            $albumName,
+            $date
+        );
+        $artistName = 'Artist test phpunit';
+        $artistSpecilisation = 'guitar phpunit';
+        $artist = new Artist(
+            $artistRepository->nextIdentity(),
+            $artistName,
+            $artistSpecilisation,
+            $date,
+            $album
+        );
+        $artistRepository->save($artist);
+
+        if (count($artistRepository->findAll()) != 1) {
+            $this->fail();
+        }
+
+        $this->assertTrue(count($artistRepository->findAll()) > 0);
     }
 
     /**
@@ -30,8 +58,36 @@ class ArtistRepositoryTest extends TestCase
      */
     public function testRemove()
     {
-        //@todo ArtistRepositoryTest:testRemove
-        $this->assertTrue(true);
+        $albumRepository = new AlbumRepository();
+        $artistRepository = new ArtistRepository();
+        $albumName = 'Album test phpunit';
+        $date = new \DateTime();
+        $album = new Album(
+            $albumRepository->nextIdentity(),
+            $albumName,
+            $date
+        );
+        $artistName = 'Artist test phpunit';
+        $artistSpecilisation = 'guitar phpunit';
+        $artist = new Artist(
+            $artistRepository->nextIdentity(),
+            $artistName,
+            $artistSpecilisation,
+            $date,
+            $album
+        );
+        $artistRepository->save($artist);
+
+        if (count($artistRepository->findAll()) != 1) {
+            $this->fail();
+        }
+
+        try {
+            $artistRepository->remove($artist->getId());
+            $this->assertTrue(count($artistRepository->findAll()) == 0);
+        } catch (ArtistException $ex) {
+            $this->fail($ex->getMessage());
+        }
     }
 
     /**
@@ -39,8 +95,36 @@ class ArtistRepositoryTest extends TestCase
      */
     public function testFindOne()
     {
-        //@todo ArtistRepositoryTest:testFindOne
-        $this->assertTrue(true);
+        $albumRepository = new AlbumRepository();
+        $artistRepository = new ArtistRepository();
+        $albumName = 'Album test phpunit';
+        $date = new \DateTime();
+        $album = new Album(
+            $albumRepository->nextIdentity(),
+            $albumName,
+            $date
+        );
+        $artistName = 'Artist test phpunit';
+        $artistSpecilisation = 'guitar phpunit';
+        $artist = new Artist(
+            $artistRepository->nextIdentity(),
+            $artistName,
+            $artistSpecilisation,
+            $date,
+            $album
+        );
+        $artistRepository->save($artist);
+
+        if (count($artistRepository->findAll()) != 1) {
+            $this->fail();
+        }
+
+        try {
+            $artistFound = $artistRepository->findOne($artist->getId());
+            $this->assertTrue($artistFound->getId()->id() === $artist->getId()->id());
+        } catch (ArtistException $ex) {
+            $this->fail($ex->getMessage());
+        }
     }
 
     /**
@@ -48,7 +132,30 @@ class ArtistRepositoryTest extends TestCase
      */
     public function testFindAll()
     {
-        //@todo ArtistRepositoryTest:testFindAll
-        $this->assertTrue(true);
+        $albumRepository = new AlbumRepository();
+        $artistRepository = new ArtistRepository();
+        $albumName = 'Album test phpunit';
+        $date = new \DateTime();
+        $album = new Album(
+            $albumRepository->nextIdentity(),
+            $albumName,
+            $date
+        );
+        $artistName = 'Artist test phpunit';
+        $artistSpecilisation = 'guitar phpunit';
+        $artist = new Artist(
+            $artistRepository->nextIdentity(),
+            $artistName,
+            $artistSpecilisation,
+            $date,
+            $album
+        );
+        $artistRepository->save($artist);
+
+        if (count($artistRepository->findAll()) != 1) {
+            $this->fail();
+        }
+
+        $this->assertTrue(count($artistRepository->findAll()) == 1);
     }
 }

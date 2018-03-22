@@ -9,7 +9,6 @@
 namespace App\Application\UseCase\Album\Dto;
 
 use App\Domain\Model\Artist\Artist;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * Class AlbumDto

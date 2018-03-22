@@ -59,7 +59,7 @@ class AddControllerTest extends WebTestCase
         /**
          * Delete test albums
          */
-        $crawler->filter('a[href^="/album/delete"]')->each(function($node) use ($client) {
+        $crawler->filter('a[href^="/album/delete"]')->each(function ($node) use ($client) {
             /** @var Crawler $node */
             /** @var Link $link */
             $link = $node->link();

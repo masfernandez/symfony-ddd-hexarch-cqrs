@@ -9,7 +9,6 @@
 namespace App\Domain\Model\Artist;
 
 use App\Domain\Model\Album\Album;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Artist
