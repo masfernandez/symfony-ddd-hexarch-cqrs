@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,7 +30,7 @@ abstract class DoctrineEntityId extends GuidType
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        $className = $this->getNamespace().'\\'.$this->getName();
+        $className = $this->getNamespace() . '\\' . $this->getName();
 
         return new $className($value);
     }

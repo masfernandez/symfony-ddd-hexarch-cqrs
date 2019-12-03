@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,7 +30,7 @@ class GetAllHandlerTest extends TestCase
         try {
             $command = new GetAllQuery();
             $handler = new GetAllHandler($albumRepositoryMock);
-            $albums = $handler->handle($command);
+            $albums = $handler->__invoke($command);
             if (!is_array($albums)) {
                 throw new \Exception();
             }

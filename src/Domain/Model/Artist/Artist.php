@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,6 +11,7 @@ namespace App\Domain\Model\Artist;
 use App\Domain\Model\Album\Album;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Artist
@@ -38,7 +39,7 @@ class Artist
     private $adding_date;
 
     /**
-     * @var PersistentCollection
+     * @var Collection
      */
     private $albums;
 
@@ -48,6 +49,7 @@ class Artist
      * @param string $name
      * @param string $specialisation
      * @param \DateTime|null $adding_date
+     * @throws \Exception
      */
     public function __construct(ArtistId $id, string $name, string $specialisation, \DateTime $adding_date = null)
     {
@@ -73,7 +75,7 @@ class Artist
      *
      * @return ArtistId
      */
-    public function getId() : ArtistId
+    public function getId(): ArtistId
     {
         return $this->id;
     }
@@ -83,7 +85,7 @@ class Artist
      *
      * @return string
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -93,15 +95,15 @@ class Artist
      *
      * @return string
      */
-    public function getSpecialisation() : string
+    public function getSpecialisation(): string
     {
         return $this->specialisation;
     }
 
     /**
-     * @return PersistentCollection
+     * @return Collection
      */
-    public function getAlbums(): PersistentCollection
+    public function getAlbums(): Collection
     {
         return $this->albums;
     }
@@ -111,15 +113,16 @@ class Artist
      */
     public function addAlbum(Album $album): void
     {
+        //$album->addArtist($this); // synchronously updating inverse side
         $this->albums->add($album);
     }
 
     /**
      * @param Album $album
      */
-    public function deleteAlbum(Album $album) : void
+    public function deleteAlbum(Album $album): void
     {
-        if($this->albums->contains($album)) {
+        if ($this->albums->contains($album)) {
             $this->albums->removeElement($album);
         }
     }

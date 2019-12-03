@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,27 +9,27 @@
 namespace App\Infrastructure\UserInterface\Web\Controller\Album;
 
 use App\Application\UseCase\Album\Command\Delete\DeleteCommand;
-use League\Tactician\CommandBus;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Class DeleteController
  * @package App\Infrastructure\UserInterface\Web\Controller\Album
  */
-class DeleteController extends Controller
+class DeleteController extends AbstractController
 {
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     protected $commandBus;
 
     /**
      * QueryController constructor.
-     * @param CommandBus $commandBus
+     * @param MessageBusInterface $commandBus
      */
-    public function __construct(CommandBus $commandBus)
+    public function __construct(MessageBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
@@ -41,7 +41,7 @@ class DeleteController extends Controller
      */
     public function action(Request $request, $id)
     {
-        $this->commandBus->handle(new DeleteCommand($id));
+        $this->commandBus->dispatch(new DeleteCommand($id));
 
         $referer = $request->headers->get('referer');
         $path = parse_url($referer, PHP_URL_PATH);

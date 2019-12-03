@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,21 +10,21 @@ namespace App\Infrastructure\UserInterface\Web\Controller\Album;
 
 use App\Application\UseCase\Album\Command\Add\AddCommand;
 use App\Infrastructure\Framework\Symfony\Forms\AlbumType;
-use League\Tactician\CommandBus;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 /**
  * Class AddController
  * @package App\Infrastructure\UserInterface\Web\Controller\Album
  */
-class AddController extends Controller
+class AddController extends AbstractController
 {
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $commandBus;
 
@@ -35,10 +35,10 @@ class AddController extends Controller
 
     /**
      * AddController constructor.
-     * @param CommandBus $commandBus
+     * @param MessageBusInterface $commandBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(CommandBus $commandBus, FormFactoryInterface $formFactory)
+    public function __construct(MessageBusInterface $commandBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
@@ -55,7 +55,7 @@ class AddController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->commandBus->handle(new AddCommand($data['title'], $data['publishing_date']));
+            $this->commandBus->dispatch(new AddCommand($data['title'], $data['publishing_date']));
             $this->addFlash('success', 'Album created!');
             return $this->redirectToRoute('web_album_getall');
         }

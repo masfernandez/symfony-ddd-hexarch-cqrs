@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,14 +9,14 @@
 namespace App\Infrastructure\UserInterface\Web\Controller\Artist;
 
 use App\Application\UseCase\Artist\Service\GetAllArtistService;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class GetAllController
  * @package App\Infrastructure\UserInterface\Web\Controller\Album
  */
-class GetAllController extends Controller
+class GetAllController extends AbstractController
 {
     /**
      * @var GetAllArtistService

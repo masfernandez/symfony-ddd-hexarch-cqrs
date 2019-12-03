@@ -8,14 +8,7 @@
 
 namespace App\Infrastructure\Framework\Symfony\Forms;
 
-use App\Application\UseCase\Artist\Dto\ArtistDto;
-use App\Domain\Model\Album\Album;
-use App\Domain\Model\Album\AlbumId;
-use App\Domain\Model\Album\Exception\AlbumException;
-use App\Domain\Model\Artist\Artist;
-use App\Domain\Model\Artist\ArtistId;
 use App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

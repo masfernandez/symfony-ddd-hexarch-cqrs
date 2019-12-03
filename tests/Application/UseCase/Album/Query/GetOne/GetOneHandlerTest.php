@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -35,7 +35,7 @@ class GetOneHandlerTest extends TestCase
         try {
             $command = new GetOneQuery(1);
             $handler = new GetOneHandler($albumRepositoryMock);
-            $this->assertTrue($album->getId()->id() === $handler->handle($command)->getId());
+            $this->assertTrue($album->getId()->id() === $handler->__invoke($command)->getId());
         } catch (\Exception $exception) {
             $this->fail();
         }

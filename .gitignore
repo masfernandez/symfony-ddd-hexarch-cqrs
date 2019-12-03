@@ -21,4 +21,8 @@
 node_modules/
 ###< directories ###
 
+
+src/Infrastructure/UserInterface/Web/Public/assets
+
+
 !.gitkeep

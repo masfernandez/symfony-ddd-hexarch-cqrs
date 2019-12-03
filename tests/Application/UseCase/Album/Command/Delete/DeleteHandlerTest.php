@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -36,7 +36,7 @@ class DeleteHandlerTest extends TestCase
         $command = new DeleteCommand(1);
         $handler = new DeleteHandler($albumRepository, $transactionManager);
         try {
-            $handler->handle($command);
+            $handler->__invoke($command);
         } catch (\Exception $exception) {
             $this->fail();
         }

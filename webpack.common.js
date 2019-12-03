@@ -7,7 +7,7 @@
 
 const path = require("path");
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractSass = new ExtractTextPlugin({
   filename: "css/[name].css",
@@ -60,13 +60,7 @@ module.exports = {
           use: [
             {
               loader: "css-loader",
-              options: {
-                minimize: {
-                  discardComments: {
-                    removeAll: true
-                  }
-                }
-              }
+              options: {}
             },
             {
               loader: "postcss-loader"
@@ -95,7 +89,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin(providePluginList),
-    new CleanWebpackPlugin([dist]),
+    new CleanWebpackPlugin(),
     extractSass
   ],
   optimization: {

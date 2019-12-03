@@ -1,24 +1,24 @@
 # symfony4-ddd-hexarch-cqrs.
 
 Main features:
+
 - [x] Docker
 - [x] Symfony 4
 - [x] DDD guidelines
-- [x] Hexagonal Architecture 
+- [x] Hexagonal Architecture
 - [x] SOLID
 - [x] Albums parts with CQRS pattern (command and query bus)
 - [x] No anemic models pattern
 - [x] Webpack, Yarn, Babel, Bootstrap 4 and some other frontend tools
 
-
 ## Installation
 
 1.  Software requirements:
 
-    * PHP 7.1.3+
-    * Node: How to install Node? [Please click here](https://nodejs.org/en/download/)
-    * Yarn: How to install Yarn? [Please click here](https://yarnpkg.com/lang/en/docs/install/)
-    * docker: How to install docker? [Please click here](https://docs.docker.com/install/)
+    - PHP 7.2.5+
+    - Node: How to install Node? [Please click here](https://nodejs.org/en/download/)
+    - Yarn: How to install Yarn? [Please click here](https://yarnpkg.com/lang/en/docs/install/)
+    - docker: How to install docker? [Please click here](https://docs.docker.com/install/)
 
     Verify the proper installation:
 
@@ -42,7 +42,7 @@ Main features:
 2.  Download dependencies:
     ```
     composer install;composer update
-    yarn  
+    yarn
     ```
 3.  Generate frontend assets
     ```
@@ -73,11 +73,13 @@ Main features:
     ```
     cp .env.dist .env
     ```
-7. Clear symfony cache
+
+7.  Clear symfony cache
+
     ```
     sudo bin/console cache:clear
     ```
-    
+
 ## Run the code
 
 ```
@@ -89,8 +91,8 @@ And open in browser: [http://localhost](http://localhost)
 ## Running the tests
 
 1.  Software requirements:
-    
-    Install software requirements in the 'Installation' section of this document. 
+
+    Install software requirements in the 'Installation' section of this document.
 
 2.  Creates docker testing database container:
     ```
@@ -110,8 +112,9 @@ And open in browser: [http://localhost](http://localhost)
 3.  Configure test environment:
 
     ```
-    cp .env-test.dist .env
+    cp phpunit.xml.dist phpunit.xml
     ```
+
 4.  Execute migrations (schema):
     ```
     bin/console doctrine:migrations:migrate --no-interaction
@@ -133,6 +136,7 @@ Common tasks:
 # generate assets bundles symlinks
 bin/console assets:install src/Infrastructure/UserInterface/Web/Public --symlink
 ```
+
 ```
 # generate development assets
 yarn build:dev

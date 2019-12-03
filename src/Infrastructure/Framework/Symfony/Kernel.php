@@ -26,6 +26,7 @@ class Kernel extends BaseKernel
 
     const SYMFONY_PATH = '/src/Infrastructure/Framework/Symfony';
 
+
     public function getCacheDir()
     {
         return $this->getProjectDir() . '/var/cache/' . $this->environment;

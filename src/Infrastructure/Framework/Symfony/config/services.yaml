@@ -1,62 +1,61 @@
 parameters:
-    locale: 'es'
+  locale: 'es'
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
 
-        bind:
-            $queryBus: '@tactician.commandbus.query'
-            $commandBus: '@tactician.commandbus.command'
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
 
-    _instanceof:
+    bind:
+      $queryBus: '@query.bus'
+      $commandBus: '@command.bus'
 
-        App\Domain\Bus\CommandHandlerInterface:
-            public: true
-            tags:
-                - { name: tactician.handler, typehints: true, bus: command }
+  _instanceof:
+    App\Domain\Bus\CommandHandlerInterface:
+      public: true
+      tags: [messenger.message_handler]
 
-        App\Domain\Bus\QueryHandlerInterface:
-            public: true
-            tags:
-                - { name: tactician.handler, typehints: true, bus: query }
+    App\Domain\Bus\QueryHandlerInterface:
+      public: true
+      tags: [messenger.message_handler]
 
-    #
-    # Structure
-    #
 
-    App\:
-        resource: '%kernel.project_dir%/src/*'
-        exclude: '%kernel.project_dir%/src/Infrastructure/{Framework,Persistence/Doctrine/Migrations,UserInterface/Web/Public,UserInterface/Web/SlimPublic}'
+  #
+  # Structure
+  #
 
-    #
-    # Controllers
-    #
+  App\:
+    resource: '%kernel.project_dir%/src/*'
+    exclude: '%kernel.project_dir%/src/Infrastructure/{Framework,Persistence/Doctrine/Migrations,UserInterface/Web/Public,UserInterface/Web/SlimPublic}'
 
-    App\Infrastructure\UserInterface\Web\Controller\:
-        resource: '%kernel.project_dir%/src/Infrastructure/UserInterface/Web/Controller/*'
-        tags: ['controller.service_arguments']
+  #
+  # Controllers
+  #
 
-    #
-    # Forms
-    #
+  App\Infrastructure\UserInterface\Web\Controller\:
+    resource: '%kernel.project_dir%/src/Infrastructure/UserInterface/Web/Controller/*'
+    tags: ['controller.service_arguments']
 
-    App\Infrastructure\Framework\Symfony\Forms\:
-        resource: '%kernel.project_dir%/src/Infrastructure/Framework/Symfony/Forms/*'
+  #
+  # Forms
+  #
 
-    #
-    # Listeners
-    #
+  App\Infrastructure\Framework\Symfony\Forms\:
+    resource: '%kernel.project_dir%/src/Infrastructure/Framework/Symfony/Forms/*'
 
-#    test_listener:
-#        class: App\Domain\BusCustom\LoadBusHandlersListener
-#        tags:
-#            - { name: kernel.event_listener, event: kernel.request }
+  #
+  # Listeners
+  #
 
-    #
-    # Alias
-    #
-    App\Domain\Model\Album\AlbumRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository'
-    App\Domain\Model\Artist\ArtistRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\ArtistRepository'
+  #    test_listener:
+  #        class: App\Domain\BusCustom\LoadBusHandlersListener
+  #        tags:
+  #            - { name: kernel.event_listener, event: kernel.request }
+
+  #
+  # Alias
+  #
+  App\Domain\Model\Album\AlbumRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository'
+  App\Domain\Model\Artist\ArtistRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\ArtistRepository'
