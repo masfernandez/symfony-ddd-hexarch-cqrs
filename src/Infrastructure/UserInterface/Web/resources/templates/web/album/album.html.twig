@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-header" id="headingOne">
+
+        <div class="row">
+            <div class="col-sm">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#{{ album.title|e }}" aria-expanded="true" aria-controls="collapseOne">
+                        {{ album.title|e }}, on the {{ album.publishingDate|date("dS \\of F \\of Y") }}
+                    </button>
+                </h5>
+            </div>
+
+            <div class="col-sm text-right">
+                <a href="{{ path('web_album_update', {'id': album.id}) }}"><i class="far fa-edit"></i></a>
+                <a href="{{ path('web_album_delete', {'id': album.id}) }}"><i class="far fa-trash-alt"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="{{ album.title|e }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+
+        <div class="row">
+            <div class="col-sm-10 pt-4 pl-5">
+                {% if album.artists|length > 0 %}
+                    <h5><i class="fas fa-user"></i> Artists</h5>
+                    <br />
+                    {% for artist in album.artists %}
+                        {% include "web/album/artist.html.twig" with {artist: artist, album: album} %}
+                    {% endfor %}
+                {% else %}
+                    <h5>No artists found</h5>
+                {% endif %}
+            </div>
+
+            <div class="col-sm-2 p-4">
+                <a class="btn btn-primary" role="button" href="{{ path('web_artist_add', {'albumId': album.id}) }}">New artist</a>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
