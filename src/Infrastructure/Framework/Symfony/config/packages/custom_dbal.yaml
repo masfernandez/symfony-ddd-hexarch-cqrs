@@ -1,5 +1,5 @@
 doctrine:
-    dbal:
-        types:
-            AlbumId: App\Infrastructure\Domain\Model\Album\DoctrineAlbumId
-            ArtistId: App\Infrastructure\Domain\Model\Artist\DoctrineArtistId
+  dbal:
+    types:
+      AlbumId: App\Infrastructure\Domain\Model\Album\DoctrineAlbumId
+      ArtistId: App\Infrastructure\Domain\Model\Artist\DoctrineArtistId

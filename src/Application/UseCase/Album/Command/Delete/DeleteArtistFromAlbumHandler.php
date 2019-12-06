@@ -53,7 +53,7 @@ class DeleteArtistFromAlbumHandler implements CommandHandlerInterface
      * @param DeleteArtistFromAlbumCommand $command
      * @throws \Exception
      */
-    public function handle(DeleteArtistFromAlbumCommand $command)
+    public function __invoke(DeleteArtistFromAlbumCommand $command)
     {
         $this->transactionManager->begin();
         try {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -41,7 +41,7 @@ class AddHandlerTest extends TestCase
         $command = new AddCommand($albumName, $date);
         $handler = new AddHandler($albumRepository, $transactionManager);
         try {
-            $handler->handle($command);
+            $handler->__invoke($command);
         } catch (\Exception $ex) {
             $this->assertTrue(false);
         }

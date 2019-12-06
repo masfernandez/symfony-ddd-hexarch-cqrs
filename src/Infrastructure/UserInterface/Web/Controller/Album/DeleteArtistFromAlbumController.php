@@ -9,8 +9,8 @@
 namespace App\Infrastructure\UserInterface\Web\Controller\Album;
 
 use App\Application\UseCase\Album\Command\Delete\DeleteArtistFromAlbumCommand;
-use League\Tactician\CommandBus;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,18 +18,18 @@ use Symfony\Component\HttpFoundation\Request;
  * Class DeleteArtistFromAlbumController
  * @package App\Infrastructure\UserInterface\Web\Controller\Album
  */
-class DeleteArtistFromAlbumController extends Controller
+class DeleteArtistFromAlbumController extends AbstractController
 {
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     protected $commandBus;
 
     /**
      * QueryController constructor.
-     * @param CommandBus $commandBus
+     * @param MessageBusInterface $commandBus
      */
-    public function __construct(CommandBus $commandBus)
+    public function __construct(MessageBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
@@ -42,7 +42,7 @@ class DeleteArtistFromAlbumController extends Controller
      */
     public function action(Request $request, $albumId, $artistId)
     {
-        $this->commandBus->handle(new DeleteArtistFromAlbumCommand($albumId, $artistId));
+        $this->commandBus->dispatch(new DeleteArtistFromAlbumCommand($albumId, $artistId));
         $referer = $request->headers->get('referer');
         $path = parse_url($referer, PHP_URL_PATH);
         $route = $this->get('router')->getMatcher()->match($path);

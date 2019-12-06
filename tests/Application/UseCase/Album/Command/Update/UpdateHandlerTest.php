@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -46,7 +46,7 @@ class UpdateHandlerTest extends TestCase
         try {
             $command = new UpdateCommand($albumId, $albumName, $date);
             $handler = new UpdateHandler($albumRepositoryMock, $transactionManagerMock);
-            $handler->handle($command);
+            $handler->__invoke($command);
         } catch (\Exception $exception) {
             $this->fail();
         }

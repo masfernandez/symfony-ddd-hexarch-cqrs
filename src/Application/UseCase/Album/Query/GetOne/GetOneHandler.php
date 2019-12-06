@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -38,7 +38,7 @@ class GetOneHandler implements QueryHandlerInterface
      * @return AlbumDto
      * @throws AlbumException
      */
-    public function handle(GetOneQuery $query)
+    public function __invoke(GetOneQuery $query)
     {
         try {
             $album = $this->albumRepository->findOne($query->id);
@@ -50,7 +50,7 @@ class GetOneHandler implements QueryHandlerInterface
             $album->getId(),
             $album->getTitle(),
             $album->getPublishingDate(),
-            (array)$album->getArtists()
+            $album->getArtists()->toArray()
         );
     }
 }

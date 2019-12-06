@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,10 +14,10 @@ use Symfony\Component\DomCrawler\Link;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class DeleteAlbumTest
- * @package App\Test\UserInterface\Framework\Album
+ * Class ControllerTest
+ * @package App\Tests\UserInterface\Framework\Album
  */
-class DeleteControllerTest extends WebTestCase
+class ControllerTest extends WebTestCase
 {
     /**
      * @test
@@ -26,6 +26,7 @@ class DeleteControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $albumName = 'Test album phpunit';
+        $albumNameUpdate = 'Test album phpunit updated';
 
         /**
          * Get all albums
@@ -37,7 +38,7 @@ class DeleteControllerTest extends WebTestCase
         /**
          * Add album
          */
-        $crawler = $client->request('GET', '/album/new');
+        $crawler = $client->request('POST', '/album/add');
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
 
         // Send form
@@ -57,7 +58,28 @@ class DeleteControllerTest extends WebTestCase
         );
 
         /**
-         * Delete test albums
+         * Update album
+         */
+        $node = $crawler->filter('a[href^="/album/update"]')->first();
+        $link = $node->link();
+        $crawler = $client->request('GET', $link->getUri());
+        $form = $crawler->selectButton('Submit')->form();
+        $form['album[title]'] = $albumNameUpdate;
+        $client->submit($form);
+
+        // Analise /album in order to look for the new album updated
+        $crawler = $client->request('GET', '/album');
+        $albumsAfter = $crawler->filter('div[class="card"]')->count();
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertEquals($albumsAfter, $albumsBefore + 1);
+        $this->assertContains(
+            $albumNameUpdate,
+            $crawler->text()
+        );
+
+        /**
+         * Delete all test albums
          */
         $crawler->filter('a[href^="/album/delete"]')->each(function ($node) use ($client) {
             /** @var Crawler $node */

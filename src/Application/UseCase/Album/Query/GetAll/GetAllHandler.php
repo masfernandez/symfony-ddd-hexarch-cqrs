@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,7 +37,7 @@ class GetAllHandler implements QueryHandlerInterface
      * @param GetAllQuery $query
      * @return array
      */
-    public function handle(GetAllQuery $query)
+    public function __invoke(GetAllQuery $query)
     {
         $albums = $this->albumRepository->findAll();
 
@@ -46,7 +46,7 @@ class GetAllHandler implements QueryHandlerInterface
                 $album->getId(),
                 $album->getTitle(),
                 $album->getPublishingDate(),
-                (array)$album->getArtists()->toArray()
+                $album->getArtists()->toArray()
             );
         }, $albums);
     }

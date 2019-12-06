@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -38,8 +38,7 @@ class UpdateArtistService
     }
 
     /**
-     * @param UpdateArtistDto $dto
-     * @throws NotFoundHttpException
+     * @param null $dto
      */
     public function handle($dto = null)
     {
@@ -47,8 +46,8 @@ class UpdateArtistService
         if (!$artist) {
             throw new NotFoundHttpException();
         }
-        $album = $this->albumRepository->findOne($dto->getAlbumId());
-        $artist->update($dto->getName(), $dto->getSpecialisation(), $album);
+        //$album = $this->albumRepository->findOne($dto->getAlbumId());
+        $artist->update($dto->getName(), $dto->getSpecialisation());
         $this->artistRepository->save($artist);
     }
 }

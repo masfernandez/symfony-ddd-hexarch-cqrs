@@ -1,12 +1,14 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace App\Application\UseCase\Artist\Dto;
+
+use App\Domain\Model\Artist\ArtistId;
 
 /**
  * Class UpdateArtistDto
@@ -15,7 +17,7 @@ namespace App\Application\UseCase\Artist\Dto;
 class UpdateArtistDto
 {
     /**
-     * @var int
+     * @var ArtistId
      */
     private $id;
 
@@ -30,29 +32,23 @@ class UpdateArtistDto
     private $specialisation;
 
     /**
-     * @var int
-     */
-    private $albumId;
-
-    /**
      * UpdateArtistDto constructor.
-     * @param int $id
+     * @param string $id
      * @param string $name
      * @param string $specialisation
-     * @param int $albumId
+     * @throws \Exception
      */
-    public function __construct(int $id, string $name, string $specialisation, int $albumId)
+    public function __construct(string $id, string $name, string $specialisation)
     {
-        $this->id = $id;
+        $this->id = new ArtistId($id);
         $this->name = $name;
         $this->specialisation = $specialisation;
-        $this->albumId = $albumId;
     }
 
     /**
-     * @return int
+     * @return ArtistId
      */
-    public function getId(): int
+    public function getId(): ArtistId
     {
         return $this->id;
     }
@@ -71,13 +67,5 @@ class UpdateArtistDto
     public function getSpecialisation(): string
     {
         return $this->specialisation;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAlbumId(): int
-    {
-        return $this->albumId;
     }
 }

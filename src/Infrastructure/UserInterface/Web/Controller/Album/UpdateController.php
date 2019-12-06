@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,25 +12,26 @@ use App\Application\UseCase\Album\Command\Update\UpdateCommand;
 use App\Application\UseCase\Album\Dto\AlbumDto;
 use App\Application\UseCase\Album\Query\GetOne\GetOneQuery;
 use App\Infrastructure\Framework\Symfony\Forms\AlbumType;
-use League\Tactician\CommandBus;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 /**
  * Class UpdateController
  * @package App\Infrastructure\UserInterface\Web\Controller\Album
  */
-class UpdateController extends Controller
+class UpdateController extends AbstractController
 {
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     protected $queryBus;
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $commandBus;
     /**
@@ -40,11 +41,11 @@ class UpdateController extends Controller
 
     /**
      * UpdateController constructor.
-     * @param CommandBus $commandBus
-     * @param CommandBus $queryBus
+     * @param MessageBusInterface $commandBus
+     * @param MessageBusInterface $queryBus
      * @param FormFactoryInterface $formFactory
      */
-    public function __construct(CommandBus $commandBus, CommandBus $queryBus, FormFactoryInterface $formFactory)
+    public function __construct(MessageBusInterface $commandBus, MessageBusInterface $queryBus, FormFactoryInterface $formFactory)
     {
         $this->commandBus = $commandBus;
         $this->queryBus = $queryBus;
@@ -58,17 +59,19 @@ class UpdateController extends Controller
      */
     public function action(Request $request, $id)
     {
-        /** @var AlbumDto $albumDto */
-        $albumDto = $this->queryBus->handle(new GetOneQuery($id));
+        /** @var HandledStamp $handlerResult */
+        $handlerResult = $this->queryBus->dispatch(new GetOneQuery($id))->last(HandledStamp::class);
+        $albumDto = $handlerResult->getResult();
         $form = $this->formFactory->create(AlbumType::class, [
             'title' => $albumDto->getTitle(),
             'publishing_date' => $albumDto->getPublishingDate()
         ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->commandBus->handle(new UpdateCommand($id, $data['title'], $data['publishing_date']));
+            $this->commandBus->dispatch(new UpdateCommand($id, $data['title'], $data['publishing_date']));
             return $this->redirectToRoute('web_album_getall');
         }
 

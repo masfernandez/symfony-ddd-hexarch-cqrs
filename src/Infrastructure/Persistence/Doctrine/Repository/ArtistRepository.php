@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,7 @@ use App\Domain\Model\Artist\ArtistId;
 use App\Domain\Model\Artist\ArtistRepositoryInterface;
 use App\Domain\Model\Artist\Exception\ArtistException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class ArtistRepository
@@ -24,7 +24,7 @@ class ArtistRepository extends ServiceEntityRepository implements ArtistReposito
     /**
      * @inheritdoc
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Artist::class);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2018. Miguel Ángel Sánchez Fernández.
+ * Copyright (c) 2019. Miguel Ángel Sánchez Fernández.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@ namespace App\Infrastructure\UserInterface\Web\Controller\Artist;
 use App\Application\UseCase\Artist\Dto\AddArtistDto;
 use App\Application\UseCase\Artist\Service\AddArtistService;
 use App\Infrastructure\Framework\Symfony\Forms\ArtistType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class AddController
  * @package App\Infrastructure\UserInterface\Web\Controller\Artist
  */
-class AddController extends Controller
+class AddController extends AbstractController
 {
     /**
      * @var AddArtistService
@@ -60,7 +60,7 @@ class AddController extends Controller
             $this->addArtistToAlbum->handle(new AddArtistDto(
                 $data['name'],
                 $data['specialisation'],
-                $data['albums']
+                []
             ));
             $this->addFlash('success', 'Artist created!');
             return $this->redirectToRoute('web_artist_getAll');
