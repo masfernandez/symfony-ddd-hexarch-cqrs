@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block menu %}
+    {# Navigation #}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Record Label Music</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if app.request.get('_route') == "web_home" %}active{% endif %}">
+                        <a class="nav-link" href="{{ path('web_home') }}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Albums</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('web_album_getall') }}">All albums</a>
+                            <a class="dropdown-item" href="{{ path('web_album_add') }}">Add new</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Artists</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('web_artist_getAll') }}">All artists</a>
+                            <a class="dropdown-item" href="{{ path('web_artist_add') }}">Add new</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block flashes %}
+    {% set flashes = app.flashes %}
+    {% if flashes|length > 0 %}
+        <div class="row pt-3">
+            {% for label, messages in flashes %}
+                {% for message in messages %}
+                    <div class="col-lg-12 text-center">
+                        <div class="alert alert-{{ label }} alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

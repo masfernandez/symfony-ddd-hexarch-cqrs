@@ -1,0 +1,61 @@
+#
+# Home
+#
+
+web_home:
+    path: /
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Home\HomeController:action' }
+    methods:  [GET]
+
+#
+# Albums
+#
+
+web_album_getall:
+    path: /album
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\GetAllController:action' }
+    methods:  [GET]
+
+web_album_add:
+    path: /album/add
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\AddController:action' }
+    methods:  [GET|POST]
+
+web_album_update:
+    path: /album/update/{id}
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\UpdateController:action' }
+    methods:  [GET|POST]
+
+web_album_delete:
+    path: /album/delete/{id}
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\DeleteController:action' }
+    methods:  [GET]
+
+web_album_delete_artist:
+    path: /album/{albumId}/artist/{artistId}/delete/
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Album\DeleteArtistFromAlbumController:action' }
+    methods:  [GET]
+
+#
+# Artists
+#
+
+web_artist_getAll:
+    path: /artist
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Artist\GetAllController:action' }
+    methods:  [GET|POST]
+
+web_artist_add:
+    path: /artist/new
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Artist\AddController:action' }
+    methods:  [GET|POST]
+
+web_artist_update:
+    path: /artist/update/{id}
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Artist\UpdateController:action' }
+    methods:  [GET|POST]
+
+web_artist_delete:
+    path: /artist/delete/{id}
+    defaults: { _controller: 'App\Infrastructure\UserInterface\Web\Controller\Artist\DeleteController:action' }
+    methods:  [GET]

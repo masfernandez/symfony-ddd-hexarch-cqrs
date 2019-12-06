@@ -1,0 +1,27 @@
+App\Domain\Model\Album\Album:
+    properties:
+        title:
+            - NotBlank: ~
+            - Length:
+                max: 500
+                maxMessage: 'The title cannot be longer than {{ limit }} characters'
+
+        publishing_date:
+            - NotBlank: ~
+            - Type: \DateTime
+
+App\Domain\Model\Artist\Artist:
+    properties:
+        name:
+            - NotBlank: ~
+            - Length:
+                max: 500
+                maxMessage: 'The name cannot be longer than {{ limit }} characters'
+        specialisation:
+            - NotBlank: ~
+            - Length:
+                max: 500
+                maxMessage: 'The specialisation cannot be longer than {{ limit }} characters'
+        adding_date:
+            - NotBlank: ~
+            - Type: \DateTime
