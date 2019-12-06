@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        public: true
+
+    # If you need to access services in a test, create an alias
+    # and then fetch that alias from the container. As a convention,
+    # aliases are prefixed with test. For example:
+    #
+    # test.App\Service\MyService: '@App\Service\MyService'
+
+    #
+    # Alias
+    #
+    test.App\Domain\Model\Album\AlbumRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\AlbumRepository'
+    test.App\Domain\Model\Artist\ArtistRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Repository\ArtistRepository'

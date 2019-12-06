@@ -1,0 +1,24 @@
+###> symfony/framework-bundle ###
+/public/bundles/
+/var/cache/*
+/var/log/*
+/var/storage/*
+/vendor/
+.env
+###< symfony/framework-bundle ###
+
+###> IntelliJ ###
+/*.iml
+/.idea
+###< IntelliJ ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> directories ###
+node_modules/
+###< directories ###
+
+!.gitkeep
