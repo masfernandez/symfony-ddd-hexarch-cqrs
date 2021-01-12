@@ -18,5 +18,11 @@ doctrine:
                 dir: '%app.root_path%/src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/db-mappings'
                 prefix: 'Masfernandez\MusicLabel\Catalog\Domain\Model'
                 alias: Masfernandez\MusicLabel\Catalog\Domain\Model
-
+            # MusicLabel / Auth
+            Masfernandez\MusicLabel\Auth\Domain\Model:
+                is_bundle: false
+                type: xml
+                dir: '%app.root_path%/src/MusicLabel/Auth/Infrastructure/Persistence/Doctrine/db-mappings'
+                prefix: 'Masfernandez\MusicLabel\Auth\Domain\Model'
+                alias: Masfernandez\MusicLabel\Auth\Domain\Model
             # Others bounded contexts here...

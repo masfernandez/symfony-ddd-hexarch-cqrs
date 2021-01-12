@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Masfernandez\MusicLabel\Shared\Infrastructure\Persistence\Doctrine\Types\DoctrineAbstractType;
 
 final class DoctrineAlbumTitle extends DoctrineAbstractType
 {

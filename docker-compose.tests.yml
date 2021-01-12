@@ -5,6 +5,10 @@ services:
     php:
         container_name: ${COMPOSE_PROJECT_NAME}-php
         image: masfernandez/php8-dev:latest
+        # Uncomment and configure as needed when debugging
+        #environment:
+        #    XDEBUG_CONFIG: client_host=host.docker.internal
+        #    PHP_IDE_CONFIG: serverName=docker
         volumes:
             - .:/var/www/html
             - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
