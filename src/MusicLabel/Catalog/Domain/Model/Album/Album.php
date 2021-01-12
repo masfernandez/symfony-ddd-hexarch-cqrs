@@ -7,7 +7,6 @@ namespace Masfernandez\MusicLabel\Catalog\Domain\Model\Album;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\PersistentCollection;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Artist\Artist;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
 use Masfernandez\Shared\Domain\Bus\Event\DomainEventAbstract;

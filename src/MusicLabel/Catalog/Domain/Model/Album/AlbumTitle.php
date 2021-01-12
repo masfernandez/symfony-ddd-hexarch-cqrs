@@ -8,7 +8,7 @@ use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-final class AlbumTitle extends ValueObjectBase
+final class AlbumTitle extends ValueObjectBase implements \Stringable
 {
     /**
      * @return Constraint[]
@@ -17,7 +17,12 @@ final class AlbumTitle extends ValueObjectBase
     {
         return [
             new Constraints\NotBlank(),
-            new Constraints\Length(['min' => 1, 'max' => 255])
+            new Constraints\Length(['max' => 60])
         ];
+    }
+
+    public function __toString(): string
+    {
+        return $this->value;
     }
 }

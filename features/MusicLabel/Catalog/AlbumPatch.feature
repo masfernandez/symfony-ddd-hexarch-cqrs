@@ -5,15 +5,8 @@ Feature: Patching Albums
   I want to patch albums from the client-API
 
   Scenario: Patch an album. Endpoint with id in path
-    Given I send a "POST" request to "/albums" with body:
-      """
-      {
-          "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
-          "title": "Abbey Road",
-          "publishing_date": "1969-09-26 09:00:00"
-      }
-      """
-    And the response status code should be "201"
+    Given There is already an Album in database with id "0da69030-3ed7-42b5-8aa5-25fb61dab1b2" title "Abbey Road" and publishing_date "1969-09-26 09:00:00"
+
     When I send a "PATCH" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
