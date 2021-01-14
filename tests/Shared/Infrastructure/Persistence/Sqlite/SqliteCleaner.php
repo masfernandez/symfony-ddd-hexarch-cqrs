@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection SqlResolve */
+
 declare(strict_types=1);
 
 namespace Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite;

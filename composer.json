@@ -1,10 +1,8 @@
 {
     "name": "masfernandez/symfony-ddd-hexarch-cqrs",
-    "description": "",
+    "description": "description",
     "type": "project",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "authors": [
         {
             "name": "Miguel Ángel Sánchez Fernández",
@@ -90,5 +88,7 @@
             "require": "5.2.*"
         },
         "bin-dir": "apps/MusicLabelApp/Catalog/backend/bin"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

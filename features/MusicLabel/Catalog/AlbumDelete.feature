@@ -5,24 +5,9 @@ Feature: Deleting Albums
   I want to delete albums from API
 
   Scenario: Delete an album. Endpoint with id in path
-    Given I send a "POST" request to "/albums" with body:
-      """
-      {
-          "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
-          "title": "Abbey Road",
-          "publishing_date": "1969-09-26 09:00:00"
-      }
-      """
-    And the response status code should be "201"
-    Given I send a "POST" request to "/albums" with body:
-      """
-      {
-          "id": "9be8b428-12ff-4312-806e-22547ea98dcb",
-          "title": "Let It Be",
-          "publishing_date": "1970-05-08 09:00:00"
-      }
-      """
-    And the response status code should be "201"
+    Given There is already an Album in database with id "0da69030-3ed7-42b5-8aa5-25fb61dab1b2" title "Abbey Road" and publishing_date "1969-09-26 09:00:00"
+    And There is already an Album in database with id "9be8b428-12ff-4312-806e-22547ea98dcb" title "Let It Be" and publishing_date "1970-05-08 09:00:00"
+
     When I send a "DELETE" request to "/albums/9be8b428-12ff-4312-806e-22547ea98dcb"
     Then the response status code should be "204"
     And the JSON response should be equal to:

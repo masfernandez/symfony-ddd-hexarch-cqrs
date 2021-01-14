@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\Album;
 
 use Exception;
+use Masfernandez\MusicLabel\Auth\Domain\Model\Token\InvalidCredentials;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Post\PostAlbumCommand;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExistsException;
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Request\Album\AlbumPostAllInputData;
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Request\Album\AlbumPostInputData;
+use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumPostCollectionInputData;
+use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumPostInputData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,8 @@ final class AlbumPostController extends AbstractController
         return $this->createAlbum([
             'id' => $inputData->getId(),
             'title' => $inputData->getTitle(),
-            'publishing_date' => $inputData->getPublishingDate()
+            'publishing_date' => $inputData->getPublishingDate(),
+            'token' => $inputData->getToken()
         ], $host);
     }
 
@@ -46,7 +48,8 @@ final class AlbumPostController extends AbstractController
             $this->commandBus->dispatch(new PostAlbumCommand(
                 $inputData['id'],
                 $inputData['title'],
-                $inputData['publishing_date']
+                $inputData['publishing_date'],
+                $inputData['token']
             ));
         } catch (Exception | HandlerFailedException $ex) {
             $headers = [];
@@ -58,19 +61,25 @@ final class AlbumPostController extends AbstractController
                 $data = null;
                 $code = Response::HTTP_CONFLICT;
             }
+            if ($ex->getPrevious() instanceof InvalidCredentials) {
+                // @todo change data message here
+                $data = null;
+                $code = Response::HTTP_UNAUTHORIZED;
+            }
         }
         return $this->json($data, $code, $headers);
     }
 
     #[Route(path: '/albums', name: 'album_post_collection', methods: ['POST'])]
-    public function postCollection(AlbumPostAllInputData $inputData): JsonResponse
+    public function postCollection(AlbumPostCollectionInputData $inputData): JsonResponse
     {
         $host = $inputData->getRequest()?->getSchemeAndHttpHost() ??
             throw new \RuntimeException('Cannot get Request.');
         return $this->createAlbum([
             'id' => $inputData->getId(),
             'title' => $inputData->getTitle(),
-            'publishing_date' => $inputData->getPublishingDate()
+            'publishing_date' => $inputData->getPublishingDate(),
+            'token' => $inputData->getToken(),
         ], $host);
     }
 }

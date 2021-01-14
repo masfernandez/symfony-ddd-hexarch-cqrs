@@ -31,6 +31,12 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#running-prod-env">Running prod env</a></li>
+        <ul>
+            <li><a href="#curl-examples">Curl examples</a></li>
+        </ul>
+        <li><a href="#running-dev-env">Running dev env</a></li>
+        <li><a href="#tests">Tests</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -100,7 +106,7 @@ pass: toor
 url: http://localhost:5601
 ```
 
-#### Some curl examples
+#### Curl examples
 
 - Create a new Album:
 ```

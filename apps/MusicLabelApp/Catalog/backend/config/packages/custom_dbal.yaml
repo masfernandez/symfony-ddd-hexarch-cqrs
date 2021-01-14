@@ -1,6 +1,15 @@
 doctrine:
   dbal:
     types:
+      # Catalog
       AlbumId: Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Types\DoctrineAlbumId
       AlbumTitle: Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Types\DoctrineAlbumTitle
       AlbumPublishingDate: Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Types\DoctrineAlbumPublishingDate
+      ArtistId: Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Types\DoctrineArtistId
+      # Auth
+      UserId: Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types\DoctrineUserId
+      UserEmail: Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types\DoctrineUserEmail
+      UserPassword: Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types\DoctrineUserPassword
+      TokenId: Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types\DoctrineTokenId
+      TokenValue: Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types\DoctrineTokenValue
+      TokenExpirationDate: Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types\DoctrineTokenExpirationDate

@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\A
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Delete\DeleteAlbumCommand;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Request\Album\AlbumDeleteInputData;
+use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumDeleteInputData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
