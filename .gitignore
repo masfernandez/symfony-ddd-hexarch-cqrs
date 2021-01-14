@@ -11,4 +11,5 @@ phpunit.xml
 # docker
 supervisord.pid
 
+# other
 !.gitkeep

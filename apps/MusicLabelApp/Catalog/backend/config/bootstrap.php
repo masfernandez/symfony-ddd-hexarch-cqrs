@@ -1,12 +1,20 @@
 <?php
 
+/**
+ * File used in tests basically, to auto load classes and deps.
+ *
+ * rector: ./rector.php
+ * phpunit: ./phpunit.xml
+ * behat: ./behat.yml
+ * psalm: ./psalm.xml
+ */
+
 $root_path = dirname(__DIR__, 5);
 require_once $root_path . '/vendor/autoload.php';
 
-$backend_catalog = dirname(__DIR__);
-$env = include $backend_catalog . '/.env.local.php';
-
-// @todo replace by array_merge...
-foreach ($env as $k => $v) {
-    $_ENV[$k] = $_ENV[$k] ?? (isset($_SERVER[$k]) && str_starts_with($k, 'HTTP_') ? $_SERVER[$k] : $v);
+// Loads envs defined in backend
+$backend_path = dirname(__DIR__);
+$env = include $backend_path . '/.env.local.php';
+foreach ($env as $key => $value) {
+    $_ENV[$key] = $_ENV[$key] ?? (isset($_SERVER[$key]) && str_starts_with($key, 'HTTP_') ? $_SERVER[$key] : $value);
 }

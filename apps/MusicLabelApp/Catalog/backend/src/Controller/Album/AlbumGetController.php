@@ -8,8 +8,8 @@ use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumResponse;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumsResponse;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\Collection\GetAlbumsQuery;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\Single\GetAlbumQuery;
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Request\Album\AlbumGetInputData;
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Request\Album\AlbumsGetInputData;
+use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumGetInputData;
+use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumGetCollectionInputData;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +38,7 @@ final class AlbumGetController extends AbstractController
     }
 
     #[Route(path: '/albums', name: 'album_get_collection', methods: ['GET'])]
-    public function getCollection(AlbumsGetInputData $inputData): JsonResponse
+    public function getCollection(AlbumGetCollectionInputData $inputData): JsonResponse
     {
         /** @var HandledStamp $handledStamp */
         $handledStamp = $this->queryBus->dispatch(new GetAlbumsQuery(

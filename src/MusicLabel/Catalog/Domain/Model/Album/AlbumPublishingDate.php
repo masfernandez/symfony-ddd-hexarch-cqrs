@@ -8,7 +8,7 @@ use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-final class AlbumPublishingDate extends ValueObjectBase
+final class AlbumPublishingDate extends ValueObjectBase implements \Stringable
 {
     public static string $format = 'Y-m-d H:i:s';
 
@@ -21,5 +21,10 @@ final class AlbumPublishingDate extends ValueObjectBase
             new Constraints\NotBlank(),
             new Constraints\DateTime()
         ];
+    }
+
+    public function __toString(): string
+    {
+        return $this->value;
     }
 }

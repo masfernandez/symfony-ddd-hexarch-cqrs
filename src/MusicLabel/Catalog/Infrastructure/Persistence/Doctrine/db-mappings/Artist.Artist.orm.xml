@@ -7,9 +7,9 @@
             name="Masfernandez\MusicLabel\Catalog\Domain\Model\Artist\Artist"
             table="artist">
 
-        <id name="id" type="uuid" column="id"/>
+        <id name="id" type="ArtistId" column="id"/>
         <field name="name" type="string" column="name" length="500" nullable="false"/>
-        <field name="specialisation" type="string" column="specialisation" length="500" nullable="false"/>
+        <field name="specialisation" type="string" column="specialisation" length="500" nullable="true"/>
         <field name="adding_date" type="datetime" column="adding_date"/>
 
         <many-to-many field="albums"

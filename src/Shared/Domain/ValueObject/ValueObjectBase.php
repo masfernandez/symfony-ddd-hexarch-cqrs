@@ -9,7 +9,6 @@ use Symfony\Component\Validator\Validation;
 
 abstract class ValueObjectBase
 {
-    private static array $constrains;
     protected $value;
 
     public function __construct($value)
@@ -33,10 +32,7 @@ abstract class ValueObjectBase
      */
     public static function getConstraints(): array
     {
-        if (!isset(self::$constrains)) {
-            self::$constrains = static::defineConstraints();
-        }
-        return self::$constrains;
+        return static::defineConstraints();
     }
 
     abstract protected static function defineConstraints(): array;
