@@ -54,7 +54,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
             $this->_em->flush();
         } catch (UniqueConstraintViolationException $ex) {
             // @todo change message here
-            throw new UserAlreadyExistsException('', (int)$ex->getCode(), $ex);
+            throw new UserAlreadyExistsException('User already exist in database', (int)$ex->getCode(), $ex);
         }
     }
 }

@@ -15,6 +15,7 @@ use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\Behat\Context\TranslatedContextInterface;
 use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 use Behatch\Context\RestContext;
 use Behatch\HttpCall\Request;
 use JsonException;
@@ -62,6 +63,22 @@ final class AlbumRestContext extends RestContext
         $em->persist(UserMother::create(
             UserIdMother::create($id)
         ));
+        $em->flush();
+    }
+
+    /**
+     * @Given There are some albums stored in database:
+     */
+    public function thereAreTwoAlbumsInDatabase(TableNode $table): void
+    {
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
+        foreach ($table as $row) {
+            $em->persist(AlbumMother::create(
+                new AlbumId($row['id']),
+                new AlbumTitle($row['title']),
+                new AlbumPublishingDate($row['publishing_date'])
+            ));
+        }
         $em->flush();
     }
 

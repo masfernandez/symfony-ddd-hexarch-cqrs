@@ -1,10 +1,12 @@
 version: "3.4"
 
+# prod env docker-compose file
+
 services:
 
     nginx:
+        image: masfernandez/symfony-nginx:latest
         container_name: ${COMPOSE_PROJECT_NAME}-nginx
-        image: masfernandez/nginx-prod:latest
         ports:
             - "80:80"
             - "443:443"
@@ -22,8 +24,8 @@ services:
             - php
 
     php:
+        image: masfernandez/symfony-php-fpm:latest
         container_name: ${COMPOSE_PROJECT_NAME}-php
-        image: masfernandez/php8-prod:latest
         volumes:
             - .:/var/www/html
             # config

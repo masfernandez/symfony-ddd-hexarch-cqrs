@@ -133,6 +133,10 @@ phpunit-coverage: up-php
 behat: up-php
 	$(PHP-C) vendor/bin/behat -f progress
 
+## —— examples  ————————————————————————————————————————————————————————————
+create-demo-user:
+	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console app:create-user 'test@email.com' '1234567890'
+
 ## —— RUN  ————————————————————————————————————————————————————————————
 test: dump-test up-php db-drop db-create-sqlite phpcs rector psalm behat phpunit
 
