@@ -12,6 +12,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+## [0.1.0] - 2021-01-17
+### Added
+- Symfony Command to create users
+- Examples in README.MD doc
+- Behat tests for albums: Patch and Put features
+- Documentation: about docker images
+### Changed
+- Behat tables when creating fake data
+### Deprecated
+### Removed
+### Fixed
+- "Create Token" static function array bug
+- Docker image sources
+- Semantic versioning for upcoming releases
+### Security
+
 ## [0.0.2] - 2021-01-14
 ### Added
 - Add sections to "Table of Contents" README.md
@@ -33,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First project version
 
-[Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.2...develop
+[Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.1.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.2...v0.1.0
 [0.0.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/releases/tag/v0.0.1

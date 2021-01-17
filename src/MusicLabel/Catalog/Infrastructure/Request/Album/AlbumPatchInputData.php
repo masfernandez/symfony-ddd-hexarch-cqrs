@@ -6,6 +6,7 @@
 
 namespace Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album;
 
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDate;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumTitle;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
 use Masfernandez\MusicLabel\Shared\Infrastructure\InputRequest\InputDataAbstract;
@@ -47,7 +48,7 @@ final class AlbumPatchInputData extends InputDataAbstract
             $constrains['title'] = AlbumTitle::getConstraints();
         }
         if (isset($parameters['publishing_date'])) {
-            $constrains['publishing_date'] = AlbumTitle::getConstraints();
+            $constrains['publishing_date'] = AlbumPublishingDate::getConstraints();
         }
 
         $albumConstrains = new Assert\Collection($constrains);

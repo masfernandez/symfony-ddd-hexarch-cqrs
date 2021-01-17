@@ -64,14 +64,16 @@ I will be adding more examples that I think are interesting and that provide an 
 - [x] Albums module with CQRS pattern (command and query bus)
 - [x] Behat 
 - [x] PHPUnit
+- [x] Basic Authorization, with token mandatory to http POST endpoints
 
 **Upcoming Features**
 - [] Redis examples
-- [] Authorization JWT to some endpoints
 - [] Frontend (Vue, Webpack, Babel, etc.)
 
 
 ## Getting Started
+
+I will add new features and examples, this project is constantly evolving! You can see unreleased code at [here](https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop)
 
 ### Prerequisites
 
@@ -81,45 +83,86 @@ I will be adding more examples that I think are interesting and that provide an 
 
 ### Installation
 
+Clone repo, download deps and create docker services:
+
 ```
 git clone https://github.com/masfernandez/symfony-ddd-hexarch-cqrs.git
+cd symfony-ddd-hexarch-cqrs
 make composer-install
 make up
 ```
 
 ### Running prod env
+Execute at root path:
 
 ```
 make prod-start
 ```
-After few seconds, you have some services running up. 
+
+After few seconds, you have some services running up.
 
 - Rabbit 
-```
-url: http://localhost:15672
-user: root
-pass: toor
-```
+    ```
+    url: http://localhost:15672
+    user: root
+    pass: toor
+    ```
 
 - Kibana
-```
-url: http://localhost:5601
-```
+    ```
+    url: http://localhost:5601
+    ```
 
 #### Curl examples
 
-- Create a new Album:
+In order to create a new Album is mandatory to include a valid token in request's Authorization header. So first, let's  create a new User:
+
 ```
-curl -X POST 'https://backend.127.0.0.1.xip.io/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b9' \
+make create-demo-user
+```
+
+Now, it's time to get a valid token:
+
+```
+curl -X POST 'https://backend.127.0.0.1.xip.io/authentication' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+    "email": "test@email.com",
+    "password": "1234567890"
+}'
+```
+
+You can find the Token in response's Location header:
+
+```
+Server: nginx/1.19.5
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/8.0.0
+Location: 3a49b15da902354fd8cd6d3921616ff836815f037eb2327cdb185ae80dbb264a
+Cache-Control: no-cache, private
+Date: Fri, 15 Jan 2021 11:23:45 GMT
+X-Robots-Tag: noindex
+Strict-Transport-Security: max-age=31536000
+
+{}
+```
+
+We can publish new Albums now! 
+
+```
+curl -X POST 'https://backend.127.0.0.1.xip.io/albums' \
+-H 'Authorization: Bearer 3a49b15da902354fd8cd6d3921616ff836815f037eb2327cdb185ae80dbb264a' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
     "title": "Abbey Road",
-    "publishing_date": "1969-09-26 00:00:00"
+    "publishing_date": "1969-09-26 00:00:00"  
 }'
 ```
 
-- Get all Albums:
+Verifying the Album created:
 ```
 curl -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,publishing_date'
 ```
@@ -137,6 +180,15 @@ make dev-start
 make test
 ```
 
+### Docker info
+There are several services in the Docker stack for this project.
+
+- Nginx: Custom docker image. I will optimize some parameters soon but at this moment is just a wrapper of the official docker image. More info [here](https://github.com/masfernandez/symfony-docker-nginx-phpfpm/blob/master/docker/nginx/Dockerfile)
+- PHP-FPM: Custom docker image. It has 2 main targets, for production and development environment. Each env has some deps that you can check at [here](https://github.com/masfernandez/symfony-docker-nginx-phpfpm/blob/master/docker/php/Dockerfile). This is also a repo I'm working on.
+- RabbitMQ: Official docker image.
+- Elastic Search: Official docker image.
+- LogStash: Official docker image.
+- Kibana: Official docker image.
 
 ## Roadmap
 
@@ -190,4 +242,4 @@ Project Link: [https://github.com/masfernandez/symfony-ddd-hexarch-cqrs](https:/
 [license-url]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/blob/master/LICENSE.txt
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/masfernande
+[linkedin-url]: https://linkedin.com/in/masfernandez

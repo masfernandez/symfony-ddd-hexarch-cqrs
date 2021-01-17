@@ -5,8 +5,10 @@ Feature: Getting Albums
   I want to get albums from the API
 
   Scenario: Get single album. There are 2 o more albums stored
-    Given There is already an Album in database with id "0da69030-3ed7-42b5-8aa5-25fb61dab1b2" title "Abbey Road" and publishing_date "1969-09-26 09:00:00"
-    And There is already an Album in database with id "9be8b428-12ff-4312-806e-22547ea98dcb" title "Let It Be" and publishing_date "1970-05-08 09:00:00"
+    Given There are some albums stored in database:
+      |  id                                     | title        | publishing_date        |
+      |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
+      |  9be8b428-12ff-4312-806e-22547ea98dcb   |  Let It Be   | 1970-05-08 09:00:00    |
 
     When I send a "GET" request to "/albums/9be8b428-12ff-4312-806e-22547ea98dcb"
     Then the response status code should be "200"
