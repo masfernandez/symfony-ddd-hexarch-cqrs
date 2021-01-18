@@ -12,15 +12,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
-        __DIR__ . '/apps/MusicLabelApp/Catalog/backend/src'
+        __DIR__ . '/apps/MusicLabelApp/backend/src'
     ]);
 
     $parameters->set(Option::AUTOLOAD_PATHS, [
-        'apps/MusicLabelApp/Catalog/backend/config/bootstrap.php',
+        'apps/MusicLabelApp/backend/config/bootstrap.php',
     ]);
 
     // SYMFONY CONTAINER
-    $path = __DIR__ . '/apps/MusicLabelApp/Catalog/backend/var/cache';
+    $path = __DIR__ . '/apps/MusicLabelApp/backend/var/cache';
     $kernel_dev_file = $path . '/dev/Masfernandez_MusicLabelApp_Catalog_Infrastructure_Backend_KernelDevDebugContainer.xml';
     $kernel_test_file = $path . '/test/Masfernandez_MusicLabelApp_Catalog_Infrastructure_Backend_KernelTestDebugContainer.xml';
     if (file_exists($kernel_dev_file)) {

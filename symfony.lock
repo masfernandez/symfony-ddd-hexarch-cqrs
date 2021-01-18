@@ -398,7 +398,7 @@
             "ref": "c6d02bdfba9da13c22157520e32a602dbee8a75c"
         },
         "files": [
-            "apps/MusicLabelApp/Catalog/backend/bin/console"
+            "apps/MusicLabelApp/backend/bin/console"
         ]
     },
     "symfony/css-selector": {
@@ -530,7 +530,7 @@
         },
         "files": [
             ".env.test",
-            "apps/MusicLabelApp/Catalog/backend/bin/phpunit",
+            "apps/MusicLabelApp/backend/bin/phpunit",
             "phpunit.xml.dist",
             "tests/bootstrap.php"
         ]

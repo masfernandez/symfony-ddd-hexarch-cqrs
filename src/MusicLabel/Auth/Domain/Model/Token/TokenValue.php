@@ -8,7 +8,7 @@ use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-class TokenValue extends ValueObjectBase
+final class TokenValue extends ValueObjectBase
 {
     public static int $bytes_length = 32;
     public static int $hex_length = 64;

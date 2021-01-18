@@ -8,9 +8,8 @@ use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumCreatedDomainEvent;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDate;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumTitle;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
-use PHPUnit\Framework\TestCase;
 
-class AlbumCreatedDomainEventMother extends TestCase
+class AlbumCreatedDomainEventMother
 {
     public static function create(
         ?AlbumId $id = null,

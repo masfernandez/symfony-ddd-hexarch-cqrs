@@ -10,6 +10,8 @@ use Masfernandez\MusicLabel\Shared\Domain\Model\User\UserId;
 use Masfernandez\Shared\Domain\Model\Aggregate;
 use Stringable;
 
+// Cannot be final cause: Unable to create a proxy for a final exception
+// It doesn't mean is open to inheritance...
 class User extends Aggregate implements Stringable
 {
     private Collection $tokens;

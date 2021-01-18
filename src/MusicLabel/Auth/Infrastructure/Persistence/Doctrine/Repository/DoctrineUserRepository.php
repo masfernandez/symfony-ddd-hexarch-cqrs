@@ -13,7 +13,7 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserPassword;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserRepository;
 
-class DoctrineUserRepository extends ServiceEntityRepository implements UserRepository
+final class DoctrineUserRepository extends ServiceEntityRepository implements UserRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
