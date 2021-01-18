@@ -24,8 +24,7 @@ COMPOSER		= /usr/bin/composer
 
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 musiclabel-app-dir := $(current-dir)apps/musiclabelApp
-musiclabel-bc := $(musiclabel-app-dir)/Catalog
-musiclabel-backend := $(musiclabel-bc)/backend
+musiclabel-backend := $(musiclabel-app-dir)/backend
 
 debug-paths:
 	echo $(current-dir)
@@ -53,20 +52,20 @@ server-stop-musiclabel-backend:
 	$(SYMFONY_BIN) server:stop --dir=$(musiclabel-backend)/public
 
 db-create-sqlite:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:database:create --no-interaction --quiet
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:database:create --no-interaction --quiet
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
 
 db-create:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet
 
 db-update:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:schema:update --dump-sql --force --no-interaction --quiet
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:schema:update --dump-sql --force --no-interaction --quiet
 
 db-migrate:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
 
 db-drop:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:database:drop --force --quiet
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-php:
@@ -81,10 +80,9 @@ up:
 down:
 	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml down --remove-orphans
 
-## —— Comsumer  ————————————————————————————————————————————————————————
-# @todo remove warnign message when starting supervisor (--silent does not work)
+## —— Consumer  ————————————————————————————————————————————————————————
 supervisord:
-	$(PHP-C) supervisord --silent
+	$(PHP-C) supervisord --configuration /etc/supervisor.d/supervisord.ini
 
 ## —— Composer ————————————————————————————————————————————————————————————
 
@@ -115,7 +113,7 @@ phpstan: up-php
 psalm: up-php
 	$(PHP-C) vendor/bin/psalm --long-progress --no-cache --no-file-cache
 		
-phpunit: up-php
+phpunit: dump-test up-php
 	$(PHP-C) vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
@@ -129,12 +127,12 @@ phpunit-coverage: up-php
 			--coverage-html build/test/phpunit tests \
 		unset XDEBUG_MODE"
 
-behat: up-php
+behat: dump-test up-php
 	$(PHP-C) vendor/bin/behat -f progress
 
 ## —— examples  ————————————————————————————————————————————————————————————
 create-demo-user:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console app:create-user 'test@email.com' '1234567890'
+	$(PHP-C) apps/MusicLabelApp/backend/bin/console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
 test: dump-test up-php db-drop db-create-sqlite phpcs rector psalm behat phpunit
@@ -144,5 +142,5 @@ prod-start: dump-prod up db-create db-migrate
 
 stop: down
 
-# Start supervidor to monitor comsumer
+# Start supervisord to monitor consumer
 prod-start dev-start: supervisord

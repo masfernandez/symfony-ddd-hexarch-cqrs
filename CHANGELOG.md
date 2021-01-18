@@ -14,6 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.2.1] - 2021-01-18
+### Added
+### Changed
+- Move backend symfony app to parent folder
+### Deprecated
+### Removed
+### Fixed
+- Default conf file for supervisord to avoid error message
+- Add final to all classes (except some entities)
+### Security
+
+
+
 ## [0.2.0] - 2021-01-18
 ### Added
 - NoSql code examples, with Redis as a database's results cache
@@ -78,6 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.2.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.2...v0.1.0
 [0.0.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.1...v0.0.2

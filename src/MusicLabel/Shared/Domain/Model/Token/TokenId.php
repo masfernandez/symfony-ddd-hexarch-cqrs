@@ -6,7 +6,7 @@ use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
 use Stringable;
 use Symfony\Component\Validator\Constraint;
 
-class TokenId extends ValueObjectBase implements Stringable
+final class TokenId extends ValueObjectBase implements Stringable
 {
     /**
      * @return Constraint[]

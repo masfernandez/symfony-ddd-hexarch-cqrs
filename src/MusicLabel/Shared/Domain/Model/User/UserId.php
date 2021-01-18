@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabel\Shared\Domain\Model\User;
 
 use Masfernandez\Shared\Domain\ValueObject\UuidValueObject;
 
-class UserId extends UuidValueObject
+final class UserId extends UuidValueObject
 {
 
 }

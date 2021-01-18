@@ -8,7 +8,7 @@ use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-class UserPassword extends ValueObjectBase
+final class UserPassword extends ValueObjectBase
 {
     //@todo Salted password (argon)
 

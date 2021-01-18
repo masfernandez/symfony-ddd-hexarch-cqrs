@@ -12,7 +12,7 @@ use Masfernandez\MusicLabel\Shared\Domain\Model\User\UserId;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
 use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
 
-class UserCreator implements ApplicationServiceInterface
+final class UserCreator implements ApplicationServiceInterface
 {
     public function __construct(private UserRepository $userRepository)
     {

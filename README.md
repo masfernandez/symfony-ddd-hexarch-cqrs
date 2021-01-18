@@ -68,6 +68,11 @@ I will be adding more examples that I think are interesting and that provide an 
 - [x] NoSql: Redis examples
 
 **Upcoming Features**
+- Using native PHP amqp extension to publish events (instead of Symfony/Messenger)
+- RabbitMQ configuration wizard (queues and exchanges, retry, dead-letter and bindings)
+- Supervisor configuration wizard (file .ini per queue)
+- Test for all above
+- Aggregates organization 
 - [] Frontend (Vue, Webpack, Babel, etc.)
 
 
@@ -189,6 +194,7 @@ There are several services in the Docker stack for this project.
 - Elastic Search: Official docker image.
 - LogStash: Official docker image.
 - Kibana: Official docker image.
+- Redis: Official docker image.
 
 ## Roadmap
 

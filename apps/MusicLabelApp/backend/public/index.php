@@ -5,7 +5,7 @@ use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
-$root_path = dirname(__DIR__, 5);
+$root_path = dirname(__DIR__, 4);
 require_once $root_path . '/vendor/autoload.php';
 
 (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');

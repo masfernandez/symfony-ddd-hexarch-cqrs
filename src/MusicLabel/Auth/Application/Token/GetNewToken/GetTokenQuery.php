@@ -8,7 +8,7 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserPassword;
 use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
 
-class GetTokenQuery implements RequestInterface
+final class GetTokenQuery implements RequestInterface
 {
     private UserEmail $email;
     private UserPassword $password;
