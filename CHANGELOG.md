@@ -12,6 +12,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+
+
+## [0.2.0] - 2021-01-18
+### Added
+- NoSql code examples, with Redis as a database's results cache
+- SNC bundle to manage Redis
+- Redis service in docker stack
+### Changed
+- Acceptation and Unit tests for a new feature added
+- Documentation
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+
+
 ## [0.1.0] - 2021-01-17
 ### Added
 - Symfony Command to create users
@@ -27,6 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docker image sources
 - Semantic versioning for upcoming releases
 ### Security
+
+
 
 ## [0.0.2] - 2021-01-14
 ### Added
@@ -45,11 +64,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Test to working with the new feature including credentials to POST an Album
 ### Security
 
+
+
 ## [0.0.1] - 2021-01-11
 ### Added
 - First project version
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.2.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.2...v0.1.0
 [0.0.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/releases/tag/v0.0.1

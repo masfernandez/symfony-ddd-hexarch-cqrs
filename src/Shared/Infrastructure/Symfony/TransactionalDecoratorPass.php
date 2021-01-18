@@ -28,7 +28,7 @@ final class TransactionalDecoratorPass implements CompilerPassInterface
             // Add the new decorated service.
             $container->register($alias, TransactionalApplicationServiceDecorator::class)
                 ->setDecoratedService($service)
-                ->setPublic(true)
+                ->setPublic(false)
                 ->setAutowired(true)
                 ->setAutoconfigured(true);
 
@@ -38,9 +38,8 @@ final class TransactionalDecoratorPass implements CompilerPassInterface
     }
 
     /**
-     * @return string[]
-     *
      * @param (int|string) $serviceName
+     * @return string[]
      */
     private function generateAliasName($serviceName): array
     {

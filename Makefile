@@ -66,15 +66,14 @@ db-migrate:
 	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
 
 db-drop:
-	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:database:drop --force
+	$(PHP-C) apps/MusicLabelApp/Catalog/backend/bin/console doctrine:database:drop --force --quiet
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-php:
-	# 2>/dev/null
 	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.tests.yml up -d --remove-orphans
 
 up-dev:
-	$(DOCKER_COMPOSE-LOCAL) up --remove-orphans -d nginx mysql php rabbitmq
+	$(DOCKER_COMPOSE-LOCAL) up --remove-orphans -d nginx mysql php rabbitmq redis
 
 up:
 	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml up --remove-orphans -d
@@ -90,10 +89,10 @@ supervisord:
 ## —— Composer ————————————————————————————————————————————————————————————
 
 composer-install:
-	$(COMPOSER-C) install --no-cache
+	$(COMPOSER-C) install
 
 composer-update:
-	$(COMPOSER-C) update --no-cache
+	$(COMPOSER-C) update
 
 ## —— PHP tests ————————————————————————————————————————————————————————————
 
