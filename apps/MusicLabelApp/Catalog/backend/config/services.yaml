@@ -14,7 +14,7 @@ services:
             $queryBus: '@query.bus'
             $commandBus: '@command.bus'
             $eventBus: '@event.bus'
-
+            Redis $redis: '@snc_redis.default'
 
     _instanceof:
         Masfernandez\Shared\Domain\Bus\Command\CommandHandlerInterface:

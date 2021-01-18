@@ -97,14 +97,6 @@ final class AlbumRestContext extends RestContext
     }
 
     /**
-     * @Given I include header :header with value :value
-     */
-    public function iIncludeHeaderWithValue(string $header, string $token): void
-    {
-
-    }
-
-    /**
      * @Then the JSON response should be equal to:
      */
     public function theResponseShouldBeEqualTo(PyStringNode $expected): void

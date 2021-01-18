@@ -20,7 +20,7 @@ class TokenValue extends ValueObjectBase
     {
         return [
             new Constraints\NotBlank(),
-            new Constraints\Length(['min' => self::$hex_length,'max' => self::$hex_length]),
+            new Constraints\Length(['min' => self::$hex_length, 'max' => self::$hex_length]),
         ];
     }
 }

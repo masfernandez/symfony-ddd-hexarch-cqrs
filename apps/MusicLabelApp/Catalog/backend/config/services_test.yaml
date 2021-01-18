@@ -1,3 +1,5 @@
+parameters:
+
 services:
 
     # default configuration for services in *this* file
@@ -30,8 +32,11 @@ services:
 
 
     # Aliases
+    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner: '@Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner'
+
+
+    # Aliases common
     Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Repository\DoctrineAlbumRepository'
     Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface: '@Masfernandez\Shared\Infrastructure\Bus\Event\InMemory\InMemoryEventPublisher'
     Masfernandez\Shared\Application\Service\TransactionalSession: '@Masfernandez\Shared\Infrastructure\Service\NoTransactionalSession'
-
-    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner: '@Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner'
+    Masfernandez\MusicLabel\Catalog\Domain\Model\Album\InMemoryRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\InMemory\Client'

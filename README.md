@@ -65,9 +65,9 @@ I will be adding more examples that I think are interesting and that provide an 
 - [x] Behat 
 - [x] PHPUnit
 - [x] Basic Authorization, with token mandatory to http POST endpoints
+- [x] NoSql: Redis examples
 
 **Upcoming Features**
-- [] Redis examples
 - [] Frontend (Vue, Webpack, Babel, etc.)
 
 

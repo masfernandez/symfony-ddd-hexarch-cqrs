@@ -141,9 +141,6 @@
             "ref": "3d21344765fd3440a85bdd27d4cada186ec628bd"
         }
     },
-    "friendsofphp/proxy-manager-lts": {
-        "version": "v1.0.2"
-    },
     "fzaninotto/faker": {
         "version": "v1.9.2"
     },
@@ -358,6 +355,15 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "snc/redis-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "85bbdb3d2db531e20874de29bab0587f93604fa8"
+        }
     },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
