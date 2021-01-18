@@ -9,7 +9,7 @@ use Stringable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-class TokenExpirationDate extends ValueObjectBase implements Stringable
+final class TokenExpirationDate extends ValueObjectBase implements Stringable
 {
     public static string $format = 'Y-m-d H:i:s';
     public static string $validity_period = '+5 days';

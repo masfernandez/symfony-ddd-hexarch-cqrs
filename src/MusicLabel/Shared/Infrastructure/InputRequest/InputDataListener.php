@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masfernandez\MusicLabel\Shared\Infrastructure\InputRequest;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

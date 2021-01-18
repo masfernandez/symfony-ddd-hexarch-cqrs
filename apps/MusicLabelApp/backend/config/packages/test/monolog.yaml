@@ -2,6 +2,6 @@ monolog:
     handlers:
         main:
             type: stream
-            path: "%app.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.log"
+            path: "%project.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.log"
             level: debug
             channels: ["!event"]

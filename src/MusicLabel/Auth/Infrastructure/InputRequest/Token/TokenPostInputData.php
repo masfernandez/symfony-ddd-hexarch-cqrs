@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 
-class TokenPostInputData extends InputDataAbstract
+final class TokenPostInputData extends InputDataAbstract
 {
     private string $email;
     private string $password;

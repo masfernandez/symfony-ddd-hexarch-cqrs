@@ -3,10 +3,10 @@ default:
   extensions:
 
     FriendsOfBehat\SymfonyExtension:
-      bootstrap: apps/MusicLabelApp/Catalog/backend/config/bootstrap.php
+      bootstrap: apps/MusicLabelApp/backend/config/bootstrap.php
       kernel:
         class: Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Kernel
-        path: apps/MusicLabelApp/Catalog/backend/src/Kernel.php
+        path: apps/MusicLabelApp/backend/src/Kernel.php
         environment: test
 
     Behatch\Extension: ~

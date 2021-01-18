@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser;
 
 use Masfernandez\Shared\Domain\Bus\Command\CommandInterface;
 
-class NewUserCommand implements CommandInterface
+final class NewUserCommand implements CommandInterface
 {
     public function __construct(private string $email, private string $password)
     {

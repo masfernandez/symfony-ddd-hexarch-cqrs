@@ -9,7 +9,7 @@
  * psalm: ./psalm.xml
  */
 
-$root_path = dirname(__DIR__, 5);
+$root_path = dirname(__DIR__, 4);
 require_once $root_path . '/vendor/autoload.php';
 
 // Loads envs defined in backend

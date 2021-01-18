@@ -5,4 +5,4 @@ monolog:
         deprecation:
             type: stream
             channels: [deprecation]
-            path: "%app.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.deprecations.log"
+            path: "%project.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.deprecations.log"

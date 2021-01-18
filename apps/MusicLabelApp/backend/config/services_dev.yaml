@@ -17,7 +17,7 @@ services:
         arguments: ['@snc_redis.default']
 
 
-    # Aliases
+    # Aliases dev
     Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner: '@Masfernandez\Tests\Shared\Infrastructure\Persistence\MySql\MySqlCleaner'
 
 

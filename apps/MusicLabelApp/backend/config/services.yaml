@@ -1,6 +1,6 @@
 parameters:
 
-    app.root_path: '%kernel.project_dir%/../../../..'
+    project.root_path: '%kernel.project_dir%/../../..'
 
 services:
 
@@ -48,4 +48,4 @@ services:
 
     # Business logic
     Masfernandez\:
-        resource: '%app.root_path%/src/'
+        resource: '%project.root_path%/src/'

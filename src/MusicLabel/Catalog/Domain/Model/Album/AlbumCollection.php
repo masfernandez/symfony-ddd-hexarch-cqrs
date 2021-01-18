@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Catalog\Domain\Model\Album;
 use ArrayIterator;
 use IteratorAggregate;
 
-class AlbumCollection implements IteratorAggregate
+final class AlbumCollection implements IteratorAggregate
 {
     private int $size;
 

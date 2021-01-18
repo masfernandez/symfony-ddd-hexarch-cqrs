@@ -8,7 +8,7 @@ use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-class UserEmail extends ValueObjectBase
+final class UserEmail extends ValueObjectBase
 {
     /**
      * @return Constraint[]
