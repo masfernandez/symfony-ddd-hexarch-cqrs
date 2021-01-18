@@ -11,7 +11,7 @@ services:
 
     # Include Tests
     Masfernandez\Tests\:
-        resource: '%app.root_path%/tests/'
+        resource: '%project.root_path%/tests/'
 
 
     # Behatch services
@@ -31,7 +31,7 @@ services:
             - '@Behatch\HttpCall\HttpCallResultPool'
 
 
-    # Aliases
+    # Aliases tests
     Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner: '@Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner'
 
 

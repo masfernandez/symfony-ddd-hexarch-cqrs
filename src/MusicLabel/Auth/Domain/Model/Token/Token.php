@@ -9,6 +9,8 @@ use Masfernandez\MusicLabel\Shared\Domain\Model\Token\TokenId;
 use Masfernandez\Shared\Domain\Model\Aggregate;
 use Stringable;
 
+// Cannot be final cause: Unable to create a proxy for a final exception
+// It doesn't mean is open to inheritance...
 class Token extends Aggregate implements Stringable
 {
     public function __construct(

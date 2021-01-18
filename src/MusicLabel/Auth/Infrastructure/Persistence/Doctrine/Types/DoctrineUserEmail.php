@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Masfernandez\MusicLabel\Shared\Infrastructure\Persistence\Doctrine\Types\DoctrineAbstractType;
 
-class DoctrineUserEmail extends DoctrineAbstractType
+final class DoctrineUserEmail extends DoctrineAbstractType
 {
     private const MY_TYPE = 'UserEmail';
 

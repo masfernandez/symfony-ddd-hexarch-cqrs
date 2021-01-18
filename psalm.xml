@@ -4,12 +4,12 @@
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
        phpVersion="8.0.0"
        errorLevel="4"
-       autoloader="apps/MusicLabelApp/Catalog/backend/config/bootstrap.php"
+       autoloader="apps/MusicLabelApp/backend/config/bootstrap.php"
 >
     <!-- @todo errorLevel="1" -->
 
     <projectFiles>
-        <directory name="apps/MusicLabelApp/Catalog/backend/src/"/>
+        <directory name="apps/MusicLabelApp/backend/src/"/>
         <directory name="src/"/>
         <directory name="tests/"/>
         <ignoreFiles>
@@ -64,7 +64,7 @@
 
         <UnimplementedInterfaceMethod>
             <errorLevel type="suppress">
-                <file name="apps/MusicLabelApp/Catalog/backend/src/Kernel.php"/>
+                <file name="apps/MusicLabelApp/backend/src/Kernel.php"/>
             </errorLevel>
         </UnimplementedInterfaceMethod>
 

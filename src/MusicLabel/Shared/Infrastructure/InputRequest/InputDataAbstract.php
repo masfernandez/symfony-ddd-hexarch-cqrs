@@ -2,6 +2,8 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+declare(strict_types=1);
+
 namespace Masfernandez\MusicLabel\Shared\Infrastructure\InputRequest;
 
 use Symfony\Component\HttpFoundation\Request;

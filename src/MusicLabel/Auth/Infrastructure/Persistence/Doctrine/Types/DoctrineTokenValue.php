@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Types
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Masfernandez\MusicLabel\Shared\Infrastructure\Persistence\Doctrine\Types\DoctrineAbstractType;
 
-class DoctrineTokenValue extends DoctrineAbstractType
+final class DoctrineTokenValue extends DoctrineAbstractType
 {
     private const MY_TYPE = 'TokenValue';
 

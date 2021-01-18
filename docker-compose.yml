@@ -30,7 +30,7 @@ services:
             - .:/var/www/html
             # config
             - ./docker/php/usr/local/etc/php/conf.d/symfony.prod.ini:/usr/local/etc/php/conf.d/symfony.ini
-            - ./docker/php/etc/supervisor/conf.d/messenger-worker.conf:/etc/supervisor.d/messenger-worker.ini
+            - ./docker/php/etc/supervisor/conf.d:/etc/supervisor.d
         depends_on:
             - mysql
             - rabbitmq

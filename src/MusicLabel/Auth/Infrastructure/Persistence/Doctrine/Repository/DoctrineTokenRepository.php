@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masfernandez\MusicLabel\Auth\Infrastructure\Persistence\Doctrine\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -9,7 +11,7 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\Token\Token;
 use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenRepository;
 use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenValue;
 
-class DoctrineTokenRepository extends ServiceEntityRepository implements TokenRepository
+final class DoctrineTokenRepository extends ServiceEntityRepository implements TokenRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

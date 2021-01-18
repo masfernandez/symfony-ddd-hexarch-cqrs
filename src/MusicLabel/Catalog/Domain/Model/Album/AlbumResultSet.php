@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabel\Catalog\Domain\Model\Album;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumAssembler;
 
-class AlbumResultSet
+final class AlbumResultSet
 {
     private array $albums;
 

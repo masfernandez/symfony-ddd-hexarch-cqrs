@@ -20,9 +20,11 @@ class AlbumFinderTest extends TestCase
         $id = AlbumIdMother::create();
         $albumExpected = AlbumMother::create(id: $id);
 
+        // mocks
         $albumRepository = Mockery::mock(AlbumRepository::class);
         $albumRepository->allows()->getById($id)->andReturns($albumExpected);
 
+        // application service
         $albumActual = (new AlbumFinder($albumRepository))->findById($id);
         self::assertEquals($albumExpected, $albumActual);
     }

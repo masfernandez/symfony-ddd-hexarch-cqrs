@@ -12,7 +12,7 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserRepository;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
 use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
 
-class NewTokenCreator implements ApplicationServiceInterface
+final class NewTokenCreator implements ApplicationServiceInterface
 {
     public function __construct(private UserRepository $userRepository, private TokenRepository $tokenRepository)
     {

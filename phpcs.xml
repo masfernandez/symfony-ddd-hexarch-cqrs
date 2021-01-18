@@ -6,8 +6,8 @@
 
     <exclude-pattern>var/</exclude-pattern>
     <exclude-pattern>vendor/</exclude-pattern>
-    <exclude-pattern>apps/MusicLabelApp/Catalog/backend/config/</exclude-pattern>
-    <exclude-pattern>apps/MusicLabelApp/Catalog/backend/migrations/</exclude-pattern>
+    <exclude-pattern>apps/MusicLabelApp/backend/config/</exclude-pattern>
+    <exclude-pattern>apps/MusicLabelApp/backend/migrations/</exclude-pattern>
 
     <arg value="-colors"/>
     <arg value="ns"/>

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken;
 
-class TokenResponse
+final class TokenResponse
 {
     public function __construct(private string $token)
     {
