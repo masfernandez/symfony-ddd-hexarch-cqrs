@@ -33,6 +33,7 @@
         "lambdish/phunctional": "^2.1",
         "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^5.6",
+        "snc/redis-bundle": "^3.3",
         "symfony/amqp-messenger": "5.2.*",
         "symfony/console": "5.2.*",
         "symfony/doctrine-messenger": "5.2.*",

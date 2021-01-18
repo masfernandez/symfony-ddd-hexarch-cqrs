@@ -3,9 +3,10 @@
 namespace Masfernandez\MusicLabel\Shared\Domain\Model\Token;
 
 use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
+use Stringable;
 use Symfony\Component\Validator\Constraint;
 
-class TokenId extends ValueObjectBase implements \Stringable
+class TokenId extends ValueObjectBase implements Stringable
 {
     /**
      * @return Constraint[]
