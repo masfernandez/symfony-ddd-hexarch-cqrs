@@ -8,5 +8,8 @@ use Masfernandez\Shared\Domain\ValueObject\UuidValueObject;
 
 final class AlbumId extends UuidValueObject
 {
-
+    public function toString(): string
+    {
+        return $this->toRfc4122();
+    }
 }

@@ -6,12 +6,10 @@ services:
 
     nginx:
         image: masfernandez/symfony-nginx:latest-dev
-        container_name: ${COMPOSE_PROJECT_NAME}-nginx
         volumes:
             - ./docker/nginx/etc/nginx/certs/dev:/etc/nginx/certs:ro
     php:
         image: masfernandez/symfony-php-fpm:latest-dev
-        container_name: ${COMPOSE_PROJECT_NAME}-php
         # Uncomment and configure as needed when testing/debugging
         #environment:
         #    XDEBUG_CONFIG: client_host=host.docker.internal

@@ -37,6 +37,15 @@ services:
         networks:
             - db
             - php
+            - redis
+
+    redis:
+        container_name: ${COMPOSE_PROJECT_NAME}-redis
+        image: redis:latest
+        ports:
+            - 6379:6379
+        networks:
+            - redis
 
     mysql:
         container_name: ${COMPOSE_PROJECT_NAME}-mysql
@@ -107,5 +116,6 @@ services:
 
 networks:
     db:
+    redis:
     php:
     elk_stack:

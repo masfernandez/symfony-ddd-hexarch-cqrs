@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Catalog\Application\Album\Patch;
 
+use JsonException;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\InMemoryRepository;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
 use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
 
 final class AlbumPatcher implements ApplicationServiceInterface
 {
-    public function __construct(private AlbumRepository $repository)
+    public function __construct(private AlbumRepository $repository, private InMemoryRepository $inMemoryRepository)
     {
     }
 
-    /** @throws AlbumNotFound */
+    /** @throws AlbumNotFound|JsonException */
     public function execute(PatchAlbumCommand | RequestInterface $request): void
     {
         $album = $this->repository->getById($request->getId()) ??
@@ -25,5 +27,10 @@ final class AlbumPatcher implements ApplicationServiceInterface
             $request->getPublishingDate(),
         );
         $this->repository->patch($album);
+
+        $this->inMemoryRepository->set(
+            $request->getId()->toString(),
+            json_encode($album->toArray(), JSON_THROW_ON_ERROR)
+        );
     }
 }

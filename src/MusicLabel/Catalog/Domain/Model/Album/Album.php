@@ -98,4 +98,9 @@ class Album extends Aggregate implements Stringable
     {
         return get_class($this) . ':' . $this->id->value();
     }
+
+    public function getId(): AlbumId
+    {
+        return $this->id;
+    }
 }

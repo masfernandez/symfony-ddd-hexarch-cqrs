@@ -9,7 +9,16 @@ services:
         public: false       # Private services by default
 
 
-    # Aliases
+    #
+    Redis: '@snc_redis.default'
+    Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Redis\Client:
+        public : true
+        autowire: true
+        arguments: ['@snc_redis.default']
+
+
+    # Aliases common
     Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Doctrine\Repository\DoctrineAlbumRepository'
     Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface: '@Masfernandez\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventPublisher'
     Masfernandez\Shared\Application\Service\TransactionalSession: '@Masfernandez\Shared\Infrastructure\Service\DoctrineTransactionalSession'
+    Masfernandez\MusicLabel\Catalog\Domain\Model\Album\InMemoryRepository: '@Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Redis\Client'
