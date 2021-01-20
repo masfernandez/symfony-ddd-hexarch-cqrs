@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\Album;
+namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Controller\Album;
 
 use Exception;
 use Masfernandez\MusicLabel\Auth\Domain\Model\Token\InvalidCredentials;

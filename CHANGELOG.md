@@ -14,6 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.2.2] - 2021-01-20
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Move Backend symfony app from Catalog to MusicLabelApp
+### Security
+
+
 ## [0.2.1] - 2021-01-18
 ### Added
 ### Changed
@@ -91,6 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.2.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.0.2...v0.1.0

@@ -19,8 +19,6 @@ final class AlbumMinkContext extends MinkContext
 {
     /**
      * @Then the response status code should be :code
-     *
-     * @return void
      */
     public function theResponseStatusCodeShouldBe($code): void
     {

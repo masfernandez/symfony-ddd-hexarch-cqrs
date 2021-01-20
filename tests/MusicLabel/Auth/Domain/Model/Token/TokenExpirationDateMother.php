@@ -10,10 +10,14 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenExpirationDate;
 class TokenExpirationDateMother
 {
 
-    public static function create(?DateTime $date = null): TokenExpirationDate
+    /**
+     * @param \DateTime|\DateTimeImmutable|null $date
+     */
+    public static function create(?\DateTimeInterface $date = null): TokenExpirationDate
     {
         return new TokenExpirationDate(
-            $date ?? date(TokenExpirationDate::$format, strtotime(TokenExpirationDate::$validity_period))
+            $date ??
+            date(TokenExpirationDate::FORMAT, strtotime(TokenExpirationDate::VALIDITY_PERIOD))
         );
     }
 }

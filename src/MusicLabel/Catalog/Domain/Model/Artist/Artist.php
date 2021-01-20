@@ -63,7 +63,7 @@ class Artist implements Stringable
             'id' => $this->id->value(),
             'name' => $this->name->value(),
             'specialisation' => $this->specialisation->value(),
-            'adding_date' => $this->adding_date->value()->format(ArtistAddingDate::$format)
+            'adding_date' => $this->adding_date->value()->format(ArtistAddingDate::FORMAT)
         ];
     }
 

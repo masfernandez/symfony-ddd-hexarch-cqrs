@@ -32,12 +32,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class AlbumRestContext extends RestContext
 {
-    private ContainerInterface $container;
-
-    public function __construct(Request $request, ContainerInterface $container)
+    public function __construct(Request $request, private ContainerInterface $container)
     {
         parent::__construct($request);
-        $this->container = $container;
     }
 
     /**
