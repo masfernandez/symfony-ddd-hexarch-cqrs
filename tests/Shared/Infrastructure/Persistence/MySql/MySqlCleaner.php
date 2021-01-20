@@ -10,11 +10,8 @@ use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;
 
 class MySqlCleaner implements RepositoryCleaner
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     public function truncateDataStored(): void
@@ -32,7 +29,7 @@ class MySqlCleaner implements RepositoryCleaner
 
     private function truncateDatabaseSql(array $tables): string
     {
-        $sql = array_map(static function ($table) {
+        $sql = array_map(static function ($table): string {
             return ($table[0] === 'doctrine_migration_versions') ? '' : sprintf('TRUNCATE TABLE `%s`;', $table[0]);
         }, $tables);
 

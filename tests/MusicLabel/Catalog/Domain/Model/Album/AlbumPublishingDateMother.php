@@ -10,10 +10,13 @@ use Masfernandez\Tests\Shared\Infrastructure\PhpUnit\FakerMother;
 
 class AlbumPublishingDateMother
 {
-    public static function create(?DateTime $value = null): AlbumPublishingDate
+    /**
+     * @param \DateTime|\DateTimeImmutable|null $value
+     */
+    public static function create(?\DateTimeInterface $value = null): AlbumPublishingDate
     {
         return new AlbumPublishingDate(
-            $value ?? FakerMother::random()->dateTime->format(AlbumPublishingDate::$format)
+            $value ?? FakerMother::random()->dateTime->format(AlbumPublishingDate::FORMAT)
         );
     }
 }

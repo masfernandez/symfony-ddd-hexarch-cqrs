@@ -9,7 +9,7 @@ use Masfernandez\Tests\Shared\Infrastructure\PhpUnit\FakerMother;
 
 class AlbumFieldsMother
 {
-    public static function create(?array $fields = []): array
+    public static function create(?array $fields = []): ?array
     {
         if (count($fields) !== 0) {
             return $fields;

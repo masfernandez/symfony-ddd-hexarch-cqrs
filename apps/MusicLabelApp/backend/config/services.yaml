@@ -31,7 +31,7 @@ services:
 
 
     # Symfony
-    Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\:
+    Masfernandez\MusicLabelApp\Infrastructure\Backend\:
         resource: '%kernel.project_dir%/src/'
         exclude:
             - '%kernel.project_dir%/src/DependencyInjection/'
@@ -41,7 +41,7 @@ services:
 
 
     # Controllers
-    Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\:
+    Masfernandez\MusicLabelApp\Infrastructure\Backend\Controller\:
         resource: '%kernel.project_dir%/src/Controller/'
         tags: ['controller.service_arguments']
 

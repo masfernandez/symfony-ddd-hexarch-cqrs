@@ -5,7 +5,7 @@ default:
     FriendsOfBehat\SymfonyExtension:
       bootstrap: apps/MusicLabelApp/backend/config/bootstrap.php
       kernel:
-        class: Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Kernel
+        class: Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel
         path: apps/MusicLabelApp/backend/src/Kernel.php
         environment: test
 

@@ -19,14 +19,13 @@ class AlbumAssemblerTest extends TestCase
      */
     public function itShouldReturnAnAlbum(): void
     {
-        $album = AlbumAssembler::fromArray(
+        AlbumAssembler::fromArray(
             [
                 Album::ID => AlbumIdMother::create()->value(),
                 Album::TITLE => AlbumTitleMother::create()->value(),
                 Album::PUBLISHING_DATE => AlbumPublishingDateMother::create()->value()
             ]
         );
-        // unnecessary asserting not null
     }
 
     /**
@@ -34,7 +33,6 @@ class AlbumAssemblerTest extends TestCase
      */
     public function itShouldReturnAnArray(): void
     {
-        $array = AlbumAssembler::toArray(AlbumMother::create());
-        // unnecessary asserting not null
+        AlbumAssembler::toArray(AlbumMother::create());
     }
 }

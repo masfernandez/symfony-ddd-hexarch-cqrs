@@ -9,7 +9,7 @@ namespace Masfernandez\Tests\MusicLabel\Catalog\Infrastructure\Persistence\Doctr
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Kernel;
+use Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumIdMother;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDateMother;

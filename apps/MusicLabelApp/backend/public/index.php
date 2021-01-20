@@ -1,6 +1,6 @@
 <?php
 
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Kernel;
+use Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;

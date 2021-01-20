@@ -24,7 +24,7 @@ class TransactionalApplicationServiceDecoratorTest extends TestCase
         $session = Mockery::mock(TransactionalSession::class)->shouldIgnoreMissing();
         $service = Mockery::mock(ApplicationServiceInterface::class)->shouldIgnoreMissing();
         $session->expects()->executeTransactionalOperation(Mockery::on(
-            function ($callback) {
+            function ($callback): void {
                 $callback();
             }
         ));
