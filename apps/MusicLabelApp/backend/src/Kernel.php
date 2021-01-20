@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend;
+namespace Masfernandez\MusicLabelApp\Infrastructure\Backend;
 
 use Masfernandez\Shared\Infrastructure\Symfony\TransactionalDecoratorPass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;

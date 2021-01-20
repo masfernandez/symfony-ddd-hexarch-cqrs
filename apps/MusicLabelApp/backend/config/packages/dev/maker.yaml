@@ -4,4 +4,4 @@ maker:
   # tell MakerBundle that all of your classes lives in an
   # Acme namespace, instead of the default App
   # (e.g. Acme\Entity\Article, Acme\Command\MyCommand, etc)
-  root_namespace: 'Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend'
+  root_namespace: 'Masfernandez\MusicLabelApp\Infrastructure\Backend'
