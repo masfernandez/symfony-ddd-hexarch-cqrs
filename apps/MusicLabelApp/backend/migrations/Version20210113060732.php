@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Migrations;
+namespace Masfernandez\MusicLabelApp\Infrastructure\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;

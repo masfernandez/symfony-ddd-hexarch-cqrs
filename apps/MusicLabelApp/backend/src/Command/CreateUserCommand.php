@@ -1,6 +1,6 @@
 <?php
 
-namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Command;
+namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Command;
 
 use Exception;
 use Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser\NewUserCommand;

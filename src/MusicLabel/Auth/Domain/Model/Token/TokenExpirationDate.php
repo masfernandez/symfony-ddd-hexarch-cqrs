@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints;
 
 final class TokenExpirationDate extends ValueObjectBase implements Stringable
 {
-    public static string $format = 'Y-m-d H:i:s';
-    public static string $validity_period = '+5 days';
+    public const FORMAT = 'Y-m-d H:i:s';
+    public const VALIDITY_PERIOD = '+5 days';
 
     /**
      * @return Constraint[]

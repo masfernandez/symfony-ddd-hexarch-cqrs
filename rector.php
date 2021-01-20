@@ -12,7 +12,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
-        __DIR__ . '/apps/MusicLabelApp/backend/src'
+        __DIR__ . '/tests',
+        __DIR__ . '/apps/MusicLabelApp/backend/src',
     ]);
 
     $parameters->set(Option::AUTOLOAD_PATHS, [
@@ -21,8 +22,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // SYMFONY CONTAINER
     $path = __DIR__ . '/apps/MusicLabelApp/backend/var/cache';
-    $kernel_dev_file = $path . '/dev/Masfernandez_MusicLabelApp_Catalog_Infrastructure_Backend_KernelDevDebugContainer.xml';
-    $kernel_test_file = $path . '/test/Masfernandez_MusicLabelApp_Catalog_Infrastructure_Backend_KernelTestDebugContainer.xml';
+    $kernel_dev_file = $path . '/dev/Masfernandez_MusicLabelApp_Infrastructure_Backend_KernelDevDebugContainer.xml';
+    $kernel_test_file = $path . '/test/Masfernandez_MusicLabelApp_Infrastructure_Backend_KernelTestDebugContainer.xml';
     if (file_exists($kernel_dev_file)) {
         $container = $kernel_dev_file;
     } else if (file_exists($kernel_test_file)) {

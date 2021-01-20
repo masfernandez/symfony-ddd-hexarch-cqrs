@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints;
 
 final class TokenValue extends ValueObjectBase
 {
-    public static int $bytes_length = 32;
-    public static int $hex_length = 64;
+    public const BYTES_LENGTH = 32;
+    public const HEX_LENGTH = 64;
 
     /**
      * @return Constraint[]
@@ -20,7 +20,7 @@ final class TokenValue extends ValueObjectBase
     {
         return [
             new Constraints\NotBlank(),
-            new Constraints\Length(['min' => self::$hex_length, 'max' => self::$hex_length]),
+            new Constraints\Length(['min' => self::HEX_LENGTH, 'max' => self::HEX_LENGTH]),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\Album;
+namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Controller\Album;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumResponse;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumsResponse;

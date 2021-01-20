@@ -3,7 +3,7 @@
 
 date_default_timezone_set("Europe/Madrid");
 
-use Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Kernel;
+use Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Dotenv\Dotenv;

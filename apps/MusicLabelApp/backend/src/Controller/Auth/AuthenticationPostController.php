@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\MusicLabelApp\Catalog\Infrastructure\Backend\Controller\Auth;
+namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Controller\Auth;
 
 use Exception;
 use Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken\GetTokenQuery;

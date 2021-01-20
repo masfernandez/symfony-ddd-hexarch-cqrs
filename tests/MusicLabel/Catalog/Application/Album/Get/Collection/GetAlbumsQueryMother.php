@@ -22,7 +22,7 @@ class GetAlbumsQueryMother
             $size ?? FakerMother::random()->numberBetween(1, 10),
             $fields ?? AlbumFieldsMother::create(),
             $filters ?? [],
-            $sort ?? array_map(static function ($field) {
+            $sort ?? array_map(static function ($field): string {
                 return FakerMother::random()->randomElement(['', '-']) . $field;
             }, AlbumFieldsMother::create()),
         );

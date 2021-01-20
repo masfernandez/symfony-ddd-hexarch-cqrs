@@ -23,8 +23,8 @@ class Token extends Aggregate implements Stringable
 
     public static function create(User $user): self
     {
-        $value = substr(bin2hex(random_bytes(TokenValue::$bytes_length)), 0, TokenValue::$hex_length);
-        $expiration_date = date(TokenExpirationDate::$format, strtotime(TokenExpirationDate::$validity_period));
+        $value = substr(bin2hex(random_bytes(TokenValue::BYTES_LENGTH)), 0, TokenValue::HEX_LENGTH);
+        $expiration_date = date(TokenExpirationDate::FORMAT, strtotime(TokenExpirationDate::VALIDITY_PERIOD));
         return new Token($user, new TokenValue($value), new TokenExpirationDate($expiration_date), new TokenId(null));
     }
 
