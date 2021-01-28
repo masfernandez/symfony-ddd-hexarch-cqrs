@@ -24,6 +24,9 @@ class SqliteCleaner implements RepositoryCleaner
         $connection->executeStatement($truncateTablesSql);
     }
 
+    /**
+     * @return mixed[]
+     */
     private function tables(Connection $connection): array
     {
         return $connection->executeQuery("SELECT name FROM sqlite_master WHERE type='table'")->fetchAllNumeric();

@@ -14,6 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.2.3] - 2021-01-28
+### Added
+- DumpEnvCommand to generate .env.local.php properly
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Rector and Psalm errors
+- README
+### Security
+
+
+
 ## [0.2.2] - 2021-01-20
 ### Added
 ### Changed
@@ -101,6 +114,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.2.3]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.1.0...v0.2.0
