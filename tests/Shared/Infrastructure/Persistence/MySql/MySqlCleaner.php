@@ -22,6 +22,9 @@ class MySqlCleaner implements RepositoryCleaner
         $connection->executeStatement($truncateTablesSql);
     }
 
+    /**
+     * @return mixed[]
+     */
     private function tables(Connection $connection): array
     {
         return $connection->executeQuery('SHOW TABLES')->fetchAllNumeric();

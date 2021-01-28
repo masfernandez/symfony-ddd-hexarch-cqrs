@@ -35,6 +35,9 @@ abstract class ValueObjectBase
         return static::defineConstraints();
     }
 
+    /**
+     * @return mixed[]
+     */
     abstract protected static function defineConstraints(): array;
 
     public function value()

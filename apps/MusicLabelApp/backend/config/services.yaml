@@ -49,3 +49,8 @@ services:
     # Business logic
     Masfernandez\:
         resource: '%project.root_path%/src/'
+
+    # Service config.
+    Masfernandez\MusicLabelApp\Infrastructure\Backend\Command\DumpEnvCommand:
+        arguments:
+            - '%kernel.project_dir%'
