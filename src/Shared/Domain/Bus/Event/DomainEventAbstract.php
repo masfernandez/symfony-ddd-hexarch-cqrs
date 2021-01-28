@@ -26,6 +26,9 @@ abstract class DomainEventAbstract
         string $eventDate
     ): self;
 
+    /**
+     * @return mixed[]
+     */
     abstract public function toPrimitives(): array;
 
     public function aggregateId(): string

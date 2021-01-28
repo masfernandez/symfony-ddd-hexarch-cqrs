@@ -5,15 +5,11 @@
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 # Executables: local
-SYMFONY_BIN-LOCAL		= /usr/local/bin/symfony
 DOCKER-LOCAL   	  		= /usr/local/bin/docker
 DOCKER_COMPOSE-LOCAL   	= /usr/local/bin/docker-compose
-COMPOSER-LOCAL			= /usr/local/bin/composer
-PHP74-LOCAL				= /usr/local/Cellar/php@7.4/7.4.13_1/bin/php
-PHP80-LOCAL				= /usr/local/Cellar/php/8.0.0_1/bin/php
 
 # Containers
-PHP-C			= docker exec -it docker-symfony-php
+PHP				= docker exec -it docker-symfony-php
 COMPOSER-C		= docker run --rm --interactive --volume $(current-dir):/app composer
 
 # Executables: within containers
@@ -33,16 +29,14 @@ debug-paths:
 
 ## —— envs —————————————————————————————————————————————————————————————————
 
-# @todo run these targets within PHP container
-
 dump-dev:
-	$(COMPOSER-LOCAL) dump-env --working-dir=$(musiclabel-backend) dev
+	$(PHP) apps/MusicLabelApp/backend/bin/console app:dump-env dev
 
 dump-test:
-	$(COMPOSER-LOCAL) dump-env --working-dir=$(musiclabel-backend) test
+	$(PHP) apps/MusicLabelApp/backend/bin/console app:dump-env test
 
 dump-prod:
-	$(COMPOSER-LOCAL) dump-env --working-dir=$(musiclabel-backend) prod
+	$(PHP) apps/MusicLabelApp/backend/bin/console app:dump-env prod
 
 ## —— development env ————————————————————————————————————————————————————————
 server-start-musiclabel-backend:
@@ -52,20 +46,20 @@ server-stop-musiclabel-backend:
 	$(SYMFONY_BIN) server:stop --dir=$(musiclabel-backend)/public
 
 db-create-sqlite:
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:database:create --no-interaction --quiet
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
+	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:database:create --no-interaction --quiet
+	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
 
 db-create:
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet
+	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet
 
 db-update:
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:schema:update --dump-sql --force --no-interaction --quiet
+	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:schema:update --dump-sql --force --no-interaction --quiet
 
 db-migrate:
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
+	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
 
 db-drop:
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
+	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-php:
@@ -82,7 +76,7 @@ down:
 
 ## —— Consumer  ————————————————————————————————————————————————————————
 supervisord:
-	$(PHP-C) supervisord --configuration /etc/supervisor.d/supervisord.ini
+	$(PHP) supervisord --configuration /etc/supervisor.d/supervisord.ini
 
 ## —— Composer ————————————————————————————————————————————————————————————
 
@@ -95,31 +89,31 @@ composer-update:
 ## —— PHP tests ————————————————————————————————————————————————————————————
 
 phpcs: up-php
-	$(PHP-C) vendor/bin/phpcs -p --colors
+	$(PHP) vendor/bin/phpcs -p --colors
 
 phpcs-build: up-php
-	$(PHP-C) vendor/bin/phpcbf
+	$(PHP) vendor/bin/phpcbf
 	
 rector: up-php
-	$(PHP-C) vendor/bin/rector process --dry-run
+	$(PHP) vendor/bin/rector process --dry-run
 
 rector-build: up-php
-	$(PHP-C) vendor/bin/rector process
+	$(PHP) vendor/bin/rector process
 
 # @todo include phpstan in testing
 phpstan: up-php
-	$(PHP-C) vendor/bin/phpstan analyse src tests
+	$(PHP) vendor/bin/phpstan analyse src tests
 
 psalm: up-php
-	$(PHP-C) vendor/bin/psalm --long-progress --no-cache --no-file-cache
+	$(PHP) vendor/bin/psalm --long-progress --no-cache --no-file-cache
 		
 phpunit: dump-test up-php
-	$(PHP-C) vendor/bin/phpunit \
+	$(PHP) vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
 
 phpunit-coverage: up-php
-	$(PHP-C) bash -c "\
+	$(PHP) bash -c "\
 		export XDEBUG_MODE=coverage && \
 		vendor/bin/phpunit \
 			--exclude-group='disabled' \
@@ -128,17 +122,17 @@ phpunit-coverage: up-php
 		unset XDEBUG_MODE"
 
 behat: dump-test up-php
-	$(PHP-C) vendor/bin/behat -f progress
+	$(PHP) vendor/bin/behat -f progress
 
 ## —— examples  ————————————————————————————————————————————————————————————
 create-demo-user:
-	$(PHP-C) apps/MusicLabelApp/backend/bin/console app:create-user 'test@email.com' '1234567890'
+	$(PHP) apps/MusicLabelApp/backend/bin/console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: dump-test up-php db-drop db-create-sqlite phpcs rector psalm behat phpunit
+test: up-php dump-test db-drop db-create-sqlite phpcs rector psalm behat phpunit
 
-dev-start: dump-dev up-dev db-create db-migrate
-prod-start: dump-prod up db-create db-migrate
+dev-start: up-dev dump-dev db-create db-migrate
+prod-start: up dump-prod db-create db-migrate
 
 stop: down
 

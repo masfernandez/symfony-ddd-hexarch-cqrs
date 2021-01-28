@@ -17,13 +17,8 @@ default:
           symfony: ~
 
 
-  # vendor/bin/behat (or compose behat)
+  # vendor/bin/behat
   suites:
-#    default:
-#      contexts:
-#        - Behatch\Context\JsonContext
-#        - Behatch\Context\RestContext
-#        - Behat\MinkExtension\Context\MinkContext
 
     # vendor/bin/behat -s Catalog features/MusicLabel/Catalog
     # vendor/bin/behat -s Catalog features/MusicLabel/Catalog/AlbumGet.feature
@@ -36,7 +31,7 @@ default:
         - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
 
     # vendor/bin/behat -s OtherContext features/MusicLabel/Management
-    # (it will ask to generate steps)
+    # (just an other context unfinished example, it will ask to generate steps...)
     OtherContext:
       paths: [ features/MusicLabel/Management ]
       contexts:

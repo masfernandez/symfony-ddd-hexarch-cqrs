@@ -60,20 +60,21 @@ I will be adding more examples that I think are interesting and that provide an 
 - [x] DDD guidelines
 - [x] Hexagonal Architecture
 - [x] SOLID
-- [x] Docker  
+- [x] Docker
+- [x] Doctrine ORM & DB migrations
 - [x] Albums module with CQRS pattern (command and query bus)
-- [x] Behat 
-- [x] PHPUnit
-- [x] Basic Authorization, with token mandatory to http POST endpoints
+- [x] Static code analysis: PHPCS, Rector, Psalm 
+- [x] Unit and integration tests: PHPUnit
+- [x] Acceptance tests: Behat
+- [x] Basic Authorization, with mandatory token to http POST endpoints
 - [x] NoSql: Redis examples
 
 **Upcoming Features**
+- Frontend examples (React, Webpack, Babel, etc.)
+- Aggregates organization  
 - Using native PHP amqp extension to publish events (instead of Symfony/Messenger)
 - RabbitMQ configuration wizard (queues and exchanges, retry, dead-letter and bindings)
 - Supervisor configuration wizard (file .ini per queue)
-- Test for all above
-- Aggregates organization 
-- [] Frontend (Vue, Webpack, Babel, etc.)
 
 
 ## Getting Started
