@@ -16,8 +16,7 @@ class TokenMother
         ?TokenValue $tokenValue = null,
         ?TokenExpirationDate $tokenExpirationDate = null,
         ?TokenId $tokenId = null
-    ): Token
-    {
+    ): Token {
         return new Token(
             $user ?? UserMother::create(),
             $tokenValue ?? TokenValueMother::create(),

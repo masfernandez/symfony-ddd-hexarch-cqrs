@@ -30,6 +30,7 @@ framework:
             sync: '%env(SYNC_TRANSPORT_DSN)%'
 
         routing:
-            'Masfernandez\Shared\Domain\Bus\Command\SyncCommandInterface': sync
-            'Masfernandez\Shared\Domain\Bus\Query\SyncQueryInterface': sync
-            'Masfernandez\Shared\Domain\Bus\Event\AsyncEventInterface': async
+            'Masfernandez\Shared\Domain\Bus\Command\SyncCommand': sync
+            'Masfernandez\Shared\Domain\Bus\Query\SyncQuery': sync
+            'Masfernandez\Shared\Domain\Bus\Event\AsyncEvent': async
+            'Masfernandez\Shared\Domain\Bus\Event\SyncEvent': sync

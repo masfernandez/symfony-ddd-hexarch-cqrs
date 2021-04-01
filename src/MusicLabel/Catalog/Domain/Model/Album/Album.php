@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Artist\Artist;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
-use Masfernandez\Shared\Domain\Bus\Event\DomainEventAbstract;
+use Masfernandez\Shared\Domain\Bus\Event\DomainEvent;
 use Masfernandez\Shared\Domain\Model\Aggregate;
 use Stringable;
 
@@ -30,7 +30,7 @@ class Album extends Aggregate implements Stringable
             $title->value(),
             $publishing_date->value(),
             null,
-            (new DateTime())->format(DomainEventAbstract::$dateFormat)
+            (new DateTime())->format(DomainEvent::$dateFormat)
         ));
     }
 

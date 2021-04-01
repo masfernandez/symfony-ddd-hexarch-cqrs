@@ -1,6 +1,14 @@
 # IDE
 !.idea/runConfigurationsShared/
 
+# Symfony MusicLabelApp
+apps/MusicLabelApp/backend/.env.local
+apps/MusicLabelApp/backend/.env.local.php
+apps/MusicLabelApp/backend/.env.*.local
+apps/MusicLabelApp/backend/config/secrets/prod/prod.decrypt.private.php
+apps/MusicLabelApp/backend/public/bundles/
+apps/MusicLabelApp/backend/var/
+
 # project
 build/
 var/

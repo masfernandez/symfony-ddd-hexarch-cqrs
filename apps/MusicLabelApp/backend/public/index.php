@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * @noinspection PhpUnhandledExceptionInspection
+ * @noinspection PhpIncludeInspection
+ */
+
 use Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
+
+date_default_timezone_set("UTC");
 
 $root_path = dirname(__DIR__, 4);
 require_once $root_path . '/vendor/autoload.php';

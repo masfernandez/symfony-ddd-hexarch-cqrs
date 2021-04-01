@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\InMemory;
 
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\InMemoryRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\CacheInMemory;
 
-final class Client implements InMemoryRepository
+final class Client implements CacheInMemory
 {
     private array $data = [];
 

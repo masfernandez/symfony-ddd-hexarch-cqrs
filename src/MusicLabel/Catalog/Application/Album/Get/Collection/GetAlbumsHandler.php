@@ -6,9 +6,9 @@ namespace Masfernandez\MusicLabel\Catalog\Application\Album\Get\Collection;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumsResponse;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
-use Masfernandez\Shared\Domain\Bus\Query\QueryHandlerInterface;
+use Masfernandez\Shared\Domain\Bus\Query\QueryHandler;
 
-final class GetAlbumsHandler implements QueryHandlerInterface
+final class GetAlbumsHandler implements QueryHandler
 {
     public function __construct(private ApplicationServiceInterface $albumsSearcher)
     {

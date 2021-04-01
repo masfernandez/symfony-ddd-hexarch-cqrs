@@ -8,9 +8,9 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenValue;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDate;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumTitle;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
-use Masfernandez\Shared\Domain\Bus\Command\CommandInterface;
+use Masfernandez\Shared\Domain\Bus\Command\Command;
 
-final class PostAlbumCommand implements CommandInterface
+final class PostAlbumCommand implements Command
 {
     private AlbumId $id;
     private AlbumTitle $title;

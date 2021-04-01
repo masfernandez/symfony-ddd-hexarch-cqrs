@@ -10,7 +10,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Get\Criteria;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExistsException;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExists;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumResultSet;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
@@ -30,7 +30,7 @@ final class DoctrineAlbumRepository extends ServiceEntityRepository implements A
             $this->_em->flush();
         } catch (UniqueConstraintViolationException $ex) {
             // @todo change message here
-            throw new AlbumAlreadyExistsException('', (int)$ex->getCode(), $ex);
+            throw new AlbumAlreadyExists('', (int)$ex->getCode(), $ex);
         }
     }
 

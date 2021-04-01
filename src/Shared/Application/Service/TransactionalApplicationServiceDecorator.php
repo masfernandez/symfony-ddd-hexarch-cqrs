@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Masfernandez\Shared\Application\Service;
 
-use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
+use Exception;
+use Masfernandez\Shared\Domain\Bus\Request\Request;
 
 final class TransactionalApplicationServiceDecorator implements ApplicationServiceInterface
 {
@@ -12,12 +13,19 @@ final class TransactionalApplicationServiceDecorator implements ApplicationServi
     {
     }
 
-    public function execute(RequestInterface $request): mixed
+    /** @throws TransactionalApplicationService */
+    public function execute(Request $request): mixed
     {
         $operation = function () use ($request) {
             return $this->service->execute($request);
         };
 
-        return $this->session->executeTransactionalOperation($operation);
+        try {
+            $result = $this->session->executeTransactionalOperation($operation);
+        } catch (Exception $ex) {
+            throw new TransactionalApplicationService($ex->getMessage(), (int)$ex->getCode(), $ex);
+        }
+
+        return $result;
     }
 }

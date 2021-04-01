@@ -16,13 +16,27 @@ Feature: Updating (PUT) Albums
           "publishing_date": "1969-01-13 09:00:00"
       }
       """
-    Then the response status code should be "204"
+    Then the response status code should be "400"
     And the JSON response should be equal to:
       """
+        {
+          "errors":[
+            {
+              "source":{
+                "pointer":"\/data\/attributes\/token"
+              },
+              "detail":"This value should not be blank."
+            }
+          ]
+        }
       """
 
-  Scenario: Update (put) an an non-existent album. Endpoint with id in path
-    When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
+  Scenario: Update (put) a non-existent album. Endpoint with id in path
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
+    And I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
           "title": "Yellow Submarine",
@@ -46,6 +60,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album with wrong id uuid in path
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/wrong-id-here" with body:
       """
       {
@@ -70,6 +88,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album with empty title
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -94,6 +116,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album with a title longer than 60 allowed
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -118,6 +144,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album with a empty date
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -142,6 +172,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album with a wrong date format
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -166,6 +200,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album without title field
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -189,6 +227,10 @@ Feature: Updating (PUT) Albums
       """
 
   Scenario: Update (put) an album without publishing_date field
+    Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+    Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
+
+    When I add "Authorization" header with JwToken vale
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -210,3 +252,5 @@ Feature: Updating (PUT) Albums
           ]
       }
       """
+
+    # @todo Scenarios to validate token

@@ -110,9 +110,11 @@ class DoctrineAlbumRepositoryTest extends KernelTestCase
         parent::setUp();
         self::bootKernel();
 
+        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->albumRepository = self::$container->get(AlbumRepository::class) ??
             throw new RuntimeException('Cannot fetch AlbumRepository from DI.');
 
+        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->entityManager = self::$container->get(EntityManagerInterface::class) ??
             throw new RuntimeException('Cannot fetch EntityManager from DI.');
 
