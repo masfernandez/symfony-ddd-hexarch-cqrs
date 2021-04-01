@@ -1,6 +1,8 @@
-version: "3.4"
+version: "3.9"
 
+#
 # prod env docker-compose file
+#
 
 services:
 
@@ -62,7 +64,7 @@ services:
         ports:
             - 3306:3306
         cap_add:
-            - SYS_NICE  # CAP_SYS_NICE
+            - SYS_NICE  # CAP_SYS_NICE: fix mbind operation not permitted in mysql error log
         networks:
             - db
 

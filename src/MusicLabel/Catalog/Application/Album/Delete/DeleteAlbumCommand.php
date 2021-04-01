@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Catalog\Application\Album\Delete;
 
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
-use Masfernandez\Shared\Domain\Bus\Command\SyncCommandInterface;
+use Masfernandez\Shared\Domain\Bus\Command\SyncCommand;
 
-final class DeleteAlbumCommand implements SyncCommandInterface
+final class DeleteAlbumCommand implements SyncCommand
 {
     private AlbumId $id;
 

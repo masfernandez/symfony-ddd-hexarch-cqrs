@@ -1,5 +1,10 @@
 .PHONY :
 
+RED=\033[0;31m
+GREEN=\033[0;32m
+ORANGE=\033[0;33m
+NC=\033[0m
+
 # Setup ————————————————————————————————————————————————————————————————————————
 
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
@@ -18,9 +23,9 @@ COMPOSER		= /usr/bin/composer
 
 ## —— folders —————————————————————————————————————————————————————————————————
 
-current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-musiclabel-app-dir := $(current-dir)apps/musiclabelApp
-musiclabel-backend := $(musiclabel-app-dir)/backend
+current-dir 		:= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+musiclabel-app-dir 	:= $(current-dir)apps/musiclabelApp
+musiclabel-backend 	:= $(musiclabel-app-dir)/backend
 
 debug-paths:
 	echo $(current-dir)
@@ -28,7 +33,6 @@ debug-paths:
 	echo $(musiclabel-backend)
 
 ## —— envs —————————————————————————————————————————————————————————————————
-
 dump-dev:
 	$(PHP) apps/MusicLabelApp/backend/bin/console app:dump-env dev
 
@@ -71,8 +75,14 @@ up-dev:
 up:
 	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml up --remove-orphans -d
 
+stop:
+	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml stop
+
 down:
 	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml down --remove-orphans
+
+logs:
+	$(DOCKER_COMPOSE-LOCAL) logs -f
 
 ## —— Consumer  ————————————————————————————————————————————————————————
 supervisord:
@@ -102,12 +112,12 @@ rector-build: up-php
 
 # @todo include phpstan in testing
 phpstan: up-php
-	$(PHP) vendor/bin/phpstan analyse src tests
+	$(PHP) vendor/bin/phpstan analyse -c phpstan.neon
 
 psalm: up-php
 	$(PHP) vendor/bin/psalm --long-progress --no-cache --no-file-cache
 		
-phpunit: dump-test up-php
+phpunit: up-php dump-test
 	$(PHP) vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
@@ -119,9 +129,10 @@ phpunit-coverage: up-php
 			--exclude-group='disabled' \
 			--log-junit build/test/phpunit/junit.xml \
 			--coverage-html build/test/phpunit tests \
-		unset XDEBUG_MODE"
+		unset XDEBUG_MODE";
+	@printf "\n${ORANGE}--> ${NC}${GREEN}Coverage report build at path:${NC} build/test/phpunit\n\n";
 
-behat: dump-test up-php
+behat: up-php dump-test
 	$(PHP) vendor/bin/behat -f progress
 
 ## —— examples  ————————————————————————————————————————————————————————————
@@ -130,11 +141,12 @@ create-demo-user:
 
 ## —— RUN  ————————————————————————————————————————————————————————————
 test: up-php dump-test db-drop db-create-sqlite phpcs rector psalm behat phpunit
+coverage: up-php dump-test db-drop db-create-sqlite phpunit-coverage
 
 dev-start: up-dev dump-dev db-create db-migrate
 prod-start: up dump-prod db-create db-migrate
 
-stop: down
+stop-all: stop
 
 # Start supervisord to monitor consumer
 prod-start dev-start: supervisord

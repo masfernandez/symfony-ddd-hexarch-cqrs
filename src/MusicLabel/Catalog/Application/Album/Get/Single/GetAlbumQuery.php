@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Catalog\Application\Album\Get\Single;
 
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
-use Masfernandez\Shared\Domain\Bus\Query\SyncQueryInterface;
+use Masfernandez\Shared\Domain\Bus\Query\SyncQuery;
 
-final class GetAlbumQuery implements SyncQueryInterface
+final class GetAlbumQuery implements SyncQuery
 {
     private AlbumId $id;
 

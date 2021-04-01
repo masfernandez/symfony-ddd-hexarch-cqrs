@@ -11,6 +11,6 @@ interface UserRepository
     // @todo not used
     public function getByEmailAndPassword(UserEmail $email, UserPassword $password): ?User;
 
-    /** @throws UserAlreadyExistsException */
+    /** @throws UserAlreadyExists */
     public function post(User $user): void;
 }

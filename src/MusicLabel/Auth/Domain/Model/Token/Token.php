@@ -17,7 +17,8 @@ class Token extends Aggregate implements Stringable
         private User $user,
         private TokenValue $value,
         private TokenExpirationDate $expiration_date,
-        private TokenId $id)
+        private TokenId $id
+    )
     {
     }
 

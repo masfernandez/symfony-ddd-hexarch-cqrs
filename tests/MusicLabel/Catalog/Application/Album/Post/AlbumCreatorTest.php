@@ -11,7 +11,7 @@ use Masfernandez\MusicLabel\Catalog\Application\Album\Post\AlbumCreator;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumCreatedDomainEvent;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface;
+use Masfernandez\Shared\Domain\Bus\Event\EventPublisher;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenMother;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumCreatedDomainEventMother;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
@@ -35,18 +35,16 @@ class AlbumCreatorTest extends KernelTestCase
 
         // mocks
         $albumRepository = Mockery::mock(AlbumRepository::class);
-        $tokenRepository = Mockery::mock(TokenRepository::class);
-        $eventPublisher = Mockery::mock(EventPublisherInterface::class);
+        $eventPublisher = Mockery::mock(EventPublisher::class);
         $albumRepository->expects()->post(Mockery::on(
             $this->compareAlbums($album)
         ));
-        $tokenRepository->expects()->getByValue($command->getToken())->andReturns(TokenMother::create());
         $eventPublisher->expects()->publish(Mockery::on(
             $this->compareEvents($eventExpected)
         ));
 
         // test application service
-        $albumCreator = new AlbumCreator($albumRepository, $eventPublisher, $tokenRepository);
+        $albumCreator = new AlbumCreator($albumRepository, $eventPublisher);
         $albumCreator->execute($command);
     }
 

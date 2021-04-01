@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Catalog\Application\Album\Get\Collection;
 
-use Masfernandez\Shared\Domain\Bus\Query\SyncQueryInterface;
+use Masfernandez\Shared\Domain\Bus\Query\SyncQuery;
 
-final class GetAlbumsQuery implements SyncQueryInterface
+final class GetAlbumsQuery implements SyncQuery
 {
     public function __construct(private int $page, private int $size, private array $fields, private array $filters, private array $sort)
     {

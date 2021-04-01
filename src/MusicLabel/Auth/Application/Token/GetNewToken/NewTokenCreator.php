@@ -10,7 +10,7 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenRepository;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserNotFound;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserRepository;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
-use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
+use Masfernandez\Shared\Domain\Bus\Request\Request;
 
 final class NewTokenCreator implements ApplicationServiceInterface
 {
@@ -18,7 +18,7 @@ final class NewTokenCreator implements ApplicationServiceInterface
     {
     }
 
-    public function execute(GetTokenQuery|RequestInterface $request): TokenResponse
+    public function execute(GetTokenQuery|Request $request): TokenResponse
     {
         $user = $this->userRepository->getByEmail($request->getEmail())
             ?? throw new UserNotFound();

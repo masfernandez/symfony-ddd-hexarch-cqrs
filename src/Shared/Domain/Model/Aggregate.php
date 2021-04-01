@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Masfernandez\Shared\Domain\Model;
 
-use Masfernandez\Shared\Domain\Bus\Event\DomainEventAbstract;
+use Masfernandez\Shared\Domain\Bus\Event\DomainEvent;
 
 abstract class Aggregate
 {
     private array $domainEvents = [];
 
     /**
-     * @return DomainEventAbstract[]
+     * @return DomainEvent[]
      */
     final public function dropEvents(): array
     {
@@ -21,7 +21,7 @@ abstract class Aggregate
         return $domainEvents;
     }
 
-    final protected function collectEvent(DomainEventAbstract $domainEvent): void
+    final protected function collectEvent(DomainEvent $domainEvent): void
     {
         $this->domainEvents[] = $domainEvent;
     }

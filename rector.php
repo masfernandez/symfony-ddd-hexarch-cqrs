@@ -40,11 +40,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Define what rule sets will be applied
     $parameters->set(Option::SETS, [
         SetList::DEAD_CODE,
-        SetList::DEAD_DOC_BLOCK,
         SetList::TYPE_DECLARATION,
         SetList::CODE_QUALITY,
         SetList::CONTRIBUTTE_TO_SYMFONY,
-        SetList::PHPUNIT_90,
         SetList::PHP_80
     ]);
+
+    $parameters->set(Option::ENABLE_CACHE, true);
+    $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, getcwd() . '/phpstan.neon');
 };

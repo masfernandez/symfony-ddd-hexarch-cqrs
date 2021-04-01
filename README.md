@@ -67,10 +67,11 @@ I will be adding more examples that I think are interesting and that provide an 
 - [x] Unit and integration tests: PHPUnit
 - [x] Acceptance tests: Behat
 - [x] Basic Authorization, with mandatory token to http POST endpoints
+- [x] Basic JWT Authorization, with mandatory token to http PUT endpoints  
 - [x] NoSql: Redis examples
 
 **Upcoming Features**
-- Frontend examples (React, Webpack, Babel, etc.)
+- Frontend examples (React, Webpack, Babel, etc.) WIP: on another repo
 - Aggregates organization  
 - Using native PHP amqp extension to publish events (instead of Symfony/Messenger)
 - RabbitMQ configuration wizard (queues and exchanges, retry, dead-letter and bindings)
@@ -130,7 +131,7 @@ make create-demo-user
 Now, it's time to get a valid token:
 
 ```
-curl -X POST 'https://backend.127.0.0.1.xip.io/authentication' \
+curl -i -X POST 'https://backend.127.0.0.1.xip.io/authentication' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "email": "test@email.com",
@@ -146,7 +147,7 @@ Content-Type: application/json
 Transfer-Encoding: chunked
 Connection: keep-alive
 X-Powered-By: PHP/8.0.0
-Location: 3a49b15da902354fd8cd6d3921616ff836815f037eb2327cdb185ae80dbb264a
+Location: 4ac71eeda13c8fe7f0e4c017412bd9f2d886288cb8c88331007f2a9c7652385b
 Cache-Control: no-cache, private
 Date: Fri, 15 Jan 2021 11:23:45 GMT
 X-Robots-Tag: noindex
@@ -158,8 +159,8 @@ Strict-Transport-Security: max-age=31536000
 We can publish new Albums now! 
 
 ```
-curl -X POST 'https://backend.127.0.0.1.xip.io/albums' \
--H 'Authorization: Bearer 3a49b15da902354fd8cd6d3921616ff836815f037eb2327cdb185ae80dbb264a' \
+curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
+-H 'Authorization: Bearer 4ac71eeda13c8fe7f0e4c017412bd9f2d886288cb8c88331007f2a9c7652385b' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",

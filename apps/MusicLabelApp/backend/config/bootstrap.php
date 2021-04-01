@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpIncludeInspection */
+
 /**
  * File used in tests basically, to auto load classes and deps.
  *

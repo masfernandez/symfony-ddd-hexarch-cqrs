@@ -15,7 +15,7 @@ interface AlbumRepository
 
     public function getMatching(Criteria $criteria): AlbumResultSet;
 
-    /** @throws AlbumAlreadyExistsException */
+    /** @throws AlbumAlreadyExists */
     public function post(Album $album): void;
 
     /** @throws AlbumNotFound */

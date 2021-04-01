@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Catalog\Domain\Model\Album;
 
-use Masfernandez\Shared\Domain\Bus\Event\AsyncEventInterface;
-use Masfernandez\Shared\Domain\Bus\Event\DomainEventAbstract;
+use Masfernandez\Shared\Domain\Bus\Event\AsyncEvent;
+use Masfernandez\Shared\Domain\Bus\Event\DomainEvent;
 
-final class AlbumCreatedDomainEvent extends DomainEventAbstract implements AsyncEventInterface
+final class AlbumCreatedDomainEvent extends DomainEvent implements AsyncEvent
 {
     public function __construct(
         private string $id,

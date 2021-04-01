@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Management\Application\Email\Send;
 
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumCreatedDomainEvent;
-use Masfernandez\Shared\Domain\Bus\Event\EventHandlerInterface;
+use Masfernandez\Shared\Domain\Bus\Event\EventHandler;
 use Psr\Log\LoggerInterface;
 
-final class EmailOnAlbumCreatedListener implements EventHandlerInterface
+final class EmailOnAlbumCreatedListener implements EventHandler
 {
     public function __construct(private LoggerInterface $logger)
     {

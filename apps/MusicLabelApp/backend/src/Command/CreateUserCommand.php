@@ -4,7 +4,7 @@ namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Command;
 
 use Exception;
 use Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser\NewUserCommand;
-use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserAlreadyExistsException;
+use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserAlreadyExists;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,9 +13,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class CreateUserCommand extends Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $defaultName = 'app:create-user';
 
     public function __construct(private MessageBusInterface $commandBus)
@@ -43,7 +41,7 @@ class CreateUserCommand extends Command
             );
         } catch (Exception $exception) {
             $prevEx = $exception->getPrevious();
-            if ($prevEx instanceof UserAlreadyExistsException) {
+            if ($prevEx instanceof UserAlreadyExists) {
                 //@todo message here...
                 $output->writeln('Error when creating a new User. Message:' . PHP_EOL . $prevEx->getMessage());
                 return Command::FAILURE;
