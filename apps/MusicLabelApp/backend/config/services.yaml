@@ -2,6 +2,13 @@ parameters:
 
     project.root_path: '%kernel.project_dir%/../../..'
 
+    # jwToken config
+    jwt.issued_by: '%env(ISSUED_BY)%'
+    jwt.identified_by: '%env(IDENTIFIED_BY)%' # defined in vault
+    jwt.permitted_for: '%env(PERMITTED_FOR)%'
+    jwt.be_used_after: '%env(BE_USED_AFTER)%'
+    jwt.expires_at: '%env(EXPIRES_AT)%'
+
 services:
 
     # default configuration for services in *this* file
@@ -17,17 +24,17 @@ services:
             Redis $redis: '@snc_redis.default'
 
     _instanceof:
-        Masfernandez\Shared\Domain\Bus\Command\CommandHandlerInterface:
-            tags: [{name: messenger.message_handler, bus: command.bus}]
+        Masfernandez\Shared\Domain\Bus\Command\CommandHandler:
+            tags: [ { name: messenger.message_handler, bus: command.bus } ]
 
-        Masfernandez\Shared\Domain\Bus\Query\QueryHandlerInterface:
-            tags: [{name: messenger.message_handler, bus: query.bus}]
+        Masfernandez\Shared\Domain\Bus\Query\QueryHandler:
+            tags: [ { name: messenger.message_handler, bus: query.bus } ]
 
-        Masfernandez\Shared\Domain\Bus\Event\EventHandlerInterface:
-            tags: [{name: messenger.message_handler, bus: event.bus}]
+        Masfernandez\Shared\Domain\Bus\Event\EventHandler:
+            tags: [ { name: messenger.message_handler, bus: event.bus } ]
 
         Masfernandez\Shared\Application\Service\ApplicationServiceInterface:
-            tags: ['application_service']
+            tags: [ 'application_service' ]
 
 
     # Symfony
@@ -43,14 +50,48 @@ services:
     # Controllers
     Masfernandez\MusicLabelApp\Infrastructure\Backend\Controller\:
         resource: '%kernel.project_dir%/src/Controller/'
-        tags: ['controller.service_arguments']
+        tags: [ 'controller.service_arguments' ]
 
 
     # Business logic
     Masfernandez\:
         resource: '%project.root_path%/src/'
 
+
     # Service config.
     Masfernandez\MusicLabelApp\Infrastructure\Backend\Command\DumpEnvCommand:
         arguments:
             - '%kernel.project_dir%'
+
+
+    # JWT
+    JwtInMemory:
+        class: 'Lcobucci\JWT\Signer\Key\InMemory'
+        factory: [ 'Lcobucci\JWT\Signer\Key\InMemory','plainText' ]
+        # CONTENTS, PASSPHRASE defined in vault -> ./console secrets:list --reveal
+        arguments: [ '%env(CONTENTS)%','%env(PASSPHRASE)%' ]
+
+    Lcobucci\JWT\Signer\Hmac\Sha256:
+        class: Lcobucci\JWT\Signer\Hmac\Sha256
+
+    Configuration:
+        class: 'Lcobucci\JWT\Configuration'
+        factory: [ 'Lcobucci\JWT\Configuration', 'forSymmetricSigner' ]
+        arguments: [ '@Lcobucci\JWT\Signer\Hmac\Sha256','@JwtInMemory' ]
+
+    TokenConfig:
+        class: 'Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\TokenConfig'
+        arguments:
+            - '%jwt.issued_by%'
+            - '%jwt.identified_by%'
+            - '%jwt.permitted_for%'
+            - '%jwt.be_used_after%'
+            - '%jwt.expires_at%'
+
+    Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Generator:
+        public: true
+        arguments: [ '@Configuration', '@TokenConfig' ]
+
+    Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Validator:
+        public: true
+        arguments: [ '@Configuration' , '@TokenConfig']

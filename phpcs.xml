@@ -13,14 +13,4 @@
     <arg value="ns"/>
     <rule ref="PSR12"/>
 
-    <!-- //> To avoid phpcs complaints about something it shouldn't be an error. -->
-    <!-- Hopefully they will solve it :) an meanwhile mark as todo to check from time to time @todo -->
-    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace">
-        <exclude-pattern>*AlbumCreatedDomainEvent.php*</exclude-pattern>
-    </rule>
-    <rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
-        <exclude-pattern>*AlbumCreatedDomainEvent.php*</exclude-pattern>
-    </rule>
-    <!-- //< -->
-
 </ruleset>

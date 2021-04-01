@@ -1,4 +1,9 @@
-version: "3.4"
+version: "3.9"
+
+#
+# test env docker-compose file
+#
+# This file is used for testing purposes. Note :latest-dev tag used for simplicity
 
 services:
 
@@ -6,9 +11,9 @@ services:
         image: masfernandez/symfony-php-fpm:latest-dev
         container_name: ${COMPOSE_PROJECT_NAME}-php
         # Uncomment and configure as needed when testing/debugging
-        #environment:
-        #    XDEBUG_CONFIG: client_host=host.docker.internal
-        #    PHP_IDE_CONFIG: serverName=docker
+        environment:
+            XDEBUG_CONFIG: client_host=host.docker.internal
+            PHP_IDE_CONFIG: serverName=docker
         volumes:
             - .:/var/www/html
             - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini

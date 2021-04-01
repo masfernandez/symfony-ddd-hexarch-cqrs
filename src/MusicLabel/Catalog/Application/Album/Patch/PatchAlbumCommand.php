@@ -5,9 +5,9 @@ namespace Masfernandez\MusicLabel\Catalog\Application\Album\Patch;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDate;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumTitle;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
-use Masfernandez\Shared\Domain\Bus\Command\SyncCommandInterface;
+use Masfernandez\Shared\Domain\Bus\Command\SyncCommand;
 
-final class PatchAlbumCommand implements SyncCommandInterface
+final class PatchAlbumCommand implements SyncCommand
 {
     private AlbumId $id;
     private ?AlbumTitle $title;

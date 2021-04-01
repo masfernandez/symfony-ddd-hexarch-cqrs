@@ -9,7 +9,7 @@ namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Put;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Put\AlbumUpdater;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\InMemoryRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\CacheInMemory;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +29,7 @@ class AlbumUpdaterTest extends TestCase
         $albumRepository->allows()->getById($command->getId())->andReturns($album);
         $albumRepository->expects()->put($album);
 
-        $inMemoryRepository = Mockery::mock(InMemoryRepository::class);
+        $inMemoryRepository = Mockery::mock(CacheInMemory::class);
         $inMemoryRepository->allows()->set(
             $command->getId()->toString(),
             json_encode($album->toArray(), JSON_THROW_ON_ERROR)
@@ -50,7 +50,7 @@ class AlbumUpdaterTest extends TestCase
         // mocks
         $albumRepository = Mockery::mock(AlbumRepository::class);
         $albumRepository->allows()->getById($command->getId())->andReturns(null);
-        $inMemoryRepository = Mockery::mock(InMemoryRepository::class);
+        $inMemoryRepository = Mockery::mock(CacheInMemory::class);
 
         // test application service
         $albumCreator = new AlbumUpdater($albumRepository, $inMemoryRepository);

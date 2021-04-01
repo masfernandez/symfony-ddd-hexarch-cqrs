@@ -3,9 +3,9 @@
 namespace Masfernandez\MusicLabel\Catalog\Application\Album\Patch;
 
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
-use Masfernandez\Shared\Domain\Bus\Command\CommandHandlerInterface;
+use Masfernandez\Shared\Domain\Bus\Command\CommandHandler;
 
-final class PatchAlbumCommandHandler implements CommandHandlerInterface
+final class PatchAlbumCommandHandler implements CommandHandler
 {
     public function __construct(private ApplicationServiceInterface $albumPatcher)
     {

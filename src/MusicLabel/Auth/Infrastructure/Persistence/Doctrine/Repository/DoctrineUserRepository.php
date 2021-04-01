@@ -8,7 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\User;
-use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserAlreadyExistsException;
+use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserAlreadyExists;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserPassword;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserRepository;
@@ -54,7 +54,7 @@ final class DoctrineUserRepository extends ServiceEntityRepository implements Us
             $this->_em->flush();
         } catch (UniqueConstraintViolationException $ex) {
             // @todo change message here
-            throw new UserAlreadyExistsException('User already exist in database', (int)$ex->getCode(), $ex);
+            throw new UserAlreadyExists('User already exist in database', (int)$ex->getCode(), $ex);
         }
     }
 }

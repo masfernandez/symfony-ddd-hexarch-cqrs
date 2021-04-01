@@ -10,9 +10,7 @@ use Symfony\Component\Dotenv\Dotenv;
 
 class DumpEnvCommand extends Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $defaultName = 'app:dump-env';
 
     public function __construct(private string $rootPath)

@@ -36,11 +36,11 @@ class AuthenticationPostController extends AbstractController
 
             /** @var TokenResponse $tokenResponse */
             $tokenResponse = $handledStamp->getResult();
-            return new JsonResponse(null,
-                Response::HTTP_CREATED, [
-                'Location' => $tokenResponse->getToken()
-            ]);
-
+            return new JsonResponse(
+                null,
+                Response::HTTP_CREATED,
+                ['Location' => $tokenResponse->getToken()]
+            );
         } catch (Exception | HandlerFailedException $ex) {
             $prevException = $ex->getPrevious();
             $code = Response::HTTP_INTERNAL_SERVER_ERROR;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Catalog\Infrastructure\Persistence\Redis;
 
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\InMemoryRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\CacheInMemory;
 use Redis;
 
-final class Client implements InMemoryRepository
+final class Client implements CacheInMemory
 {
     public function __construct(private Redis $redis)
     {
