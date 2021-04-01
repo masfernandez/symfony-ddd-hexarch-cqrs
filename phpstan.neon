@@ -1,0 +1,9 @@
+parameters:
+    level: 0
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        -
+            message: '#Unsafe usage of new static#'
+            path: src/Shared/Domain/ValueObject/UuidValueObject.php

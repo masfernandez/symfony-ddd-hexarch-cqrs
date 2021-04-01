@@ -21,6 +21,11 @@ class User extends Aggregate implements Stringable
         $this->tokens = new ArrayCollection();
     }
 
+    public function getId(): UserId
+    {
+        return $this->id;
+    }
+
     public function __toString(): string
     {
         return get_class($this) . ':' . $this->id->value();

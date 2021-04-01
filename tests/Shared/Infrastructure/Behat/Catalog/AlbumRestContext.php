@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog;
 
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\Behat\Context\TranslatedContextInterface;
@@ -25,13 +26,17 @@ use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumTitle;
 use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenValueMother;
+use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserEmailMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserIdMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserMother;
+use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserPasswordMother;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class AlbumRestContext extends RestContext
 {
+    private string $token;
+
     public function __construct(Request $request, private ContainerInterface $container)
     {
         parent::__construct($request);
@@ -107,5 +112,40 @@ final class AlbumRestContext extends RestContext
         $actual = $this->request->getContent();
         $message = "Actual response is '$actual', but expected '$expected'";
         $this->assertEquals($expected, $actual, $message);
+    }
+
+    /**
+     * @Given There is a user stored in database with id :id email :email password :password
+     */
+    public function thereIsAUserStoredInDatabaseWithIdEmailPassword(string $id, string $email, string $password): void
+    {
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
+        $em->persist(UserMother::create(
+            UserIdMother::create($id),
+            UserEmailMother::create($email),
+            UserPasswordMother::create($password)
+        ));
+        $em->flush();
+    }
+
+    /**
+     * @Given There is VALID a JwToken for the user with id :id email :email password :password
+     */
+    public function thereIsAValidJwTokenForTheUser(string $id, string $email, string $password ): void
+    {
+        $generator = $this->container->get('Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Generator');
+        $this->token = $generator->create(UserMother::create(
+            UserIdMother::create($id),
+            UserEmailMother::create($email),
+            UserPasswordMother::create($password)
+        ));
+    }
+
+    /**
+     * @When I add :header header with JwToken vale
+     */
+    public function iAddHeaderWithJwtokenVale(string $header): void
+    {
+        $this->iAddHeaderEqualTo($header, $this->token);
     }
 }

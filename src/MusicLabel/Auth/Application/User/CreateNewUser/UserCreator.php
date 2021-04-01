@@ -10,7 +10,7 @@ use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserPassword;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserRepository;
 use Masfernandez\MusicLabel\Shared\Domain\Model\User\UserId;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
-use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
+use Masfernandez\Shared\Domain\Bus\Request\Request;
 
 final class UserCreator implements ApplicationServiceInterface
 {
@@ -18,7 +18,7 @@ final class UserCreator implements ApplicationServiceInterface
     {
     }
 
-    public function execute(NewUserCommand|RequestInterface $request): void
+    public function execute(NewUserCommand|Request $request): void
     {
         $this->userRepository->post(
             new User(

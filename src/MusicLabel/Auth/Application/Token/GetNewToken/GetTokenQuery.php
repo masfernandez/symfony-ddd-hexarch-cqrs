@@ -6,9 +6,9 @@ namespace Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken;
 
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserPassword;
-use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
+use Masfernandez\Shared\Domain\Bus\Request\Request;
 
-final class GetTokenQuery implements RequestInterface
+final class GetTokenQuery implements Request
 {
     private UserEmail $email;
     private UserPassword $password;

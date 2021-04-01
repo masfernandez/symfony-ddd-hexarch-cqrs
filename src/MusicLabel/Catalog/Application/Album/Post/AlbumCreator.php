@@ -4,33 +4,24 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Catalog\Application\Album\Post;
 
-use Masfernandez\MusicLabel\Auth\Domain\Model\Token\InvalidCredentials;
-use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenRepository;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExistsException;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExists;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
 use Masfernandez\Shared\Application\Service\ApplicationServiceInterface;
-use Masfernandez\Shared\Domain\Bus\Event\EventPublisherInterface;
-use Masfernandez\Shared\Domain\Bus\Request\RequestInterface;
+use Masfernandez\Shared\Domain\Bus\Event\EventPublisher;
+use Masfernandez\Shared\Domain\Bus\Request\Request;
 
 final class AlbumCreator implements ApplicationServiceInterface
 {
-    public function __construct(
-        private AlbumRepository $albumRepository,
-        private EventPublisherInterface $publisher,
-        private TokenRepository $tokenRepository
-    )
+    public function __construct(private AlbumRepository $albumRepository, private EventPublisher $publisher)
     {
     }
 
     /**
-     * @throws AlbumAlreadyExistsException|InvalidCredentials
+     * @throws AlbumAlreadyExists
      */
-    public function execute(PostAlbumCommand|RequestInterface $request): void
+    public function execute(PostAlbumCommand|Request $request): void
     {
-        $this->tokenRepository->getByValue($request->getToken()) ??
-            throw new InvalidCredentials();
-
         $album = new Album(
             $request->getId(),
             $request->getTitle(),
