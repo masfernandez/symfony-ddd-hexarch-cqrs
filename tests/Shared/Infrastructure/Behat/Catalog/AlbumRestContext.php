@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog;
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\Behat\Context\TranslatedContextInterface;
@@ -35,7 +34,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class AlbumRestContext extends RestContext
 {
-    private string $token;
+    private string $headerAndPayloadInAuthHeader;
+    private string $signatureInCookie;
 
     public function __construct(Request $request, private ContainerInterface $container)
     {
@@ -133,19 +133,31 @@ final class AlbumRestContext extends RestContext
      */
     public function thereIsAValidJwTokenForTheUser(string $id, string $email, string $password ): void
     {
-        $generator = $this->container->get('Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Generator');
-        $this->token = $generator->create(UserMother::create(
+        $tokenGenerator = $this->container->get('Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Generator');
+        $user = UserMother::create(
             UserIdMother::create($id),
             UserEmailMother::create($email),
             UserPasswordMother::create($password)
-        ));
+        );
+        $jwt = $tokenGenerator->create($user);
+        $jwtParts = explode('.', $jwt);
+        $this->headerAndPayloadInAuthHeader = $jwtParts[0] . '.' . $jwtParts[1];
+        $this->signatureInCookie = $jwtParts[2];
     }
 
     /**
-     * @When I add :header header with JwToken vale
+     * @When I add :header header token value - JWT header and payload
      */
     public function iAddHeaderWithJwtokenVale(string $header): void
     {
-        $this->iAddHeaderEqualTo($header, $this->token);
+        $this->request->setHttpHeader($header, $this->headerAndPayloadInAuthHeader);
+    }
+
+    /**
+     * @When I add cookie :cookie value - jwt signature
+     */
+    public function iAddCookieWithSignatureVale(string $cookie): void
+    {
+        $this->getSession()->setCookie($cookie, $this->signatureInCookie);
     }
 }

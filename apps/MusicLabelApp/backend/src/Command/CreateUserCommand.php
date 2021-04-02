@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Command;
 
 use Exception;
