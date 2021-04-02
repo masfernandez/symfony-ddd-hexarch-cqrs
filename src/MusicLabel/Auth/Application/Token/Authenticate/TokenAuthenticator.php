@@ -18,7 +18,7 @@ class TokenAuthenticator implements ApplicationServiceInterface
     /**
      * @throws InvalidCredentials
      */
-    public function execute(AuthenticateTokenCommand|Request $request)
+    public function execute(AuthenticateTokenCommand | Request $request)
     {
         $this->tokenRepository->getByValue($request->getToken()) ??
         throw new InvalidCredentials();

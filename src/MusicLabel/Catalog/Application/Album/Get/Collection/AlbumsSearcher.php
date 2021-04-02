@@ -16,7 +16,7 @@ final class AlbumsSearcher implements ApplicationServiceInterface
     {
     }
 
-    public function execute(GetAlbumsQuery|Request $request): AlbumsResponse
+    public function execute(GetAlbumsQuery | Request $request): AlbumsResponse
     {
         $criteria = new Criteria(
             $request->getFilters(), //@todo not implemented

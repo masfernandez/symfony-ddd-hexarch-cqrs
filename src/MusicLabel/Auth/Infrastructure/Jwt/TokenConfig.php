@@ -6,15 +6,16 @@ namespace Masfernandez\MusicLabel\Auth\Infrastructure\Jwt;
 
 class TokenConfig
 {
+    // phpcs:disable
     public function __construct(
         private string $issued_by,
         private string $identified_by,
         private string $permitted_for,
         private string $be_used_after,
         private string $expires_at
-    )
-    {
+    ) {
     }
+    // phpcs:enable
 
     public function issuedBy(): string
     {

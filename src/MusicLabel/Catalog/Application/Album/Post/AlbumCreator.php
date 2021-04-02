@@ -20,7 +20,7 @@ final class AlbumCreator implements ApplicationServiceInterface
     /**
      * @throws AlbumAlreadyExists
      */
-    public function execute(PostAlbumCommand|Request $request): void
+    public function execute(PostAlbumCommand | Request $request): void
     {
         $album = new Album(
             $request->getId(),

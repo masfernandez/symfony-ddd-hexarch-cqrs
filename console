@@ -9,4 +9,8 @@
 # ./console debug:router
 # ____________________________________________________________________________________________
 
+if [ ! "$(docker ps -a | grep docker-symfony-php)" ]; then
+  make dev-start
+fi
+
 docker exec -it docker-symfony-php apps/MusicLabelApp/backend/bin/console $@
