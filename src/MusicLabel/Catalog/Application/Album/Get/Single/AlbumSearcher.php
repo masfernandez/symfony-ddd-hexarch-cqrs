@@ -18,7 +18,7 @@ final class AlbumSearcher implements ApplicationServiceInterface
     }
 
     /** @throws JsonException */
-    public function execute(GetAlbumQuery|Request $request): AlbumResponse
+    public function execute(GetAlbumQuery | Request $request): AlbumResponse
     {
         $cacheResponse = $this->cache->get($request->id()->toString());
         if ($cacheResponse !== false) {

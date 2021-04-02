@@ -38,10 +38,9 @@ final class TransactionalDecoratorPass implements CompilerPassInterface
     }
 
     /**
-     * @param (int|string) $serviceName
      * @return string[]
      */
-    private function generateAliasName($serviceName): array
+    private function generateAliasName(string $serviceName): array
     {
         if (str_contains($serviceName, '\\')) {
             $parts = explode('\\', $serviceName);

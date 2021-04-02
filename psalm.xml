@@ -29,6 +29,12 @@
             </errorLevel>
         </RedundantPropertyInitializationCheck>
 
+        <InvalidScalarArgument>
+            <errorLevel type="suppress">
+                <file name="src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/Repository/DoctrineAlbumRepository.php"/>
+            </errorLevel>
+        </InvalidScalarArgument>
+
         <LessSpecificImplementedReturnType>
             <errorLevel type="suppress">
                 <directory name="src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/Repository/"/>

@@ -105,6 +105,7 @@ final class AlbumRestContext extends RestContext
     {
         $raw = $expected->getRaw();
         try {
+            // phpcs:ignore
             $expected = ($raw === '') || ($raw === '{}') ? $raw : $json = json_encode(json_decode($raw, true, 512, JSON_THROW_ON_ERROR), JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
             $expected = sprintf('There was a JsonException, message: %s', $e->getMessage());
@@ -131,7 +132,7 @@ final class AlbumRestContext extends RestContext
     /**
      * @Given There is VALID a JwToken for the user with id :id email :email password :password
      */
-    public function thereIsAValidJwTokenForTheUser(string $id, string $email, string $password ): void
+    public function thereIsAValidJwTokenForTheUser(string $id, string $email, string $password): void
     {
         $tokenGenerator = $this->container->get('Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Generator');
         $user = UserMother::create(

@@ -28,7 +28,7 @@ class User extends Aggregate implements Stringable
 
     public function __toString(): string
     {
-        return get_class($this) . ':' . $this->id->value();
+        return $this::class . ':' . $this->id->value();
     }
 
     public function getTokens(): Collection

@@ -20,7 +20,7 @@ final class UserCreator implements ApplicationServiceInterface
     }
 
     /** @throws UserAlreadyExists */
-    public function execute(NewUserCommand|Request $request): void
+    public function execute(NewUserCommand | Request $request): void
     {
         $this->userRepository->post(
             new User(
