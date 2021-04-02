@@ -16,7 +16,7 @@ services:
         image: masfernandez/symfony-php-fpm:latest-dev
         # Uncomment and configure as needed when testing/debugging
         #environment:
-        #    XDEBUG_CONFIG: client_host=host.docker.internal
+        #    XDEBUG_CONFIG: xdebug.start_with_request=yes
         #    PHP_IDE_CONFIG: serverName=docker
         volumes:
             - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini

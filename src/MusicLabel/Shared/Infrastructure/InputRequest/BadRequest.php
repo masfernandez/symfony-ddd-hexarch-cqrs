@@ -5,7 +5,7 @@ namespace Masfernandez\MusicLabel\Shared\Infrastructure\InputRequest;
 use Exception;
 use Throwable;
 
-final class BadRequestException extends Exception
+final class BadRequest extends Exception
 {
     public function __construct(private array $errors, $message = "", $code = 0, Throwable $previous = null)
     {

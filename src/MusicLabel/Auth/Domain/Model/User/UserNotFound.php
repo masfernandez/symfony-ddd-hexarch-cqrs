@@ -8,5 +8,4 @@ use Exception;
 
 final class UserNotFound extends Exception
 {
-    // @todo exception handler and map all domain exceptions
 }

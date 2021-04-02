@@ -118,7 +118,6 @@ rector-build-testsuite: up-php rector-build
 rector-build:
 	$(PHP) vendor/bin/rector process
 
-# @todo include phpstan in testing
 phpstan-testsuite: up-php phpstan
 phpstan:
 	$(PHP) vendor/bin/phpstan analyse -c phpstan.neon
@@ -153,7 +152,7 @@ create-demo-user:
 	$(PHP) apps/MusicLabelApp/backend/bin/console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: up-php dump-test db-drop db-create-sqlite phpcs psalm behat phpunit rector # change rector order, it's crashing now...
+test: up-php dump-test db-drop db-create-sqlite phpcs psalm phpstan behat phpunit rector # change rector order, it's crashing now...
 coverage: up-php dump-test db-drop db-create-sqlite phpunit-coverage
 
 dev-start: up-dev dump-dev db-create db-migrate

@@ -27,8 +27,7 @@ final class NewJwtCreator implements ApplicationServiceInterface
             ?? throw new UserNotFound();
 
         if (!$user->comparePassword($request->getPassword())) {
-            // @todo message here
-            throw new InvalidCredentials('nooop');
+            throw new InvalidCredentials();
         }
 
         $token = $this->tokenGenerator->create($user);

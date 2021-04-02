@@ -25,8 +25,7 @@ final class NewTokenCreator implements ApplicationServiceInterface
             ?? throw new UserNotFound();
 
         if (!$user->comparePassword($request->getPassword())) {
-            // @todo message here
-            throw new InvalidCredentials('nooop');
+            throw new InvalidCredentials();
         }
 
         $token = Token::create($user);
