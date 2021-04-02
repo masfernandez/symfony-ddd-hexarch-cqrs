@@ -85,14 +85,13 @@ I will add new features and examples, this project is constantly evolving! You c
 ### Prerequisites
 
 - docker: How to install docker? [Please click here](https://docs.docker.com/install/)
-- composer: How to install composer? [Please click here](https://getcomposer.org/download/)
 - make
 
 ### Installation
 
 Clone repo, download deps and create docker services:
 
-```
+```bash
 git clone https://github.com/masfernandez/symfony-ddd-hexarch-cqrs.git
 cd symfony-ddd-hexarch-cqrs
 make composer-install
@@ -102,7 +101,7 @@ make up
 ### Running prod env
 Execute at root path:
 
-```
+```bash
 make prod-start
 ```
 
@@ -124,13 +123,13 @@ After few seconds, you have some services running up.
 
 In order to create a new Album is mandatory to include a valid token in request's Authorization header. So first, let's  create a new User:
 
-```
+```bash
 make create-demo-user
 ```
 
-Now, it's time to get a valid token:
+**Now, it's time to get a valid token**:
 
-```
+```bash
 curl -i -X POST 'https://backend.127.0.0.1.xip.io/authentication' \
 -H 'Content-Type: application/json' \
 --data-raw '{
@@ -141,7 +140,7 @@ curl -i -X POST 'https://backend.127.0.0.1.xip.io/authentication' \
 
 You can find the Token in response's Location header:
 
-```
+```bash
 Server: nginx/1.19.5
 Content-Type: application/json
 Transfer-Encoding: chunked
@@ -156,9 +155,9 @@ Strict-Transport-Security: max-age=31536000
 {}
 ```
 
-We can publish new Albums now! 
+**We can publish new Albums now**: (replace token value here with the you got before... obviously)
 
-```
+```bash
 curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
 -H 'Authorization: Bearer 4ac71eeda13c8fe7f0e4c017412bd9f2d886288cb8c88331007f2a9c7652385b' \
 -H 'Content-Type: application/json' \
@@ -169,9 +168,112 @@ curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
 }'
 ```
 
-Verifying the Album created:
-```
+**Verifying the Album created**:
+```bash
 curl -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,publishing_date'
+```
+
+**We need a JWToken to make PUT operations on Albums, so let's get one**:
+```bash
+curl -i -X POST 'https://backend.127.0.0.1.xip.io/authentication/jwt' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+    "email": "test@email.com",
+    "password": "1234567890"
+}'
+```
+
+You can find the JWToken (header.payload.signature) in response's headers:
+* header+payload in Location header
+* signature in set-cookie header
+
+```bash
+HTTP/2 201 
+server: nginx/1.19.8
+content-type: application/json
+location: header+payload:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5vcmciLCJqdGkiOiJlWFZocHBTR0JwZllTeHNZIiwiaWF0IjoxNjE3MzU1NTMyLjQyNzU3MSwibmJmIjoxNjE3MzU1NTMzLjQyNzU3MSwiZXhwIjoxNjE3MzU5MTMyLjQyNzU3MSwidWlkIjoiMGY4MzNjMjItZmVmZC00ZmFmLWE3YzItNGEwNzlhMjJjMzdjIn0
+x-powered-by: PHP/8.0.3
+cache-control: no-cache, private
+date: Fri, 02 Apr 2021 09:25:32 GMT
+x-robots-tag: noindex
+set-cookie: signature=GFZiEgVkKIbv5YszK_5wKmhLpqlkhYUUS1N1nCLLavs; path=/; secure; httponly; samesite=none
+strict-transport-security: max-age=31536000
+```
+
+You may be asking why sending the JWToken like this... well, I'm to lazy to write hundred of words when there is a lot of information already on there. Just few tips:
+
+* Main reason is security (XSS and CSRF). This is an evolved example of the following medium article:
+* [https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81](https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81)
+  
+Recommend read:
+* [http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/](http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/)
+
+Don't forget the purpose of this repo: *just to show some examples, crazy dev ideas and my opinionated vision on how to approach some scenarios* ;)   
+
+
+**Let's replace Album created before**:
+
+The client (React, Vue, Curl, Postman... whatever) should how to re-construct the JWToken to make a request (header + payload in Authorization header and signature in cookie)
+
+Note: replace token values here with the you got before... obviously
+```bash
+curl -i -X PUT 'https://backend.127.0.0.1.xip.io/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2' \
+-H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5vcmciLCJqdGkiOiJlWFZocHBTR0JwZllTeHNZIiwiaWF0IjoxNjE3MzU1NTMyLjQyNzU3MSwibmJmIjoxNjE3MzU1NTMzLjQyNzU3MSwiZXhwIjoxNjE3MzU5MTMyLjQyNzU3MSwidWlkIjoiMGY4MzNjMjItZmVmZC00ZmFmLWE3YzItNGEwNzlhMjJjMzdjIn0' \
+-H 'Content-Type: application/json' \
+-H 'Cookie: signature=GFZiEgVkKIbv5YszK_5wKmhLpqlkhYUUS1N1nCLLavs' \
+--data-raw '{
+    "title": "New album value here",
+    "publishing_date": "2021-04-02 00:00:00"
+}'
+```
+
+Response:
+```bash
+HTTP/2 204 
+server: nginx/1.19.8
+x-powered-by: PHP/8.0.3
+cache-control: no-cache, private
+date: Fri, 02 Apr 2021 09:58:22 GMT
+x-robots-tag: noindex
+strict-transport-security: max-age=31536000
+
+```
+
+**Verifying the Album updated**:
+```bash
+curl -i -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,publishing_date'
+```
+
+Response:
+```bash
+HTTP/2 200 
+server: nginx/1.19.8
+content-type: application/json
+x-powered-by: PHP/8.0.3
+cache-control: no-cache, private
+date: Fri, 02 Apr 2021 09:59:36 GMT
+x-robots-tag: noindex
+strict-transport-security: max-age=31536000
+
+{
+    "data": [
+        {
+            "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
+            "title": "New album value here",
+            "publishing_date": "2021-04-02 00:00:00"
+        }
+    ],
+    "links": {
+        "self": "\/albums?page%5Bnumber%5D=1&page%5Bsize%5D=1",
+        "first": "\/albums?page%5Bnumber%5D=1&page%5Bsize%5D=1",
+        "prev": "\/albums?page%5Bnumber%5D=1&page%5Bsize%5D=1",
+        "next": "\/albums?page%5Bnumber%5D=1&page%5Bsize%5D=1",
+        "last": "\/albums?page%5Bnumber%5D=1&page%5Bsize%5D=1"
+    },
+    "meta": {
+        "total_pages": 1
+    }
+} 
 ```
 
 ### Running dev env

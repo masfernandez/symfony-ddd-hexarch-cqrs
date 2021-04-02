@@ -65,6 +65,10 @@ db-migrate:
 db-drop:
 	$(PHP) apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
 
+clean-logs:
+	truncate -s 0 var/log/symfony/MusicLabelApp/*.log
+	truncate -s 0 var/log/nginx/*.log
+
 ## —— Docker  ————————————————————————————————————————————————————————
 up-php:
 	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.tests.yml up -d --remove-orphans
@@ -98,31 +102,39 @@ composer-update:
 
 ## —— PHP tests ————————————————————————————————————————————————————————————
 
-phpcs: up-php
+phpcs-testsuite: up-php phpcs
+phpcs:
 	$(PHP) vendor/bin/phpcs -p --colors
 
-phpcs-build: up-php
+phpcs-build-testsuite: up-php phpcs-build
+phpcs-build:
 	$(PHP) vendor/bin/phpcbf
-	
-rector: up-php
+
+rector-testsuite: up-php rector
+rector:
 	$(PHP) vendor/bin/rector process --dry-run
 
-rector-build: up-php
+rector-build-testsuite: up-php rector-build
+rector-build:
 	$(PHP) vendor/bin/rector process
 
 # @todo include phpstan in testing
-phpstan: up-php
+phpstan-testsuite: up-php phpstan
+phpstan:
 	$(PHP) vendor/bin/phpstan analyse -c phpstan.neon
 
-psalm: up-php
+psalm-testsuite: up-php psalm
+psalm:
 	$(PHP) vendor/bin/psalm --long-progress --no-cache --no-file-cache
-		
-phpunit: up-php dump-test
+
+phpunit-testsuite: up-php dump-test db-drop db-create-sqlite phpunit
+phpunit:
 	$(PHP) vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
 
-phpunit-coverage: up-php
+phpunit-coverage-testsuite: up-php dump-test db-drop db-create-sqlite phpunit-coverage
+phpunit-coverage:
 	$(PHP) bash -c "\
 		export XDEBUG_MODE=coverage && \
 		vendor/bin/phpunit \
@@ -132,7 +144,8 @@ phpunit-coverage: up-php
 		unset XDEBUG_MODE";
 	@printf "\n${ORANGE}--> ${NC}${GREEN}Coverage report build at path:${NC} build/test/phpunit\n\n";
 
-behat: up-php dump-test
+behat-testsuite: up-php dump-test db-drop db-create-sqlite behat
+behat:
 	$(PHP) vendor/bin/behat -f progress
 
 ## —— examples  ————————————————————————————————————————————————————————————
@@ -140,7 +153,7 @@ create-demo-user:
 	$(PHP) apps/MusicLabelApp/backend/bin/console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: up-php dump-test db-drop db-create-sqlite phpcs rector psalm behat phpunit
+test: up-php dump-test db-drop db-create-sqlite phpcs psalm behat phpunit rector # change rector order, it's crashing now...
 coverage: up-php dump-test db-drop db-create-sqlite phpunit-coverage
 
 dev-start: up-dev dump-dev db-create db-migrate

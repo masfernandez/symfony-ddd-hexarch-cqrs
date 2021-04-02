@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Controller\Album;
 
-use Exception;
-use Masfernandez\MusicLabel\Auth\Domain\Model\Token\InvalidCredentials;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Post\PostAlbumCommand;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExists;
 use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumPostCollectionInputData;
 use Masfernandez\MusicLabel\Catalog\Infrastructure\Request\Album\AlbumPostInputData;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 

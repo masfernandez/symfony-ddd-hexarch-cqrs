@@ -35,7 +35,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     And I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -63,7 +64,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/wrong-id-here" with body:
       """
       {
@@ -91,7 +93,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -119,7 +122,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -147,7 +151,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -175,7 +180,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -203,7 +209,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
@@ -230,7 +237,8 @@ Feature: Updating (PUT) Albums
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
-    When I add "Authorization" header with JwToken vale
+    When I add "Authorization" header token value - JWT header and payload
+    And I add cookie "signature" value - jwt signature
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
