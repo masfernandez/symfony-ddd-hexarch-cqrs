@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Command;
 
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,7 +18,7 @@ class DumpEnvCommand extends Command
 
     public function __construct(private string $rootPath)
     {
-        parent::__construct(null);
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -55,7 +58,7 @@ EOF;
     private function loadEnv(string $path, string $env): array
     {
         if (!class_exists(Dotenv::class)) {
-            throw new \RuntimeException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
+            throw new RuntimeException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
         }
 
         $globalsBackup = [$_SERVER, $_ENV];

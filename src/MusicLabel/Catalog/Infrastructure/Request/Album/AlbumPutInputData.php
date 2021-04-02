@@ -47,7 +47,10 @@ final class AlbumPutInputData extends InputDataAbstract
     {
         $parameters = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
         $parameters['id'] = $request->attributes->get('_route_params')['id'];
-        $parameters['token'] = str_replace('Bearer ', '', $request->headers->get('Authorization') ?? '');
+        $token = str_replace('Bearer ', '', $request->headers->get('Authorization') ?? '');
+        $token .= $token !== '' ? '.' : '';
+        $token .= $request->cookies->get('signature', '');
+        $parameters['token'] = $token;
 
         $albumConstrains = new Assert\Collection(
             [

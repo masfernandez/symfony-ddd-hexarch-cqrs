@@ -32,7 +32,7 @@ final class TransactionalDecoratorPass implements CompilerPassInterface
                 ->setAutowired(true)
                 ->setAutoconfigured(true);
 
-            // Add a the named autowiring alias for wiring with argument
+            // Add the named autowiring alias for wiring with argument
             $container->setAlias(ApplicationServiceInterface::class . " $$argument", $alias);
         }
     }

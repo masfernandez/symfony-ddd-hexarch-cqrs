@@ -18,6 +18,7 @@ final class NewTokenCreator implements ApplicationServiceInterface
     {
     }
 
+    /** @throws UserNotFound|InvalidCredentials */
     public function execute(GetTokenQuery|Request $request): TokenResponse
     {
         $user = $this->userRepository->getByEmail($request->getEmail())
