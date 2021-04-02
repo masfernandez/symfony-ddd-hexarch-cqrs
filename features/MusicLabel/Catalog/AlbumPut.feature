@@ -260,5 +260,3 @@ Feature: Updating (PUT) Albums
           ]
       }
       """
-
-    # @todo Scenarios to validate token

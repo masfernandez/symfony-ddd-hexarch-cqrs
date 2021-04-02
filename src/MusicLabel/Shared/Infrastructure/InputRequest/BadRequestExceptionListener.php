@@ -25,7 +25,7 @@ final class BadRequestExceptionListener implements EventSubscriberInterface
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
-        if ($exception instanceof BadRequestException) {
+        if ($exception instanceof BadRequest) {
             $event->setResponse(new JsonResponse(
                 ['errors' => $exception->getErrors()],
                 Response::HTTP_BAD_REQUEST,

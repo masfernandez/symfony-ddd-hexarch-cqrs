@@ -8,5 +8,4 @@ use Exception;
 
 final class AlbumAlreadyExists extends Exception
 {
-    // @todo exception handler and map all domain exceptions
 }
