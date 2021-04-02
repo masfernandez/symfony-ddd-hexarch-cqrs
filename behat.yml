@@ -1,38 +1,47 @@
 default:
 
-  extensions:
+    extensions:
 
-    FriendsOfBehat\SymfonyExtension:
-      bootstrap: apps/MusicLabelApp/backend/config/bootstrap.php
-      kernel:
-        class: Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel
-        path: apps/MusicLabelApp/backend/src/Kernel.php
-        environment: test
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: apps/MusicLabelApp/backend/config/bootstrap.php
+            kernel:
+                class: Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel
+                path: apps/MusicLabelApp/backend/src/Kernel.php
+                environment: test
 
-    Behatch\Extension: ~
+        Behatch\Extension: ~
 
-    Behat\MinkExtension:
-      sessions:
-        symfony:
-          symfony: ~
+        Behat\MinkExtension:
+            sessions:
+                symfony:
+                    symfony: ~
 
 
-  # vendor/bin/behat
-  suites:
+    # vendor/bin/behat
+    suites:
 
-    # vendor/bin/behat -s Catalog features/MusicLabel/Catalog
-    # vendor/bin/behat -s Catalog features/MusicLabel/Catalog/AlbumGet.feature
-    Catalog:
-      paths: [ features/MusicLabel/Catalog ]
-      contexts:
-        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\DataBaseCleanerContext
-        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
-        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumJsonContext
-        - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
+        # vendor/bin/behat -s Auth features/MusicLabel/Auth
+        # vendor/bin/behat -s Auth features/MusicLabel/Auth/Token.feature
+        Auth:
+            paths: [ features/MusicLabel/Auth ]
+            contexts:
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\DataBaseCleanerContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenRestContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenMinkContext
 
-    # vendor/bin/behat -s OtherContext features/MusicLabel/Management
-    # (just an other context unfinished example, it will ask to generate steps...)
-    OtherContext:
-      paths: [ features/MusicLabel/Management ]
-      contexts:
-        - Masfernandez\Tests\Shared\Infrastructure\Behat\Management\OtherContext
+        # vendor/bin/behat -s Catalog features/MusicLabel/Catalog
+        # vendor/bin/behat -s Catalog features/MusicLabel/Catalog/AlbumGet.feature
+        Catalog:
+            paths: [ features/MusicLabel/Catalog ]
+            contexts:
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\DataBaseCleanerContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumJsonContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
+
+        # vendor/bin/behat -s OtherContext features/MusicLabel/Management
+        # (just an other context unfinished example, it will ask to generate steps...)
+        OtherContext:
+            paths: [ features/MusicLabel/Management ]
+            contexts:
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Management\OtherContext
