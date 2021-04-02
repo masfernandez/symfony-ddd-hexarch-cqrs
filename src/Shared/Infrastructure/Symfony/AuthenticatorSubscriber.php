@@ -40,14 +40,17 @@ final class AuthenticatorSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $token = $event->getRequest()->headers->get('Authorization') ?? false;
+        $request = $event->getRequest();
+
+        $token = $request->headers->get('Authorization') ?? false;
         if ($token === false) {
             return;
         }
 
+        $signature = $request->cookies->get('signature') ?? false;
         $token = str_replace('Bearer ', '', $token);
-        if ($this->isJwToken($token)) {
-            $command = new AuthenticateJwTokenCommand($token);
+        if ($this->isHeaderAndPayPattern($token) && $signature !== false) {
+            $command = new AuthenticateJwTokenCommand($token . '.' . $signature);
         } else {
             $command = new AuthenticateTokenCommand($token);
         }
@@ -63,8 +66,8 @@ final class AuthenticatorSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function isJwToken(?string $token): bool
+    private function isHeaderAndPayPattern(?string $token): bool
     {
-        return 1 === preg_match(JwTokenValue::JWT_PATTERN, $token);
+        return 1 === preg_match(JwTokenValue::JWT_HEAD_AND_PAY_PATTERN, $token);
     }
 }

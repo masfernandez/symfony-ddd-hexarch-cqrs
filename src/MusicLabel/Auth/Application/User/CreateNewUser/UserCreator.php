@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser;
 
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\User;
+use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserAlreadyExists;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserPassword;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserRepository;
@@ -18,6 +19,7 @@ final class UserCreator implements ApplicationServiceInterface
     {
     }
 
+    /** @throws UserAlreadyExists */
     public function execute(NewUserCommand|Request $request): void
     {
         $this->userRepository->post(
