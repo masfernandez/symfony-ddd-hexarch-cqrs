@@ -21,7 +21,7 @@ final class NewJwtCreator implements ApplicationServiceInterface
      * @throws InvalidCredentials
      * @throws UserNotFound
      */
-    public function execute(GetJwtQuery|Request $request): JwtResponse
+    public function execute(GetJwtQuery | Request $request): JwtResponse
     {
         $user = $this->userRepository->getByEmail($request->getEmail())
             ?? throw new UserNotFound();

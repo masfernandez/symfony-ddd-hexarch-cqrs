@@ -35,7 +35,7 @@ final class TokenRestContext extends RestContext
     /**
      * @Given There is a user stored in database with id :id email :email password :pasword
      */
-    public function thereIsAUserStoredInDatabaseWithIdEmailPassword(string $id, string $email, string $password)
+    public function thereIsAUserStoredInDatabaseWithIdEmailPassword(string $id, string $email, string $password): void
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $em->persist(UserMother::create(
@@ -49,10 +49,11 @@ final class TokenRestContext extends RestContext
     /**
      * @Then the JSON response should be equal to:
      */
-    public function theJsonResponseShouldBeEqualTo(PyStringNode $expected)
+    public function theJsonResponseShouldBeEqualTo(PyStringNode $expected): void
     {
         $raw = $expected->getRaw();
         try {
+            // phpcs:ignore
             $expected = ($raw === '') || ($raw === '{}') ? $raw : $json = json_encode(json_decode($raw, true, 512, JSON_THROW_ON_ERROR), JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
             $expected = sprintf('There was a JsonException, message: %s', $e->getMessage());
@@ -61,5 +62,4 @@ final class TokenRestContext extends RestContext
         $message = "Actual response is '$actual', but expected '$expected'";
         $this->assertEquals($expected, $actual, $message);
     }
-
 }

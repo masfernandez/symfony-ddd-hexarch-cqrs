@@ -65,6 +65,7 @@ final class AlbumGetCollectionInputData extends InputDataAbstract
     {
         $q = $request->query->all();
 
+        // phpcs:ignore
         $numberQ = (isset($q['page']['number']) && $q['page']['number'] !== '') ? $q['page']['number'] : $this->default_page;
         $number = (int)($numberQ ?? $this->default_page);
 
@@ -74,6 +75,7 @@ final class AlbumGetCollectionInputData extends InputDataAbstract
         $sortQ = (isset($q['sort']) && $q['sort'] !== '') ? $q['sort'] : $this->default_sort;
         $sort = explode(',', $sortQ);
 
+        // phpcs:ignore
         $fieldsQ = (isset($q['fields']['albums']) && $q['fields']['albums'] !== '') ? $q['fields']['albums'] : $this->default_fields;
         $fields = explode(',', $fieldsQ);
 
@@ -96,6 +98,7 @@ final class AlbumGetCollectionInputData extends InputDataAbstract
                     foreach ($fields as $field) {
                         $field = $field[0] !== '-' ? $field : substr($field, 1, strlen($field));
                         if (!in_array($field, $this->valid_fields, true)) {
+                            // phpcs:ignore
                             $context->buildViolation("Invalid field to sort: '$field'. Allowed fields: " . implode(', ', $this->valid_fields))
                                 ->atPath($field)
                                 ->addViolation();
@@ -107,6 +110,7 @@ final class AlbumGetCollectionInputData extends InputDataAbstract
                 new Assert\Callback(function (array $fields, ExecutionContextInterface $context): void {
                     foreach ($fields as $field) {
                         if (!in_array($field, $this->valid_fields, true)) {
+                            // phpcs:ignore
                             $context->buildViolation("Invalid field to include: '$field'. Allowed fields: " . implode(', ', $this->valid_fields))
                                 ->atPath($field)
                                 ->addViolation();
@@ -119,6 +123,7 @@ final class AlbumGetCollectionInputData extends InputDataAbstract
                 new Assert\Callback(function (array $filters, ExecutionContextInterface $context): void {
                     foreach (array_keys($filters) as $filter) {
                         if (!in_array($filter, $this->valid_fields, true)) {
+                            // phpcs:ignore
                             $context->buildViolation("Invalid filter field: '$filter'. Allowed fields: " . implode(', ', $this->valid_fields))
                                 ->atPath($filter)
                                 ->addViolation();

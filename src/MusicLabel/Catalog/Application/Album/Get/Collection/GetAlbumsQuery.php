@@ -8,9 +8,17 @@ use Masfernandez\Shared\Domain\Bus\Query\SyncQuery;
 
 final class GetAlbumsQuery implements SyncQuery
 {
-    public function __construct(private int $page, private int $size, private array $fields, private array $filters, private array $sort)
+    // phpcs:disable
+    public function __construct(
+        private int $page,
+        private int $size,
+        private array $fields,
+        private array $filters,
+        private array $sort
+    )
     {
     }
+    // phpcs:enable
 
     public function getPage(): int
     {

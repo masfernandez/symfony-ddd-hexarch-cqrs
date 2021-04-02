@@ -155,7 +155,7 @@ Strict-Transport-Security: max-age=31536000
 {}
 ```
 
-**We can publish new Albums now**: (replace token value here with the you got before... obviously)
+**We can publish new Albums now**: (replace the value of the token here with the one you got before... obviously)
 
 ```bash
 curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
@@ -213,9 +213,9 @@ Don't forget the purpose of this repo: *just to show some examples, crazy dev id
 
 **Let's replace Album created before**:
 
-The client (React, Vue, Curl, Postman... whatever) should how to re-construct the JWToken to make a request (header + payload in Authorization header and signature in cookie)
+The client (React, Vue, Curl, Postman... whatever) should know how to re-construct the JWToken to make a request (header + payload in Authorization header and signature in cookie)
 
-Note: replace token values here with the you got before... obviously
+Note: replace the value of the token here with the one you got before... obviously
 ```bash
 curl -i -X PUT 'https://backend.127.0.0.1.xip.io/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2' \
 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5vcmciLCJqdGkiOiJlWFZocHBTR0JwZllTeHNZIiwiaWF0IjoxNjE3MzU1NTMyLjQyNzU3MSwibmJmIjoxNjE3MzU1NTMzLjQyNzU3MSwiZXhwIjoxNjE3MzU5MTMyLjQyNzU3MSwidWlkIjoiMGY4MzNjMjItZmVmZC00ZmFmLWE3YzItNGEwNzlhMjJjMzdjIn0' \

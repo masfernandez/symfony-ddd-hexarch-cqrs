@@ -22,7 +22,12 @@ class Album extends Aggregate implements Stringable
     public const PUBLISHING_DATE = 'publishing_date';
     private Collection $artists;
 
-    public function __construct(private AlbumId $id, private AlbumTitle $title, private AlbumPublishingDate $publishing_date)
+    // phpcs:disable
+    public function __construct(
+        private AlbumId $id,
+        private AlbumTitle $title,
+        private AlbumPublishingDate $publishing_date
+    )
     {
         $this->artists = new ArrayCollection();
         $this->collectEvent(new AlbumCreatedDomainEvent(
@@ -33,6 +38,7 @@ class Album extends Aggregate implements Stringable
             (new DateTime())->format(DomainEvent::$dateFormat)
         ));
     }
+    // phpcs:enable
 
     public static function fromArray(array $primitiveData): Album
     {
@@ -96,7 +102,7 @@ class Album extends Aggregate implements Stringable
 
     public function __toString(): string
     {
-        return get_class($this) . ':' . $this->id->value();
+        return $this::class . ':' . $this->id->value();
     }
 
     public function getId(): AlbumId

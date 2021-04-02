@@ -16,7 +16,7 @@ final class AlbumDeleter implements ApplicationServiceInterface
     }
 
     /** @throws AlbumNotFound */
-    public function execute(DeleteAlbumCommand|Request $request): void
+    public function execute(DeleteAlbumCommand | Request $request): void
     {
         $album = $this->repository->getById($request->id()) ??
             throw new AlbumNotFound();

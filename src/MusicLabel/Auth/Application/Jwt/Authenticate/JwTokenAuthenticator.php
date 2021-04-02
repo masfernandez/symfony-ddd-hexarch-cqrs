@@ -14,7 +14,7 @@ class JwTokenAuthenticator implements ApplicationServiceInterface
     {
     }
 
-    public function execute(AuthenticateJwTokenCommand|Request $request)
+    public function execute(AuthenticateJwTokenCommand | Request $request)
     {
         $this->tokenValidator->validate($request->getToken()->value());
     }
