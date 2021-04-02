@@ -16,10 +16,17 @@ class Artist implements Stringable
 {
     private ArtistAddingDate $adding_date;
 
-    public function __construct(private ArtistId $id, private ArtistName $name, private ArtistSpecialisation $specialisation, private AlbumCollection $albums)
+    // phpcs:disable
+    public function __construct(
+        private ArtistId $id,
+        private ArtistName $name,
+        private ArtistSpecialisation $specialisation,
+        private AlbumCollection $albums
+    )
     {
         $this->adding_date = new ArtistAddingDate([]);
     }
+    // phpcs:enable
 
     public static function fromPrimitives($primitiveData): Artist
     {
@@ -69,6 +76,6 @@ class Artist implements Stringable
 
     public function __toString(): string
     {
-        return get_class($this) . ':' . $this->id->value();
+        return $this::class . ':' . $this->id->value();
     }
 }

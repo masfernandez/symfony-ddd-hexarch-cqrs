@@ -21,10 +21,11 @@
         }
     },
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
+        "ext-pdo_mysql": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.11",
         "doctrine/doctrine-bundle": "^2.2",

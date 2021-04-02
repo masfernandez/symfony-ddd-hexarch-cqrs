@@ -13,6 +13,7 @@ use Stringable;
 // It doesn't mean is open to inheritance...
 class Token extends Aggregate implements Stringable
 {
+    // phpcs:disable
     public function __construct(
         private User $user,
         private TokenValue $value,
@@ -21,6 +22,7 @@ class Token extends Aggregate implements Stringable
     )
     {
     }
+    // phpcs:enable
 
     public static function create(User $user): self
     {
@@ -32,7 +34,7 @@ class Token extends Aggregate implements Stringable
 
     public function __toString(): string
     {
-        return get_class($this) . ':' . $this->value->value();
+        return $this::class . ':' . $this->value->value();
     }
 
     public function value(): string

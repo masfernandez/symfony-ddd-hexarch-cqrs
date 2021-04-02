@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <ruleset name="symfony-ddd-hexarch-cqrs">
+    <!-- @todo is this file used? -->
     <description>symfony-ddd-hexarch-cqrs</description>
+
     <file>.</file>
-    <arg name="extensions" value="php"/>
 
     <exclude-pattern>var/</exclude-pattern>
     <exclude-pattern>vendor/</exclude-pattern>
     <exclude-pattern>apps/MusicLabelApp/backend/config/</exclude-pattern>
     <exclude-pattern>apps/MusicLabelApp/backend/migrations/</exclude-pattern>
 
-    <arg value="-colors"/>
     <arg value="ns"/>
     <rule ref="PSR12"/>
 

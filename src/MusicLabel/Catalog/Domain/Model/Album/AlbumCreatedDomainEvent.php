@@ -9,6 +9,7 @@ use Masfernandez\Shared\Domain\Bus\Event\DomainEvent;
 
 final class AlbumCreatedDomainEvent extends DomainEvent implements AsyncEvent
 {
+    // phpcs:disable
     public function __construct(
         private string $id,
         private string $title,
@@ -19,6 +20,7 @@ final class AlbumCreatedDomainEvent extends DomainEvent implements AsyncEvent
     {
         parent::__construct($id, $eventId, $eventDate);
     }
+    // phpcs:enable
 
     public static function fromPrimitives(string $aggregateId, array $data, string $eventId, string $eventDate): self
     {
