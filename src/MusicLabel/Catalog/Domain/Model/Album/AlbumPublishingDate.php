@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Catalog\Domain\Model\Album;
 
 use Masfernandez\Shared\Domain\ValueObject\ValueObjectBase;
+use Stringable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-final class AlbumPublishingDate extends ValueObjectBase implements \Stringable
+final class AlbumPublishingDate extends ValueObjectBase implements Stringable
 {
     public const FORMAT = 'Y-m-d H:i:s';
 

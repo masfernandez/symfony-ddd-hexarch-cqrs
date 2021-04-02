@@ -24,7 +24,7 @@ abstract class InputDataAbstract
         $this->isValid = $violations->count() === 0;
         if ($violations->count() > 0) {
             $this->generateErrors($violations);
-            throw new BadRequestException($this->errors, "Bad Request", Response::HTTP_BAD_REQUEST);
+            throw new BadRequest($this->errors, "Bad Request", Response::HTTP_BAD_REQUEST);
         }
     }
 
