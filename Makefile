@@ -10,8 +10,8 @@ NC=\033[0m
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 # Executables: local
-DOCKER-LOCAL   	  		= docker
-DOCKER_COMPOSE-LOCAL   	= docker-compose
+DOCKER-EXEC   	  		= docker
+DOCKER_COMPOSE-EXEC   	= docker-compose # todo: Docker Compose is now in the Docker CLI
 
 ## —— folders —————————————————————————————————————————————————————————————————
 
@@ -58,22 +58,22 @@ clean-logs:
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-php:
-	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.tests.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.tests.yml up -d --remove-orphans
 
 up-dev:
-	$(DOCKER_COMPOSE-LOCAL) up --remove-orphans -d nginx mysql php rabbitmq redis
+	$(DOCKER_COMPOSE-EXEC) up --remove-orphans -d nginx mysql php rabbitmq redis
 
 up:
-	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml up --remove-orphans -d
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml up --remove-orphans -d
 
 stop:
-	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml stop
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml stop
 
 down:
-	$(DOCKER_COMPOSE-LOCAL) -f docker-compose.yml down --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml down --remove-orphans
 
 logs:
-	$(DOCKER_COMPOSE-LOCAL) logs -f
+	$(DOCKER_COMPOSE-EXEC) logs -f
 
 ## —— Consumer  ————————————————————————————————————————————————————————
 supervisord:
@@ -91,11 +91,11 @@ composer-update:
 
 phpcs-testsuite: up-php phpcs
 phpcs:
-	./php vendor/bin/phpcs -p --colors --extensions=php --standard=PSR2  src tests
+	./php vendor/bin/phpcs -p --colors --extensions=php --standard=PSR12  src tests
 
 phpcs-build-testsuite: up-php phpcs-build
 phpcs-build:
-	./php vendor/bin/phpcbf -p --colors --extensions=php --standard=PSR2 src tests
+	./php vendor/bin/phpcbf -p --colors --extensions=php --standard=PSR12 src tests
 
 rector-testsuite: up-php rector
 rector:
@@ -121,7 +121,9 @@ phpunit:
 
 phpunit-coverage-testsuite: up-php dump-test db-drop db-create-sqlite phpunit-coverage
 phpunit-coverage:
-	./php bash -c "\
+	rm -rf build/tests/phpunit
+	#@todo ./php does not work here
+	docker exec -it docker-symfony-php bash -c "\
 		export XDEBUG_MODE=coverage && \
 		vendor/bin/phpunit \
 			--exclude-group='disabled' \
@@ -134,13 +136,17 @@ behat-testsuite: up-php dump-test db-drop db-create-sqlite behat
 behat:
 	./php vendor/bin/behat -f progress
 
+## —— elastic  ————————————————————————————————————————————————————————————
+filebeat-dashboards:
+	$(DOCKER-EXEC) exec -it docker-symfony-filebeat filebeat setup --dashboards
+
 ## —— examples  ————————————————————————————————————————————————————————————
 create-demo-user:
 	./console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
 test: up-php dump-test db-drop db-create-sqlite phpcs psalm phpstan behat phpunit rector # change rector order, it's crashing now...
-coverage: up-php dump-test db-drop db-create-sqlite phpunit-coverage
+coverage: phpunit-coverage-testsuite
 
 dev-start: up-dev dump-dev db-create db-migrate
 prod-start: up dump-prod db-create db-migrate

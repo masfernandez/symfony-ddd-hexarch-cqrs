@@ -35,7 +35,7 @@
         "lcobucci/jwt": "^4.1",
         "nelmio/cors-bundle": "^2.1",
         "ramsey/uuid-doctrine": "^1.6",
-        "sensio/framework-extra-bundle": "^5.6",
+        "sensio/framework-extra-bundle": "^6.1",
         "snc/redis-bundle": "^3.3",
         "symfony/amqp-messenger": "5.2.*",
         "symfony/console": "5.2.*",

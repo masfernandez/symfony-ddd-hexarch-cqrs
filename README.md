@@ -35,6 +35,11 @@
         <ul>
             <li><a href="#curl-examples">Curl examples</a></li>
         </ul>
+        <li><a href="#docker-services">Docker services</a></li>
+        <ul>
+            <li><a href="#rabbitmq">RabbitMQ</a></li>
+            <li><a href="#kibana">Kibana</a></li>
+        </ul>
         <li><a href="#running-dev-env">Running dev env</a></li>
         <li><a href="#tests">Tests</a></li>
       </ul>
@@ -69,9 +74,10 @@ I will be adding more examples that I think are interesting and that provide an 
 - [x] Basic Authorization, with mandatory token to http POST endpoints
 - [x] Basic JWT Authorization, with mandatory token to http PUT endpoints  
 - [x] NoSql: Redis examples
+- [x] Frontend examples (React, Redux, Webpack, Babel, etc.): on this [repo](https://github.com/masfernandez/react-front-webapp)
+- [x] Elastic stack (Elasticsearch, Logstash, Kibana, Filebeat) 
 
 **Upcoming Features**
-- Frontend examples (React, Webpack, Babel, etc.) WIP: on another repo
 - Aggregates organization  
 - Using native PHP amqp extension to publish events (instead of Symfony/Messenger)
 - RabbitMQ configuration wizard (queues and exchanges, retry, dead-letter and bindings)
@@ -104,20 +110,6 @@ Execute at root path:
 ```bash
 make prod-start
 ```
-
-After few seconds, you have some services running up.
-
-- Rabbit 
-    ```
-    url: http://localhost:15672
-    user: root
-    pass: toor
-    ```
-
-- Kibana
-    ```
-    url: http://localhost:5601
-    ```
 
 #### Curl examples
 
@@ -275,6 +267,37 @@ strict-transport-security: max-age=31536000
     }
 } 
 ```
+
+### Docker services
+
+After starting production environment, several docker services will be running and ready for use: 
+
+#### RabbitMQ 
+
+- at [http://localhost:15672](http://localhost:15672)
+- user: root
+- password: toor
+
+#### Kibana
+- at [http://localhost:5601](http://localhost:5601)
+
+**- Nginx logs configuration:**
+
+Execute below command after all ELK services are started: 
+```
+make filebeat-dashboards
+```
+
+Go to http://localhost:5601/app/dashboards and search for "Nginx"
+
+**- Symfony logs configuration:**
+
+Create a index pattern at [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create)
+* Step 1. Write "logstash" as index pattern and press "Next" button
+* Step 2. Select @timestamp for Time field and press "Create index" button
+* Step 3. Go to [http://localhost:5601/app/logs/settings](http://localhost:5601/app/logs/settings) and include "logs-*,filebeat-*,logstash*" in `Log indices´ field and confirm pressing Apply button at bottom page.
+
+After running the app, you can visualize logs at [http://localhost:5601/app/logs/stream](http://localhost:5601/app/logs/stream)
 
 ### Running dev env
 
