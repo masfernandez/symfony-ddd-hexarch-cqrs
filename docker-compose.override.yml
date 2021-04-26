@@ -21,3 +21,4 @@ services:
         volumes:
             - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
             - ./docker/php/usr/local/etc/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            #- ./var/log/xdebug/xdebug.log:/tmp/xdebug.log

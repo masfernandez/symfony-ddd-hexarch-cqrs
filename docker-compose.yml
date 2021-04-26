@@ -44,8 +44,8 @@ services:
     redis:
         container_name: ${COMPOSE_PROJECT_NAME}-redis
         image: redis:latest
-        ports:
-            - 6379:6379
+#        ports:
+#            - 6379:6379
         networks:
             - redis
 
@@ -71,7 +71,6 @@ services:
     rabbitmq:
         container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
         image: rabbitmq:3.7-management
-        restart: unless-stopped
         ports:
             - 15672:15672
         environment:
@@ -82,9 +81,14 @@ services:
 
     elasticsearch:
         container_name: ${COMPOSE_PROJECT_NAME}-elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+        volumes:
+            - ./var/elasticsearch:/usr/share/elasticsearch/data
         environment:
             discovery.type: "single-node"
+            ES_JAVA_OPTS: "-Xmx500m -Xms500m"
+            ELASTIC_USERNAME: "root"
+            ELASTIC_PASSWORD: "toor"
         ports:
             - "9200:9200"
         networks:
@@ -92,14 +96,15 @@ services:
 
     logstash:
         container_name: ${COMPOSE_PROJECT_NAME}-logstash
-        image: docker.elastic.co/logstash/logstash:7.9.3
+        image: docker.elastic.co/logstash/logstash:7.12.0
+        environment:
+            - "LS_JAVA_OPTS=-Xmx500m -Xms500m"
         depends_on:
             - elasticsearch
         volumes:
             - ./docker/elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
             - ./docker/elk/logstash/conf.d:/etc/logstash/conf.d
-            - ./var/log/symfony:/var/www/html/var/log
-            - ./var/log/nginx:/var/log/nginx
+            - ./var/log:/tmp/app/logs
         networks:
             - elk_stack
 
@@ -107,14 +112,29 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}-kibana
         depends_on:
             - elasticsearch
-        image: docker.elastic.co/kibana/kibana:7.9.3
+        image: docker.elastic.co/kibana/kibana:7.12.0
         environment:
             SERVER_NAME: localhost
             ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+            ELASTICSEARCH_USERNAME: root
+            ELASTICSEARCH_PASSWORD: toor
         networks:
             - elk_stack
         ports:
             - "5601:5601"
+
+    filebeat:
+        container_name: ${COMPOSE_PROJECT_NAME}-filebeat
+        image: docker.elastic.co/beats/filebeat:7.12.0
+        command: filebeat -e -strict.perms=false
+        volumes:
+            - ./docker/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+            - ./var/log:/tmp/app/logs
+        networks:
+            - elk_stack
+        depends_on:
+            - elasticsearch
+            - kibana
 
 networks:
     db:

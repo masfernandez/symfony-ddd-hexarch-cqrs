@@ -13,7 +13,7 @@ final class Client implements CacheInMemory
     {
     }
 
-    public function get($key): string|bool
+    public function get($key): string | bool
     {
         return $this->redis->get($key);
     }

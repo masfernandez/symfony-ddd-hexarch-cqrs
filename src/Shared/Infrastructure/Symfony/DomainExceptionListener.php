@@ -42,7 +42,7 @@ final class DomainExceptionListener implements EventSubscriberInterface
             $domainException instanceof AlbumAlreadyExists => Response::HTTP_CONFLICT,
             $domainException instanceof InvalidCredentials => Response::HTTP_UNAUTHORIZED,
             $domainException instanceof UserNotFound => Response::HTTP_NOT_FOUND,
-        default => Response::HTTP_INTERNAL_SERVER_ERROR
+            default => Response::HTTP_INTERNAL_SERVER_ERROR
         };
 
             $event->setResponse(new JsonResponse(
