@@ -43,7 +43,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::TYPE_DECLARATION,
         SetList::CODE_QUALITY,
         SetList::CONTRIBUTTE_TO_SYMFONY,
-        SetList::PHP_80
+        SetList::PHP_80,
     ]);
 
     $parameters->set(Option::ENABLE_CACHE, true);
