@@ -57,14 +57,14 @@ clean-logs:
 	truncate -s 0 var/log/nginx/*.log
 
 ## —— Docker  ————————————————————————————————————————————————————————
-up-php:
+up-dev:
+	$(DOCKER_COMPOSE-EXEC) up -d --remove-orphans
+
+up-test:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.tests.yml up -d --remove-orphans
 
-up-dev:
-	$(DOCKER_COMPOSE-EXEC) up --remove-orphans -d nginx mysql php rabbitmq redis
-
 up:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml up --remove-orphans -d
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml up -d --remove-orphans
 
 stop:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml stop
@@ -73,7 +73,7 @@ down:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml down --remove-orphans
 
 logs:
-	$(DOCKER_COMPOSE-EXEC) logs -f
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml logs -f
 
 ## —— Consumer  ————————————————————————————————————————————————————————
 supervisord:
@@ -89,38 +89,38 @@ composer-update:
 
 ## —— PHP tests ————————————————————————————————————————————————————————————
 
-phpcs-testsuite: up-php phpcs
-phpcs:
+phpcs: up-test phpcs-testsuite
+phpcs-testsuite:
 	./php vendor/bin/phpcs -p --colors --extensions=php --standard=PSR12  src tests
 
-phpcs-build-testsuite: up-php phpcs-build
-phpcs-build:
+phpcs-build: up-test phpcs-build-testsuite
+phpcs-build-testsuite:
 	./php vendor/bin/phpcbf -p --colors --extensions=php --standard=PSR12 src tests
 
-rector-testsuite: up-php rector
-rector:
+rector: up-test rector-testsuite
+rector-testsuite:
 	./php vendor/bin/rector process --dry-run --clear-cache
 
-rector-build-testsuite: up-php rector-build
-rector-build:
+rector-build: up-test rector-build-testsuite
+rector-build-testsuite:
 	./php vendor/bin/rector process
 
-phpstan-testsuite: up-php phpstan
-phpstan:
+phpstan: up-test phpstan-testsuite
+phpstan-testsuite:
 	./php vendor/bin/phpstan analyse -c phpstan.neon
 
-psalm-testsuite: up-php psalm
-psalm:
+psalm: up-test psalm-testsuite
+psalm-testsuite:
 	./php vendor/bin/psalm --long-progress --no-cache --no-file-cache
 
-phpunit-testsuite: up-php dump-test db-drop db-create-sqlite phpunit
-phpunit:
+phpunit: up-test dump-test db-drop db-create-sqlite phpunit-testsuite
+phpunit-testsuite:
 	./php vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
 
-phpunit-coverage-testsuite: up-php dump-test db-drop db-create-sqlite phpunit-coverage
-phpunit-coverage:
+phpunit-coverage: up-test dump-test db-drop db-create-sqlite phpunit-coverage-testsuite
+phpunit-coverage-testsuite:
 	rm -rf build/tests/phpunit
 	#@todo ./php does not work here
 	docker exec -it docker-symfony-php bash -c "\
@@ -132,8 +132,8 @@ phpunit-coverage:
 		unset XDEBUG_MODE";
 	@printf "\n${ORANGE}--> ${NC}${GREEN}Coverage report build at path:${NC} build/test/phpunit\n\n";
 
-behat-testsuite: up-php dump-test db-drop db-create-sqlite behat
-behat:
+behat: up-test dump-test db-drop db-create-sqlite behat-testsuite
+behat-testsuite:
 	./php vendor/bin/behat -f progress
 
 ## —— elastic  ————————————————————————————————————————————————————————————
@@ -145,8 +145,8 @@ create-demo-user:
 	./console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: up-php dump-test db-drop db-create-sqlite phpcs psalm phpstan behat phpunit rector # change rector order, it's crashing now...
-coverage: phpunit-coverage-testsuite
+test: up-test dump-test db-drop db-create-sqlite rector-testsuite phpcs-testsuite psalm-testsuite phpstan-testsuite behat-testsuite phpunit-testsuite
+coverage: phpunit-coverage
 
 dev-start: up-dev dump-dev db-create db-migrate
 prod-start: up dump-prod db-create db-migrate
