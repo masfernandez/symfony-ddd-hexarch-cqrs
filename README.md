@@ -111,12 +111,13 @@ Execute at root path:
 make prod-start
 ```
 
-#### Curl examples
+#### Request examples
 
-In order to create a new Album is mandatory to include a valid token in request's Authorization header. So first, let's  create a new User:
+In order to create a new `Album` is mandatory to include a valid `Token` in request's Authorization header. So first, let's  create a new User:
 
 ```bash
 make create-demo-user
+# Credentials for demo user: test@email.com 1234567890
 ```
 
 **Now, it's time to get a valid token**:
@@ -205,9 +206,9 @@ Don't forget the purpose of this repo: *just to show some examples, crazy dev id
 
 **Let's replace Album created before**:
 
-The client (React, Vue, Curl, Postman... whatever) should know how to re-construct the JWToken to make a request (header + payload in Authorization header and signature in cookie)
+The client (React, Vue, Curl, Postman... whatever) should know how to re-construct the JWToken to make a request (remember, header + payload in Authorization header and signature in cookie)
 
-Note: replace the value of the token here with the one you got before... obviously
+Note: replace the values of the token here with the one you got before... obviously
 ```bash
 curl -i -X PUT 'https://backend.127.0.0.1.xip.io/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2' \
 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5vcmciLCJqdGkiOiJlWFZocHBTR0JwZllTeHNZIiwiaWF0IjoxNjE3MzU1NTMyLjQyNzU3MSwibmJmIjoxNjE3MzU1NTMzLjQyNzU3MSwiZXhwIjoxNjE3MzU5MTMyLjQyNzU3MSwidWlkIjoiMGY4MzNjMjItZmVmZC00ZmFmLWE3YzItNGEwNzlhMjJjMzdjIn0' \
@@ -270,34 +271,38 @@ strict-transport-security: max-age=31536000
 
 ### Docker services
 
-After starting production environment, several docker services will be running and ready for use: 
+Several docker services will be available and ready for use when the app starts: 
 
-#### RabbitMQ 
+**RabbitMQ** 
 
-- at [http://localhost:15672](http://localhost:15672)
-- user: root
-- password: toor
+> [http://localhost:15672](http://localhost:15672)\
+> user: root\
+> password: toor
 
-#### Kibana
-- at [http://localhost:5601](http://localhost:5601)
+**Kibana**
 
-**- Nginx logs configuration:**
+>[http://localhost:5601](http://localhost:5601)\
 
-Execute below command after all ELK services are started: 
-```
-make filebeat-dashboards
-```
+Kibana Nginx logs configuration:
 
-Go to http://localhost:5601/app/dashboards and search for "Nginx"
+* Execute below command after all ELK services are started: 
+    ```
+    make filebeat-dashboards
+    ```
+    
+* Go to http://localhost:5601/app/dashboards and search for "Nginx"
 
-**- Symfony logs configuration:**
+Kibana Symfony logs configuration:
+  
+* Create a index pattern at [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create)
 
-Create a index pattern at [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create)
-* Step 1. Write "logstash" as index pattern and press "Next" button
-* Step 2. Select @timestamp for Time field and press "Create index" button
-* Step 3. Go to [http://localhost:5601/app/logs/settings](http://localhost:5601/app/logs/settings) and include "logs-*,filebeat-*,logstash*" in `Log indices´ field and confirm pressing Apply button at bottom page.
+  * Step 1. Write "logstash" as index pattern and press "Next" button
+  * Step 2. Select @timestamp for Time field and press "Create index" button
+    
+* Configure logs
+  * Step 3. Go to [http://localhost:5601/app/logs/settings](http://localhost:5601/app/logs/settings) and include "logs-*,filebeat-*,logstash*" in `Log indices´ field and confirm pressing Apply button at bottom page.
 
-After running the app, you can visualize logs at [http://localhost:5601/app/logs/stream](http://localhost:5601/app/logs/stream)
+Logs can be visualized now at [http://localhost:5601/app/logs/stream](http://localhost:5601/app/logs/stream)
 
 ### Running dev env
 
