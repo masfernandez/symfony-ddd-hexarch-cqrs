@@ -14,6 +14,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.3.5] - 2021-04-27
+### Added
+### Changed
+- Makefile, targets refactor
+### Deprecated
+### Removed
+### Fixed
+- rector run
+- Doc updated
+- Fix phpstan fatal error memory allocation 
+### Security
+
+
+
 ## [0.3.4] - 2021-04-26
 ### Added
 - Add Filebeat and Kibana docker
@@ -184,6 +198,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.3.5]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.1...v0.3.2

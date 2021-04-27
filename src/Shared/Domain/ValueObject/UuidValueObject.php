@@ -23,7 +23,7 @@ abstract class UuidValueObject extends Uuid implements Stringable
         return self::$constrains;
     }
 
-    protected static function random(): static
+    protected static function random(): self
     {
         return new static(Uuid::v4()->toRfc4122());
     }

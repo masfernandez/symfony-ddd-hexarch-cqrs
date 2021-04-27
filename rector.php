@@ -16,6 +16,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/apps/MusicLabelApp/backend/src',
     ]);
 
+    $parameters->set(Option::SKIP, [
+        __DIR__ . '/src/Shared/Domain/ValueObject/UuidValueObject.php',
+    ]);
+
     $parameters->set(Option::AUTOLOAD_PATHS, [
         'apps/MusicLabelApp/backend/config/bootstrap.php',
     ]);
