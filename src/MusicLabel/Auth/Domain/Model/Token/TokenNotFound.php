@@ -6,6 +6,6 @@ namespace Masfernandez\MusicLabel\Auth\Domain\Model\Token;
 
 use Exception;
 
-final class InvalidCredentials extends Exception
+final class TokenNotFound extends Exception
 {
 }

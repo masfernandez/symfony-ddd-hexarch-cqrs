@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Masfernandez\Shared\Infrastructure\Symfony;
 
-use Masfernandez\MusicLabel\Auth\Domain\Model\Token\InvalidCredentials;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserNotFound;
+use Masfernandez\MusicLabel\Auth\Domain\Model\User\WrongPassword;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExists;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
 use Masfernandez\Shared\Domain\Model\DomainException;
@@ -37,17 +37,21 @@ final class DomainExceptionListener implements EventSubscriberInterface
 
         $domainException = $transactional->getPrevious();
         $message = null; // @todo improve final http messages
+
+        /** @noinspection PhpDuplicateMatchArmBodyInspection */
         $code = match (true) {
             $domainException instanceof AlbumNotFound => Response::HTTP_NOT_FOUND,
             $domainException instanceof AlbumAlreadyExists => Response::HTTP_CONFLICT,
-            $domainException instanceof InvalidCredentials => Response::HTTP_UNAUTHORIZED,
-            $domainException instanceof UserNotFound => Response::HTTP_NOT_FOUND,
+            $domainException instanceof WrongPassword => Response::HTTP_UNAUTHORIZED,
+            $domainException instanceof UserNotFound => Response::HTTP_UNAUTHORIZED,
             default => Response::HTTP_INTERNAL_SERVER_ERROR
         };
 
-            $event->setResponse(new JsonResponse(
+        $event->setResponse(
+            new JsonResponse(
                 $message,
                 $code,
-            ));
+            )
+        );
     }
 }
