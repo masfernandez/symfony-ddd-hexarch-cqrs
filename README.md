@@ -281,7 +281,7 @@ Several docker services will be available and ready for use when the app starts:
 
 **Kibana**
 
->[http://localhost:5601](http://localhost:5601)\
+>[http://localhost:5601](http://localhost:5601)
 
 Kibana Nginx logs configuration:
 
@@ -306,8 +306,6 @@ Logs can be visualized now at [http://localhost:5601/app/logs/stream](http://loc
 
 ### Running dev env
 
-Only few docker services will up for development... It can be change easily as you prefer.
-
 ```
 make dev-start
 ```
@@ -318,15 +316,10 @@ make test
 ```
 
 ### Docker info
-There are several services in the Docker stack for this project.
+There are several services in the Docker stack for this project. All services are built from official docker images except:
 
 - Nginx: Custom docker image. I will optimize some parameters soon but at this moment is just a wrapper of the official docker image. More info [here](https://github.com/masfernandez/symfony-docker-nginx-phpfpm/blob/master/docker/nginx/Dockerfile)
 - PHP-FPM: Custom docker image. It has 2 main targets, for production and development environment. Each env has some deps that you can check at [here](https://github.com/masfernandez/symfony-docker-nginx-phpfpm/blob/master/docker/php/Dockerfile). This is also a repo I'm working on.
-- RabbitMQ: Official docker image.
-- Elastic Search: Official docker image.
-- LogStash: Official docker image.
-- Kibana: Official docker image.
-- Redis: Official docker image.
 
 ## Roadmap
 
@@ -360,6 +353,12 @@ Project Link: [https://github.com/masfernandez/symfony-ddd-hexarch-cqrs](https:/
 
 * README template based on: [https://github.com/othneildrew/Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 * CHANGELOG template based on: [https://keepachangelog.com/en/1.0.0/](https://keepachangelog.com/en/1.0.0/)
+
+## Stats
+
+<p>
+    <img src="https://views.whatilearened.today/views/github/masfernandez/views.svg"/>
+</p>
 
 [version-shield]: https://img.shields.io/github/v/release/masfernandez/symfony-ddd-hexarch-cqrs?style=for-the-badge
 [version]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/releases
