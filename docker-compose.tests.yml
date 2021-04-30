@@ -11,9 +11,9 @@ services:
         image: masfernandez/symfony-php-fpm:latest-dev
         container_name: ${COMPOSE_PROJECT_NAME}-php
         # Uncomment and configure as needed when testing/debugging
-        #environment:
-        #    XDEBUG_CONFIG: xdebug.start_with_request=yes
-        #    PHP_IDE_CONFIG: serverName=docker
+#        environment:
+#            XDEBUG_CONFIG: xdebug.start_with_request=yes
+#            PHP_IDE_CONFIG: serverName=docker
         volumes:
             - .:/var/www/html
             - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini

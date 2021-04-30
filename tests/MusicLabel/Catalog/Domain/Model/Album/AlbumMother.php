@@ -16,7 +16,7 @@ class AlbumMother
         ?AlbumTitle $title = null,
         ?AlbumPublishingDate $publishingDate = null
     ): Album {
-        return new Album(
+        return Album::create(
             $id ?? AlbumIdMother::create(),
             $title ?? AlbumTitleMother::create(),
             $publishingDate ?? AlbumPublishingDateMother::create()

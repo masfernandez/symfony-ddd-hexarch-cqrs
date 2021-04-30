@@ -16,10 +16,10 @@ final class AlbumCreatedDomainEvent extends DomainEvent implements AsyncEvent
         private string $publishing_date,
         string $eventId = null,
         string $eventDate = null
-    )
-    {
+    ) {
         parent::__construct($id, $eventId, $eventDate);
     }
+
     // phpcs:enable
 
     public static function fromPrimitives(string $aggregateId, array $data, string $eventId, string $eventDate): self
@@ -39,8 +39,8 @@ final class AlbumCreatedDomainEvent extends DomainEvent implements AsyncEvent
     public function toPrimitives(): array
     {
         return [
-            Album::ID => $this->id,
-            Album::TITLE => $this->title,
+            Album::ID              => $this->id,
+            Album::TITLE           => $this->title,
             Album::PUBLISHING_DATE => $this->publishing_date
         ];
     }

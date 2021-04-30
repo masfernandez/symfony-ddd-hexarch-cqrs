@@ -65,13 +65,13 @@ final class DoctrineAlbumRepository extends ServiceEntityRepository implements A
 
     public function getMatching(Criteria $criteria): AlbumResultSet
     {
-        $query = $this
+        $query     = $this
             ->createQueryBuilder($criteria->getAlias())
             ->addCriteria($criteria->getCriteria())
             ->getQuery();
         $paginator = new Paginator($query);
-        $albums = $paginator->getQuery()->execute();
-        $total = $paginator->count();
+        $albums    = $paginator->getQuery()->execute();
+        $total     = $paginator->count();
         return new AlbumResultSet($albums, $total, $criteria->getFieldsToFilter());
     }
 }

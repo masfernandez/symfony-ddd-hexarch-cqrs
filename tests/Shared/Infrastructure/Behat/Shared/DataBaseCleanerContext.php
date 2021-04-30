@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog;
+namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Shared;
 
 use Behat\Behat\Context\Context;
 use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;

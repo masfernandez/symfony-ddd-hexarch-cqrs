@@ -21,6 +21,11 @@ class User extends Aggregate implements Stringable
         $this->tokens = new ArrayCollection();
     }
 
+    public static function create(UserId $id, UserEmail $email, UserPassword $password): User
+    {
+        return new self($id, $email, $password);
+    }
+
     public function getId(): UserId
     {
         return $this->id;
@@ -38,7 +43,6 @@ class User extends Aggregate implements Stringable
 
     public function comparePassword(UserPassword $password): bool
     {
-        // @todo compare Salted passwords;
-        return $this->password->value() === $password->value();
+        return password_verify($password->value(), $this->password->value());
     }
 }

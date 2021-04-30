@@ -61,6 +61,7 @@
         "fzaninotto/faker": "^1.9",
         "masfernandez/nginx-proxy-local-development": "dev-master",
         "mockery/mockery": "^1.4",
+        "php-coveralls/php-coveralls": "^2.4",
         "phpstan/phpstan": "^0.12.64",
         "phpunit/phpunit": "^9.5",
         "rector/rector": "^0.10",

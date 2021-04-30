@@ -4,7 +4,7 @@ Feature: Updating (PUT) Albums
   As an api-client
   I want to update (put) albums from the client-API
 
-  Scenario: Update (put) an album. Endpoint with id in path
+  Scenario: Update an album
     Given There are some albums stored in database:
       |  id                                     | title        | publishing_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
@@ -25,13 +25,13 @@ Feature: Updating (PUT) Albums
               "source":{
                 "pointer":"\/data\/attributes\/token"
               },
-              "detail":"This value should not be blank."
+              "detail":"This value is not valid."
             }
           ]
         }
       """
 
-  Scenario: Update (put) a non-existent album. Endpoint with id in path
+  Scenario: Update a non-existent album
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -51,7 +51,7 @@ Feature: Updating (PUT) Albums
       {}
       """
 
-  Scenario: Update (put) an album without id uuid in path
+  Scenario: Update an album without uuid in path
     When I send a "PUT" request to "/albums"
     Then the response status code should be "405"
     And the header "Content-Type" should contain "application/json"
@@ -60,7 +60,7 @@ Feature: Updating (PUT) Albums
       {}
       """
 
-  Scenario: Update (put) an album with wrong id uuid in path
+  Scenario: Update an album with wrong uuid
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -89,7 +89,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update (put) an album with empty title
+  Scenario: Update an album with empty title
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -118,7 +118,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update (put) an album with a title longer than 60 allowed
+  Scenario: Update an album with a title longer than 60 allowed
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -147,7 +147,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update (put) an album with a empty date
+  Scenario: Update an album with a empty date
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -176,7 +176,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update (put) an album with a wrong date format
+  Scenario: Update an album with a wrong date format
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -205,7 +205,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update (put) an album without title field
+  Scenario: Update an album without title field
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -233,7 +233,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update (put) an album without publishing_date field
+  Scenario: Update an album without publishing_date field
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 

@@ -43,12 +43,12 @@ final class TransactionalDecoratorPass implements CompilerPassInterface
     private function generateAliasName(string $serviceName): array
     {
         if (str_contains($serviceName, '\\')) {
-            $parts = explode('\\', $serviceName);
+            $parts     = explode('\\', $serviceName);
             $className = end($parts);
         } else {
             $className = $serviceName;
         }
-        $alias = strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($className)));
+        $alias    = strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($className)));
         $argument = lcfirst($className);
         return [
             $alias . '_transactional_decorated',

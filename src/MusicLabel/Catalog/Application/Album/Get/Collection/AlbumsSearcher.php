@@ -16,7 +16,7 @@ final class AlbumsSearcher implements ApplicationServiceInterface
     {
     }
 
-    public function execute(GetAlbumsQuery | Request $request): AlbumsResponse
+    public function execute(GetAlbumsQuery|Request $request): AlbumsResponse
     {
         $criteria = new Criteria(
             $request->getFilters(), //@todo not implemented
@@ -25,7 +25,9 @@ final class AlbumsSearcher implements ApplicationServiceInterface
             $request->getSize(),
             $request->getFields()
         );
+
         $albumResultSet = $this->repository->getMatching($criteria);
+
         return new AlbumsResponse(
             $albumResultSet->getAlbums(),
             $albumResultSet->getTotal(),

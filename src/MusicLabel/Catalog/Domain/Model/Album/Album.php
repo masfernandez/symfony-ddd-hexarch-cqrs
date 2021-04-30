@@ -27,20 +27,27 @@ class Album extends Aggregate implements Stringable
         private AlbumId $id,
         private AlbumTitle $title,
         private AlbumPublishingDate $publishing_date
-    )
-    {
+    ) {
         $this->artists = new ArrayCollection();
-        $this->collectEvent(new AlbumCreatedDomainEvent(
-            $id->value(),
-            $title->value(),
-            $publishing_date->value(),
-            null,
-            (new DateTime())->format(DomainEvent::$dateFormat)
-        ));
+        $this->collectEvent(
+            new AlbumCreatedDomainEvent(
+                $id->value(),
+                $title->value(),
+                $publishing_date->value(),
+                null,
+                (new DateTime())->format(DomainEvent::$dateFormat)
+            )
+        );
     }
+
     // phpcs:enable
 
-    public static function fromArray(array $primitiveData): Album
+    public static function create(AlbumId $id, AlbumTitle $title, AlbumPublishingDate $publishingDate): Album
+    {
+        return new self($id, $title, $publishingDate);
+    }
+
+    public static function createFromArray(array $primitiveData): Album
     {
         return new self(
             new AlbumId($primitiveData[self::ID]),
@@ -67,15 +74,15 @@ class Album extends Aggregate implements Stringable
     public function toArray(): array
     {
         return [
-            self::ID => $this->id->value(),
-            self::TITLE => $this->title->value(),
+            self::ID              => $this->id->value(),
+            self::TITLE           => $this->title->value(),
             self::PUBLISHING_DATE => $this->publishing_date->value(),
         ];
     }
 
     public function update(?AlbumTitle $title, ?AlbumPublishingDate $publishing_date): void
     {
-        $this->title = $title ?: $this->title;
+        $this->title           = $title ?: $this->title;
         $this->publishing_date = $publishing_date ?: $this->publishing_date;
     }
 

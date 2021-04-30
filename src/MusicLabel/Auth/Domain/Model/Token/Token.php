@@ -19,17 +19,17 @@ class Token extends Aggregate implements Stringable
         private TokenValue $value,
         private TokenExpirationDate $expiration_date,
         private TokenId $id
-    )
-    {
+    ) {
     }
+
     // phpcs:enable
 
     public static function create(User $user): self
     {
         // @todo handle exception
-        $value = substr(bin2hex(random_bytes(TokenValue::BYTES_LENGTH)), 0, TokenValue::HEX_LENGTH);
+        $value           = substr(bin2hex(random_bytes(TokenValue::BYTES_LENGTH)), 0, TokenValue::HEX_LENGTH);
         $expiration_date = date(TokenExpirationDate::FORMAT, strtotime(TokenExpirationDate::VALIDITY_PERIOD));
-        return new Token($user, new TokenValue($value), new TokenExpirationDate($expiration_date), new TokenId(null));
+        return new self($user, new TokenValue($value), new TokenExpirationDate($expiration_date), new TokenId(null));
     }
 
     public function __toString(): string

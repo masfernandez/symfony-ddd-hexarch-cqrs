@@ -25,8 +25,9 @@ final class AlbumDeleteInputData extends InputDataAbstract
         $constrains = [
             'id' => AlbumId::getConstraints()
         ];
+
         $albumConstrains = new Assert\Collection($constrains);
-        $violations = Validation::createValidator()->validate($parameters, $albumConstrains);
+        $violations      = Validation::createValidator()->validate($parameters, $albumConstrains);
 
         if ($violations->count() === 0) {
             $this->id = $parameters['id'];

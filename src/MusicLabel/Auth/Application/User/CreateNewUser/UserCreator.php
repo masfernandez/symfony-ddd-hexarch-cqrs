@@ -20,14 +20,13 @@ final class UserCreator implements ApplicationServiceInterface
     }
 
     /** @throws UserAlreadyExists */
-    public function execute(NewUserCommand | Request $request): void
+    public function execute(NewUserCommand|Request $request): void
     {
         $this->userRepository->post(
-            new User(
+            User::create(
                 new UserId(UserId::v4()->toRfc4122()),
                 new UserEmail($request->getEmail()),
-                //@todo salt password here...
-                new UserPassword($request->getPassword())
+                new UserPassword(password_hash($request->getPassword(), PASSWORD_ARGON2ID))
             )
         );
     }

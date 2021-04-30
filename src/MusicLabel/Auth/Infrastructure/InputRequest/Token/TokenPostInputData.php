@@ -29,15 +29,17 @@ final class TokenPostInputData extends InputDataAbstract
 
     protected function extractAndValidateData(Request $request): ConstraintViolationListInterface
     {
-        $parameters = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
-        $tokenConstrains = new Assert\Collection([
-            'email' => UserEmail::getConstraints(),
-            'password' => UserPassword::getConstraints(),
-        ]);
-        $violations = Validation::createValidator()->validate($parameters, $tokenConstrains);
+        $parameters      = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
+        $tokenConstrains = new Assert\Collection(
+            [
+                'email'    => UserEmail::getConstraints(),
+                'password' => UserPassword::getConstraints(),
+            ]
+        );
+        $violations      = Validation::createValidator()->validate($parameters, $tokenConstrains);
 
         if ($violations->count() === 0) {
-            $this->email = $parameters['email'];
+            $this->email    = $parameters['email'];
             $this->password = $parameters['password'];
         }
 

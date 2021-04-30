@@ -20,8 +20,11 @@ final class AlbumResponse
 
     public function toJson(): string
     {
-        return json_encode([
-            'data' => $this->album,
-        ], JSON_THROW_ON_ERROR);
+        return json_encode(
+            [
+                'data' => $this->album,
+            ],
+            JSON_THROW_ON_ERROR
+        );
     }
 }
