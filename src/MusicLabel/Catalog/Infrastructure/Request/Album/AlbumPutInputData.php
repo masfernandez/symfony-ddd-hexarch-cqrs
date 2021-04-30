@@ -45,28 +45,28 @@ final class AlbumPutInputData extends InputDataAbstract
 
     protected function extractAndValidateData(Request $request): ConstraintViolationListInterface
     {
-        $parameters = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
-        $parameters['id'] = $request->attributes->get('_route_params')['id'];
-        $token = str_replace('Bearer ', '', $request->headers->get('Authorization') ?? '');
-        $token .= $token !== '' ? '.' : '';
-        $token .= $request->cookies->get('signature', '');
+        $parameters          = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
+        $parameters['id']    = $request->attributes->get('_route_params')['id'];
+        $token               = str_replace('Bearer ', '', $request->headers->get('Authorization') ?? '');
+        $token               .= $token !== '' ? '.' : '';
+        $token               .= $request->cookies->get('signature', '');
         $parameters['token'] = $token;
 
         $albumConstrains = new Assert\Collection(
             [
-                'id' => AlbumId::getConstraints(),
-                'title' => AlbumTitle::getConstraints(),
+                'id'              => AlbumId::getConstraints(),
+                'title'           => AlbumTitle::getConstraints(),
                 'publishing_date' => AlbumPublishingDate::getConstraints(),
-                'token' => JwTokenValue::getConstraints(),
+                'token'           => JwTokenValue::getConstraints(),
             ]
         );
-        $violations = Validation::createValidator()->validate($parameters, $albumConstrains);
+        $violations      = Validation::createValidator()->validate($parameters, $albumConstrains);
 
         if ($violations->count() === 0) {
-            $this->id = $parameters['id'];
-            $this->title = $parameters['title'];
+            $this->id              = $parameters['id'];
+            $this->title           = $parameters['title'];
             $this->publishing_date = $parameters['publishing_date'];
-            $this->jsonWebToken = $parameters['token'];
+            $this->jsonWebToken    = $parameters['token'];
         }
 
         return $violations;

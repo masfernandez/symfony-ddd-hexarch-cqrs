@@ -7,6 +7,7 @@ namespace Masfernandez\MusicLabelApp\Infrastructure\Backend\Command;
 use Exception;
 use Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser\NewUserCommand;
 use Masfernandez\MusicLabel\Auth\Domain\Model\User\UserAlreadyExists;
+use Masfernandez\Shared\Domain\Model\DomainException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,13 +43,20 @@ class CreateUserCommand extends Command
                 )
             );
         } catch (Exception $exception) {
-            $prevEx = $exception->getPrevious();
-            if ($prevEx instanceof UserAlreadyExists) {
-                //@todo message here...
-                $output->writeln('Error when creating a new User. Message:' . PHP_EOL . $prevEx->getMessage());
+            $transactional = $exception->getPrevious();
+            if (!$transactional instanceof DomainException) {
+                $output->writeln('Unexpected error: ' . $transactional->getMessage());
                 return Command::FAILURE;
             }
-            $output->writeln($exception->getMessage(), OutputInterface::VERBOSITY_DEBUG);
+
+            $domainException = $transactional->getPrevious();
+
+            $response = match (true) {
+                $domainException instanceof UserAlreadyExists => 'User already exists in database.',
+                default => 'Unexpected error: ' . $domainException->getMessage()
+            };
+
+            $output->writeln($response);
             return Command::FAILURE;
         }
 

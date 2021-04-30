@@ -4,7 +4,7 @@ Feature: Deleting Albums
   As an api-client
   I want to delete albums from API
 
-  Scenario: Delete an album. Endpoint with id in path
+  Scenario: Delete an album
     Given There are some albums stored in database:
       |  id                                     | title        | publishing_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
@@ -41,7 +41,7 @@ Feature: Deleting Albums
         }
       """
 
-  Scenario: Delete an non-existent album. Endpoint with id in path
+  Scenario: Delete an non-existent album
     When I send a "DELETE" request to "/albums/9be8b428-12ff-4312-806e-22547ea98dcb"
     Then the response status code should be "404"
     And the header "Content-Type" should contain "application/json"

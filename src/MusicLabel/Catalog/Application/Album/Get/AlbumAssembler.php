@@ -18,6 +18,6 @@ final class AlbumAssembler
 
     public static function fromArray(array $data): Album
     {
-        return Album::fromArray($data);
+        return Album::createFromArray($data);
     }
 }

@@ -18,8 +18,8 @@ class Generator implements JwTokenGenerator
     public function create(User $user): string
     {
         $configuration = $this->configuration;
-        $now = new DateTimeImmutable();
-        $token = $configuration->builder()
+        $now           = new DateTimeImmutable();
+        $token         = $configuration->builder()
             ->issuedBy($this->tokenConfig->issuedBy())
             ->permittedFor($this->tokenConfig->permittedFor())
             ->identifiedBy($this->tokenConfig->identifiedBy())

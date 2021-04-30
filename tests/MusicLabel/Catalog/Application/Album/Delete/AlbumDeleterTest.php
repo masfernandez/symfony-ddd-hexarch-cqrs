@@ -10,6 +10,7 @@ namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Delete;
 use Masfernandez\MusicLabel\Catalog\Application\Album\Delete\AlbumDeleter;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
 use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\CacheInMemory;
 use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -22,13 +23,16 @@ class AlbumDeleterTest extends TestCase
     public function itShouldDeleteAnAlbum(): void
     {
         $command = DeleteAlbumCommandMother::create();
-        $album = AlbumMother::create($command->id());
+        $album   = AlbumMother::create($command->id());
 
         $albumRepository = Mockery::mock(AlbumRepository::class);
         $albumRepository->allows()->getById($command->id())->andReturns($album);
         $albumRepository->allows()->delete($album);
 
-        (new AlbumDeleter($albumRepository))->execute($command);
+        $cache = Mockery::mock(CacheInMemory::class);
+        $cache->allows()->del($command->id()->value());
+
+        (new AlbumDeleter($albumRepository, $cache))->execute($command);
     }
 
     /**
@@ -36,12 +40,15 @@ class AlbumDeleterTest extends TestCase
      */
     public function itShouldResponseNotFoundException(): void
     {
-        $command = DeleteAlbumCommandMother::create();
+        $command         = DeleteAlbumCommandMother::create();
         $albumRepository = Mockery::mock(AlbumRepository::class);
         $albumRepository->allows()->getById($command->id())->andReturns(null);
 
+        $cache = Mockery::mock(CacheInMemory::class);
+        $cache->allows()->del($command->id()->value());
+
         // test application service
-        $albumDeleter = new AlbumDeleter($albumRepository);
+        $albumDeleter = new AlbumDeleter($albumRepository, $cache);
         $this->expectException(AlbumNotFound::class);
         $albumDeleter->execute($command);
     }

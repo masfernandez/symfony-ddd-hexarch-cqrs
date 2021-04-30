@@ -8,13 +8,13 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog;
+namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Shared;
 
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\Behat\Context\TranslatedContextInterface;
-use Masfernandez\Tests\Shared\Infrastructure\Behat\Shared\AbstractMinkContext;
+use Behatch\Context\JsonContext;
 
-final class AlbumMinkContext extends AbstractMinkContext
+abstract class AbstractJsonContext extends JsonContext
 {
 }

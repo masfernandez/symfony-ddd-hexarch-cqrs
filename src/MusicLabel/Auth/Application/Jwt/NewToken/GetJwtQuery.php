@@ -15,7 +15,7 @@ final class GetJwtQuery implements Request
 
     public function __construct(string $email, string $password)
     {
-        $this->email = new UserEmail($email);
+        $this->email    = new UserEmail($email);
         $this->password = new UserPassword($password);
     }
 

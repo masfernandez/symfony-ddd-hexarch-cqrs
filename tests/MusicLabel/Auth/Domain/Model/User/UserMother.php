@@ -16,7 +16,7 @@ class UserMother
         ?UserEmail $email = null,
         ?UserPassword $password = null
     ): User {
-        return new User(
+        return User::create(
             $id ?? UserIdMother::create(),
             $email ?? UserEmailMother::create(),
             $password ?? UserPasswordMother::create(),

@@ -15,7 +15,7 @@ abstract class DomainEvent
 
     public function __construct(private string $aggregateId, string $eventId = null, string $eventDate = null)
     {
-        $this->eventId = $eventId ?: Uuid::v4()->toRfc4122();
+        $this->eventId   = $eventId ?: Uuid::v4()->toRfc4122();
         $this->eventDate = $eventDate ?: (new DateTime())->format(self::$dateFormat);
     }
 
