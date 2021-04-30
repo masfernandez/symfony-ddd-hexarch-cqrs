@@ -37,7 +37,7 @@ Feature: Managing Tokens
       {}
       """
 
-  Scenario: Login without email field
+  Scenario: Login without email
     When I send a "POST" request to "/authentication" with body:
       """
       {
@@ -60,7 +60,7 @@ Feature: Managing Tokens
       }
       """
 
-  Scenario: Login without email password
+  Scenario: Login without password
     When I send a "POST" request to "/authentication" with body:
       """
       {

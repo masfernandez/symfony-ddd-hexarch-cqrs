@@ -20,7 +20,7 @@ abstract class InputDataAbstract
     public function __construct(RequestStack $requestStack)
     {
         $this->request = $requestStack->getMasterRequest();
-        $violations = $this->extractAndValidateData(clone $this->request);
+        $violations    = $this->extractAndValidateData(clone $this->request);
         $this->isValid = $violations->count() === 0;
         if ($violations->count() > 0) {
             $this->generateErrors($violations);
@@ -34,8 +34,8 @@ abstract class InputDataAbstract
     {
         $this->errors = [];
         foreach ($violations as $violation) {
-            $field = str_replace(['[', ']'], ['', ''], $violation->getPropertyPath());
-            $detail = $violation->getMessage();
+            $field          = str_replace(['[', ']'], ['', ''], $violation->getPropertyPath());
+            $detail         = $violation->getMessage();
             $this->errors[] = [
                 'source' => ['pointer' => str_replace('field', $field, '/data/attributes/field')],
                 'detail' => $detail

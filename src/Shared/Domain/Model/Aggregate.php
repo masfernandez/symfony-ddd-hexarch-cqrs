@@ -15,7 +15,7 @@ abstract class Aggregate
      */
     final public function dropEvents(): array
     {
-        $domainEvents = $this->domainEvents;
+        $domainEvents       = $this->domainEvents;
         $this->domainEvents = [];
 
         return $domainEvents;

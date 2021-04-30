@@ -17,6 +17,7 @@ final class ArtistName extends ValueObjectBase
     {
         return [
             new Constraints\NotBlank(),
-            new Constraints\Length(['min' => 1, 'max' => 255])];
+            new Constraints\Length(['min' => 1, 'max' => 255])
+        ];
     }
 }

@@ -26,10 +26,12 @@ final class BadRequestExceptionListener implements EventSubscriberInterface
     {
         $exception = $event->getThrowable();
         if ($exception instanceof BadRequest) {
-            $event->setResponse(new JsonResponse(
-                ['errors' => $exception->getErrors()],
-                Response::HTTP_BAD_REQUEST,
-            ));
+            $event->setResponse(
+                new JsonResponse(
+                    ['errors' => $exception->getErrors()],
+                    Response::HTTP_BAD_REQUEST,
+                )
+            );
         }
     }
 }

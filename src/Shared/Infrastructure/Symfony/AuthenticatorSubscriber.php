@@ -55,7 +55,7 @@ final class AuthenticatorSubscriber implements EventSubscriberInterface
         }
 
         $signature = $request->cookies->get('signature') ?? false;
-        $token = str_replace('Bearer ', '', $token);
+        $token     = str_replace('Bearer ', '', $token);
         if ($this->isHeaderAndPayPattern($token) && $signature !== false) {
             // validate input
             $violations = Validation::createValidator()->validate(

@@ -15,9 +15,9 @@ final class GetAlbumsQuery implements SyncQuery
         private array $fields,
         private array $filters,
         private array $sort
-    )
-    {
+    ) {
     }
+
     // phpcs:enable
 
     public function getPage(): int

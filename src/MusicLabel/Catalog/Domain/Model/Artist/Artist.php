@@ -22,10 +22,10 @@ class Artist implements Stringable
         private ArtistName $name,
         private ArtistSpecialisation $specialisation,
         private AlbumCollection $albums
-    )
-    {
+    ) {
         $this->adding_date = new ArtistAddingDate([]);
     }
+
     // phpcs:enable
 
     public static function fromPrimitives($primitiveData): Artist
@@ -44,7 +44,7 @@ class Artist implements Stringable
 
     public function update(ArtistName $name, ArtistSpecialisation $specialisation): void
     {
-        $this->name = $name;
+        $this->name           = $name;
         $this->specialisation = $specialisation;
     }
 
@@ -67,10 +67,10 @@ class Artist implements Stringable
     public function toPrimitives(): array
     {
         return [
-            'id' => $this->id->value(),
-            'name' => $this->name->value(),
+            'id'             => $this->id->value(),
+            'name'           => $this->name->value(),
             'specialisation' => $this->specialisation->value(),
-            'adding_date' => $this->adding_date->value()->format(ArtistAddingDate::FORMAT)
+            'adding_date'    => $this->adding_date->value()->format(ArtistAddingDate::FORMAT)
         ];
     }
 

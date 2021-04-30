@@ -18,7 +18,7 @@ final class AlbumSearcher implements ApplicationServiceInterface
     }
 
     /** @throws JsonException */
-    public function execute(GetAlbumQuery | Request $request): AlbumResponse
+    public function execute(GetAlbumQuery|Request $request): AlbumResponse
     {
         $cacheResponse = $this->cache->get($request->id()->toString());
         if ($cacheResponse !== false) {
@@ -26,7 +26,7 @@ final class AlbumSearcher implements ApplicationServiceInterface
             return new AlbumResponse($albumArray);
         }
 
-        $album = $this->albumRepository->getById($request->id());
+        $album      = $this->albumRepository->getById($request->id());
         $albumArray = ($album !== null) ? $album->toArray() : [];
         $this->cache->set(
             $request->id()->toString(),

@@ -15,6 +15,7 @@ class TokenConfig
         private string $expires_at
     ) {
     }
+
     // phpcs:enable
 
     public function issuedBy(): string

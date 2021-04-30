@@ -33,7 +33,7 @@ class Validator implements JwTokenValidator
         );
 
         $constraints = $configuration->validationConstraints();
-        $token = $configuration->parser()->parse($value);
+        $token       = $configuration->parser()->parse($value);
         try {
             $configuration->validator()->assert($token, ...$constraints);
         } catch (Exception | RequiredConstraintsViolated) {

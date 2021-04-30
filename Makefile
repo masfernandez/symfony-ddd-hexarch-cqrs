@@ -115,13 +115,14 @@ psalm-testsuite:
 
 phpunit: up-test dump-test db-drop db-create-sqlite phpunit-testsuite
 phpunit-testsuite:
+	rm -rf build/test
 	./php vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
 
 phpunit-coverage: up-test dump-test db-drop db-create-sqlite phpunit-coverage-testsuite
 phpunit-coverage-testsuite:
-	rm -rf build/tests/phpunit
+	rm -rf build/test
 	#@todo ./php does not work here
 	docker exec -it docker-symfony-php bash -c "\
 		export XDEBUG_MODE=coverage && \
@@ -145,7 +146,7 @@ create-demo-user:
 	./console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: up-test dump-test db-drop db-create-sqlite rector-testsuite phpcs-testsuite psalm-testsuite phpstan-testsuite behat-testsuite phpunit-testsuite
+test: up-test dump-test db-drop db-create-sqlite rector-testsuite phpcs-testsuite psalm-testsuite phpstan-testsuite behat-testsuite phpunit-testsuite phpunit-coverage-testsuite
 coverage: phpunit-coverage
 
 dev-start: up-dev dump-dev db-create db-migrate

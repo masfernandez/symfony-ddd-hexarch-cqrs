@@ -17,7 +17,7 @@ final class AlbumResultSet
     {
         $this->albums = [];
         foreach ($albums as $album) {
-            $albumArray = AlbumAssembler::toArray($album);
+            $albumArray     = AlbumAssembler::toArray($album);
             $this->albums[] = array_intersect_key($albumArray, array_flip($fields));
         }
     }
