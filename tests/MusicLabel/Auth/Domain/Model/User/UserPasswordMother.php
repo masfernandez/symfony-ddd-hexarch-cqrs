@@ -9,10 +9,10 @@ class UserPasswordMother
 {
     public static function create(?string $password = null): UserPassword
     {
-        return new UserPassword(
-            $password ?? FakerMother::random()->lexify(
+        $noSaltedPassword = $password ??
+            FakerMother::random()->lexify(
                 '??????????????????????????'
-            )
-        );
+            );
+        return new UserPassword(password_hash($noSaltedPassword, PASSWORD_ARGON2ID));
     }
 }

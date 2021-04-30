@@ -47,25 +47,26 @@ final class AlbumPostInputData extends InputDataAbstract
 
     protected function extractAndValidateData(Request $request): ConstraintViolationListInterface
     {
-        $parameters = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
-        $parameters['id'] = $request->attributes->get('_route_params')['id'];
+        $parameters          = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
+        $parameters['id']    = $request->attributes->get('_route_params')['id'];
         $parameters['token'] = str_replace('Bearer ', '', $request->headers->get('Authorization') ?? '');
 
         $inputConstraints = new Assert\Collection(
             [
-                'id' => AlbumId::getConstraints(),
-                'title' => AlbumTitle::getConstraints(),
+                'id'              => AlbumId::getConstraints(),
+                'title'           => AlbumTitle::getConstraints(),
                 'publishing_date' => AlbumPublishingDate::getConstraints(),
-                'token' => TokenValue::getConstraints(),
+                'token'           => TokenValue::getConstraints(),
             ]
         );
+
         $violations = Validation::createValidator()->validate($parameters, $inputConstraints);
 
         if ($violations->count() === 0) {
-            $this->id = $parameters['id'];
-            $this->title = $parameters['title'];
+            $this->id              = $parameters['id'];
+            $this->title           = $parameters['title'];
             $this->publishing_date = $parameters['publishing_date'];
-            $this->token = $parameters['token'];
+            $this->token           = $parameters['token'];
         }
 
         return $violations;

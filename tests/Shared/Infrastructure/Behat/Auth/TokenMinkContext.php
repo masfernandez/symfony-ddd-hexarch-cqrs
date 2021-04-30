@@ -13,15 +13,8 @@ namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Auth;
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\Behat\Context\TranslatedContextInterface;
-use Behat\MinkExtension\Context\MinkContext;
+use Masfernandez\Tests\Shared\Infrastructure\Behat\Shared\AbstractMinkContext;
 
-final class TokenMinkContext extends MinkContext
+final class TokenMinkContext extends AbstractMinkContext
 {
-    /**
-     * @Then the response status code should be :code
-     */
-    public function theResponseStatusCodeShouldBe($code): void
-    {
-        $this->assertResponseStatus($code);
-    }
 }

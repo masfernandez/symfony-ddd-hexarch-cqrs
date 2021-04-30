@@ -18,7 +18,7 @@ final class AlbumUpdater implements ApplicationServiceInterface
     }
 
     /** @throws AlbumNotFound|JsonException */
-    public function execute(PutAlbumCommand | Request $request): void
+    public function execute(PutAlbumCommand|Request $request): void
     {
         $album = $this->repository->getById($request->getId()) ??
             throw new AlbumNotFound();

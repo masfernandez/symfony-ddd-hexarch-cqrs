@@ -29,14 +29,14 @@ final class DomainExceptionListener implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event): void
     {
-        $exception = $event->getThrowable();
+        $exception     = $event->getThrowable();
         $transactional = $exception->getPrevious();
         if (!$transactional instanceof DomainException) {
             return;
         }
 
         $domainException = $transactional->getPrevious();
-        $message = null; // @todo improve final http messages
+        $message         = null; // @todo improve final http messages
 
         /** @noinspection PhpDuplicateMatchArmBodyInspection */
         $code = match (true) {

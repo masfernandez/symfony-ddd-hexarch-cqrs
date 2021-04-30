@@ -18,25 +18,29 @@ default:
 
 
     # vendor/bin/behat
+    # make behat
     suites:
 
+        # examples:
         # vendor/bin/behat -s Auth features/MusicLabel/Auth
         # vendor/bin/behat -s Auth features/MusicLabel/Auth/Token.feature
         Auth:
             paths: [ features/MusicLabel/Auth ]
             contexts:
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\DataBaseCleanerContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Shared\DataBaseCleanerContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenJsonContext
                 - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenRestContext
                 - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenMinkContext
 
+        # examples:
         # vendor/bin/behat -s Catalog features/MusicLabel/Catalog
         # vendor/bin/behat -s Catalog features/MusicLabel/Catalog/AlbumGet.feature
         Catalog:
             paths: [ features/MusicLabel/Catalog ]
             contexts:
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\DataBaseCleanerContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Shared\DataBaseCleanerContext
                 - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumJsonContext
+                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
                 - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
 
         # vendor/bin/behat -s OtherContext features/MusicLabel/Management

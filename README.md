@@ -1,10 +1,13 @@
+<p align="center">
+
 [![Version][version-shield]][version]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
+</p>
 
 <br />
 
@@ -12,6 +15,12 @@
 <p align="center">
     Code examples and good practices using Domain Drive Development, Hexagonal Architecture, CQRS, 
     Symfony 5, PHP8 and anything else I can think of... 
+    <br /><br />
+    <a href="https://symfony.com/"><img src="https://img.shields.io/badge/Symfony-5-42a7ff.svg?style=flat-square&logo=symfony" alt="Symfony 5"/></a>
+    <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-777BB4.svg?style=flat-square&logo=php" alt="PHP"/></a>
+    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/docker-3-2496ED.svg?style=flat-square&logo=docker" alt="Docker"/></a>
+    <a href="https://www.mysql.com/"><img src="https://img.shields.io/badge/mysql-8-4479A1.svg?style=flat-square&logo=mysql" alt="MySql"/></a>
+    <a href="https://www.sqlite.org/index.html"><img src="https://img.shields.io/badge/sqlite-3-003B57.svg?style=flat-square&logo=sqlite" alt="SQLite"/></a>
     <br /><br />
     <a href="https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/issues">Report Bug</a>
     ·
@@ -315,6 +324,9 @@ make dev-start
 make test
 ```
 
+[![Build Status](https://travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs.svg?branch=master)](https://travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs)
+[![Coverage Status](https://coveralls.io/repos/github/masfernandez/symfony-ddd-hexarch-cqrs/badge.svg?branch=master)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs?branch=master)
+
 ### Docker info
 There are several services in the Docker stack for this project. All services are built from official docker images except:
 
@@ -346,6 +358,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Miguel Ángel Sánchez Fernández - mangel.sanfer@gmail.com
 
+(linkedin hiden profile - require login)
+
+[![LinkedIn][linkedin-shield]][linkedin-url] 
+
 Project Link: [https://github.com/masfernandez/symfony-ddd-hexarch-cqrs](https://github.com/masfernandez/symfony-ddd-hexarch-cqrs)
 
 
@@ -360,8 +376,8 @@ Project Link: [https://github.com/masfernandez/symfony-ddd-hexarch-cqrs](https:/
     <img src="https://views.whatilearened.today/views/github/masfernandez/views.svg"/>
 </p>
 
-[version-shield]: https://img.shields.io/github/v/release/masfernandez/symfony-ddd-hexarch-cqrs?style=for-the-badge
-[version]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/releases
+[version-shield]: https://img.shields.io/github/v/tag/masfernandez/symfony-ddd-hexarch-cqrs?style=for-the-badge
+[version]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/tags
 
 [contributors-shield]: https://img.shields.io/github/contributors/masfernandez/symfony-ddd-hexarch-cqrs.svg?style=for-the-badge
 [contributors-url]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/graphs/contributors

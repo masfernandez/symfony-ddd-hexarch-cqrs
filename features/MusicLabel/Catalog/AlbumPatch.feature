@@ -4,7 +4,7 @@ Feature: Patching Albums
   As an api-client
   I want to patch albums from the client-API
 
-  Scenario: Patch an album. Endpoint with id in path
+  Scenario: Patch an album
     Given There are some albums stored in database:
       |  id                                     | title        | publishing_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
@@ -21,7 +21,7 @@ Feature: Patching Albums
       """
       """
 
-  Scenario: Patch an an non-existent album. Endpoint with id in path
+  Scenario: Patch an an non-existent album
     When I send a "PATCH" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {

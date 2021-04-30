@@ -38,7 +38,7 @@ final class AlbumPatchInputData extends InputDataAbstract
 
     protected function extractAndValidateData(Request $request): ConstraintViolationListInterface
     {
-        $parameters = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
+        $parameters       = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR) ?? [];
         $parameters['id'] = $request->attributes->get('_route_params')['id'];
 
         $constrains = [
@@ -52,11 +52,11 @@ final class AlbumPatchInputData extends InputDataAbstract
         }
 
         $albumConstrains = new Assert\Collection($constrains);
-        $violations = Validation::createValidator()->validate($parameters, $albumConstrains);
+        $violations      = Validation::createValidator()->validate($parameters, $albumConstrains);
 
         if ($violations->count() === 0) {
-            $this->id = $parameters['id'];
-            $this->title = $parameters['title'] ?: null;
+            $this->id              = $parameters['id'];
+            $this->title           = $parameters['title'] ?: null;
             $this->publishing_date = $parameters['publishing_date'] ?: null;
         }
 

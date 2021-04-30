@@ -22,7 +22,7 @@ final class AlbumGetInputData extends InputDataAbstract
         $albumId = $request->attributes->get('_route_params')['id'];
 
         $albumConstrains = AlbumId::getConstraints();
-        $violations = Validation::createValidator()->validate($albumId, $albumConstrains);
+        $violations      = Validation::createValidator()->validate($albumId, $albumConstrains);
 
         if ($violations->count() === 0) {
             $this->id = $albumId;

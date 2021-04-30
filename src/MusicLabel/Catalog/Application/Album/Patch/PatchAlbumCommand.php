@@ -15,8 +15,8 @@ final class PatchAlbumCommand implements SyncCommand
 
     public function __construct(string $id, ?string $title, ?string $publishing_date)
     {
-        $this->id = new AlbumId($id);
-        $this->title = new AlbumTitle($title);
+        $this->id              = new AlbumId($id);
+        $this->title           = new AlbumTitle($title);
         $this->publishing_date = new AlbumPublishingDate($publishing_date);
     }
 

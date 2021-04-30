@@ -21,7 +21,7 @@ final class NewTokenCreator implements ApplicationServiceInterface
     /** @throws UserNotFound
      * @throws WrongPassword
      */
-    public function execute(GetTokenQuery | Request $request): TokenResponse
+    public function execute(GetTokenQuery|Request $request): TokenResponse
     {
         $user = $this->userRepository->getByEmail($request->getEmail())
             ?? throw new UserNotFound();

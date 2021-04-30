@@ -19,10 +19,10 @@ final class PostAlbumCommand implements Command
 
     public function __construct(string $id, string $title, string $publishing_date, string $token)
     {
-        $this->id = AlbumId::fromString($id);
-        $this->title = new AlbumTitle($title);
+        $this->id              = AlbumId::fromString($id);
+        $this->title           = new AlbumTitle($title);
         $this->publishing_date = new AlbumPublishingDate($publishing_date);
-        $this->token = new TokenValue($token);
+        $this->token           = new TokenValue($token);
     }
 
     public function getPublishingDate(): AlbumPublishingDate

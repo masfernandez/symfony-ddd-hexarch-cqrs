@@ -10,7 +10,7 @@ final class Client implements CacheInMemory
 {
     private array $data = [];
 
-    public function get($key): string | bool
+    public function get($key): string|bool
     {
         return ($this->data[$key] ?? false);
     }
