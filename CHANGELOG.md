@@ -14,6 +14,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.3.8] - 2021-05-01
+### Added
+- Github action file
+- New preprod env
+### Changed
+- Re-create vault secrets
+- Organize env files and rename env vars
+### Deprecated
+### Removed
+### Fixed
+- Reformat code PSR-12
+- Small refactors
+### Security
+- Salt user passwords
+
+
+
 ## [0.3.7] - 2021-04-30
 ### Added
 - Travis CI
@@ -228,6 +245,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.3.8]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.4...v0.3.5

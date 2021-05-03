@@ -3,11 +3,11 @@ parameters:
     project.root_path: '%kernel.project_dir%/../../..'
 
     # jwToken config
-    jwt.issued_by: '%env(ISSUED_BY)%'
-    jwt.identified_by: '%env(IDENTIFIED_BY)%' # defined in vault
-    jwt.permitted_for: '%env(PERMITTED_FOR)%'
-    jwt.be_used_after: '%env(BE_USED_AFTER)%'
-    jwt.expires_at: '%env(EXPIRES_AT)%'
+    jwt.issued_by: '%env(JWT_ISSUED_BY)%'
+    jwt.identified_by: '%env(JWT_IDENTIFIED_BY)%' # defined in vault
+    jwt.permitted_for: '%env(JWT_PERMITTED_FOR)%'
+    jwt.be_used_after: '%env(JWT_BE_USED_AFTER)%'
+    jwt.expires_at: '%env(JWT_EXPIRES_AT)%'
 
 services:
 
@@ -68,8 +68,8 @@ services:
     JwtInMemory:
         class: 'Lcobucci\JWT\Signer\Key\InMemory'
         factory: [ 'Lcobucci\JWT\Signer\Key\InMemory','plainText' ]
-        # CONTENTS, PASSPHRASE defined in vault -> ./console secrets:list --reveal
-        arguments: [ '%env(CONTENTS)%','%env(PASSPHRASE)%' ]
+        # JWT_CONTENTS, JWT_PASSPHRASE defined in vault -> ./console secrets:list --reveal
+        arguments: [ '%env(JWT_CONTENTS)%','%env(JWT_PASSPHRASE)%' ]
 
     Lcobucci\JWT\Signer\Hmac\Sha256:
         class: Lcobucci\JWT\Signer\Hmac\Sha256

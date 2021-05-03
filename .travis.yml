@@ -6,7 +6,7 @@ before_script:
     - composer install
 script:
     - mkdir -p build/test
-    - apps/MusicLabelApp/backend/bin/console app:dump-env test
+    - apps/MusicLabelApp/backend/bin/console app:dump-env test --env test
     - apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
     - apps/MusicLabelApp/backend/bin/console doctrine:database:create --no-interaction --quiet
     - apps/MusicLabelApp/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
