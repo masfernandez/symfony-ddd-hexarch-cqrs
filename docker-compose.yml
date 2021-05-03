@@ -1,7 +1,7 @@
 version: "3.9"
 
 #
-# prod env docker-compose file
+# base docker-compose file
 #
 
 services:
@@ -92,7 +92,7 @@ services:
         ports:
             - "9200:9200"
         networks:
-            - elk_stack
+            - elk
 
     logstash:
         container_name: ${COMPOSE_PROJECT_NAME}-logstash
@@ -106,7 +106,7 @@ services:
             - ./docker/elk/logstash/conf.d:/etc/logstash/conf.d
             - ./var/log:/tmp/app/logs
         networks:
-            - elk_stack
+            - elk
 
     kibana:
         container_name: ${COMPOSE_PROJECT_NAME}-kibana
@@ -119,7 +119,7 @@ services:
             ELASTICSEARCH_USERNAME: root
             ELASTICSEARCH_PASSWORD: toor
         networks:
-            - elk_stack
+            - elk
         ports:
             - "5601:5601"
 
@@ -131,7 +131,7 @@ services:
             - ./docker/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
             - ./var/log:/tmp/app/logs
         networks:
-            - elk_stack
+            - elk
         depends_on:
             - elasticsearch
             - kibana
@@ -140,4 +140,4 @@ networks:
     db:
     redis:
     php:
-    elk_stack:
+    elk:

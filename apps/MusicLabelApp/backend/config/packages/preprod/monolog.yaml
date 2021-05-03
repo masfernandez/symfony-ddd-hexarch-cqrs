@@ -1,0 +1,32 @@
+monolog:
+    handlers:
+        # See deprecations.yaml file
+        filter: # filter 404 and 405 codes
+            type: fingers_crossed
+            action_level: EMERGENCY
+            handler: main
+            excluded_http_codes: [404, 405]
+            buffer_size: 50 # How many messages should be saved? Prevent memory leaks
+        main:
+            type: rotating_file
+            level: '%env(LOG_LEVEL_MAIN)%'
+            max_files: 30
+            path: "%project.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.log"
+        console:
+            type: console
+            level: '%env(LOG_LEVEL_CONSOLE)%'
+            process_psr_3_messages: false
+            channels: ["!event", "!doctrine"]
+
+
+#
+# logging levels described by RFC 5424.
+#
+# DEBUG (100): Detailed debug information.
+# INFO (200): Interesting events. Examples: User logs in, SQL logs.
+# NOTICE (250): Normal but significant events.
+# WARNING (300): Exceptional occurrences that are not errors. Examples: Use of deprecated APIs, poor use of an API, undesirable things that are not necessarily wrong.
+# ERROR (400): Runtime errors that do not require immediate action but should typically be logged and monitored.
+# CRITICAL (500): Critical conditions. Example: Application component unavailable, unexpected exception.
+# ALERT (550): Action must be taken immediately. Example: Entire website down, database unavailable, etc. This should trigger the SMS alerts and wake you up.
+# EMERGENCY (600): Emergency: system is unusable.
