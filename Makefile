@@ -27,13 +27,13 @@ debug-paths:
 ## —— envs —————————————————————————————————————————————————————————————————
 #@todo improve envs generation and delete app:dump-env command
 dump-dev:
-	./console app:dump-env dev
+	./console app:dump-env dev --env=dev
 
 dump-test:
-	./console app:dump-env test
+	./console app:dump-env test --env=test
 
 dump-prod:
-	./console app:dump-env prod
+	./console app:dump-env prod --env=prod
 
 ## —— development env ————————————————————————————————————————————————————————
 db-create-sqlite:
@@ -57,14 +57,17 @@ clean-logs:
 	truncate -s 0 var/log/nginx/*.log
 
 ## —— Docker  ————————————————————————————————————————————————————————
-up-dev:
-	$(DOCKER_COMPOSE-EXEC) up -d --remove-orphans
-
 up-test:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.tests.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.test.yml up -d --remove-orphans
 
-up:
+up-dev:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
+
+up-pre-prod:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml up -d --remove-orphans
+
+up-prod:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.prod.yml up -d --remove-orphans
 
 stop:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml stop
@@ -150,7 +153,8 @@ test: up-test dump-test db-drop db-create-sqlite rector-testsuite phpcs-testsuit
 coverage: phpunit-coverage
 
 dev-start: up-dev dump-dev db-create db-migrate
-prod-start: up dump-prod db-create db-migrate
+pre-prod-start: up-pre-prod dump-prod db-create db-migrate
+prod-start: up-prod dump-prod db-create db-migrate
 
 stop-all: stop
 

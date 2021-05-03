@@ -1,0 +1,90 @@
+name: CI/CD Github actions
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+jobs:
+
+    test:
+        name: Testing on PHP ${{ matrix.php-versions }}
+        runs-on: ${{ matrix.operating-system }}
+
+        strategy:
+            matrix:
+                operating-system: [ ubuntu-latest ]
+                php-versions: [ '8.0' ]
+
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP Action
+                uses: shivammathur/setup-php@2.11.0
+                with:
+                    php-version: ${{ matrix.php-versions }}
+                    extensions: mbstring, intl
+                    ini-values: memory_limit=512M
+                    coverage: xdebug
+
+            -   name: Install Composer dependencies
+                run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+            -   name: Dump env vars
+                run: php apps/MusicLabelApp/backend/bin/console app:dump-env test --env test
+
+            -   name: Run database commands
+                run: |
+                    php apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
+                    php apps/MusicLabelApp/backend/bin/console doctrine:database:create --no-interaction --quiet
+                    php apps/MusicLabelApp/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
+
+            -   name: Run rector
+                run: vendor/bin/rector process --dry-run --clear-cache
+
+            -   name: Run psalm
+                run: vendor/bin/psalm --long-progress --no-cache --no-file-cache
+
+            -   name: Run phpstan
+                run: vendor/bin/phpstan analyse -c phpstan.neon
+
+            -   name: Run phpcs
+                run: vendor/bin/phpcs -p --colors --extensions=php --standard=PSR12  src tests
+
+            -   name: Run phpunit
+                run: XDEBUG_MODE=coverage vendor/bin/phpunit -c phpunit.xml.dist
+
+            -   name: Run behat
+                run: vendor/bin/behat -f progress
+
+    deploy:
+        name: Deploy
+        needs: [ test ]
+        runs-on: ${{ matrix.operating-system }}
+
+        strategy:
+            matrix:
+                operating-system: [ ubuntu-latest ]
+
+        steps:
+            -   name: Executing remote command
+                uses: appleboy/ssh-action@master
+                with:
+                    host: ${{ secrets.A2_HOST }}
+                    username: ${{ secrets.A2_USERNAME }}
+                    key: ${{ secrets.A2_SSHKEY }}
+                    port: ${{ secrets.A2_PORT }}
+                    script: |
+                        cd workspace/symfony-ddd-hexarch-cqrs
+                        git pull origin -X theirs
+                        docker exec -i docker-symfony-php sh -c "\
+                            composer install --no-progress --prefer-dist --optimize-autoloader && \
+                            apps/MusicLabelApp/backend/bin/console secrets:decrypt-to-local --force --env=prod && \
+                            apps/MusicLabelApp/backend/bin/console app:dump-env prod --env=prod && \
+                            apps/MusicLabelApp/backend/bin/console cache:clear && \
+                            apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
+                            apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
+                        "

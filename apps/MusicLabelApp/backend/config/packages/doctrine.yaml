@@ -1,7 +1,11 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-        driver: 'pdo_mysql'
+        dbname: '%env(MYSQL_DBNAME)%'
+        host: '%env(MYSQL_HOST)%'
+        port: '%env(MYSQL_PORT)%'
+        user: '%env(MYSQL_USER)%'
+        password: '%env(MYSQL_PASS)%'
+        driver: pdo_mysql
         server_version: '8.0'
         charset: utf8mb4
         logging: '%kernel.debug%'
