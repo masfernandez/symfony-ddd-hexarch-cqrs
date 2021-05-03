@@ -1,0 +1,51 @@
+version: "3.9"
+
+#
+# prod env docker-compose file
+#
+
+services:
+
+    nginx:
+        image: masfernandez/symfony-nginx:latest
+        container_name: ${COMPOSE_PROJECT_NAME}-nginx
+        depends_on:
+            - php
+        environment:
+            VIRTUAL_HOST: api.musiclabel.masfernandez.com
+        volumes:
+            - .:/var/www/html
+            - ./var/log/nginx:/var/log/nginx
+            # vhost
+            - ./docker/nginx/etc/nginx/conf.d/api.musiclabel.masfernandez.conf:/etc/nginx/conf.d/default.conf
+            # config
+            - ./docker/nginx/etc/nginx/conf.d/00-log-settings.conf:/etc/nginx/conf.d/00-log-settings.conf
+        networks:
+            - proxy
+            - musiclabel
+
+    php:
+        image: masfernandez/symfony-php-fpm:latest
+        container_name: ${COMPOSE_PROJECT_NAME}-php
+        volumes:
+            - .:/var/www/html
+            # config
+            - ./docker/php/usr/local/etc/php/conf.d/symfony.prod.ini:/usr/local/etc/php/conf.d/symfony.ini
+            - ./docker/php/etc/supervisor/conf.d:/etc/supervisor.d
+        networks:
+            - musiclabel
+            - db
+            - redis
+            - elk
+
+networks:
+    musiclabel:
+        external: true
+    proxy:
+        external: true
+    db:
+        external: true
+    redis:
+        external: true
+    elk:
+        external: true

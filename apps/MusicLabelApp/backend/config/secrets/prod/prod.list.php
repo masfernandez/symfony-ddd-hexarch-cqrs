@@ -1,7 +1,11 @@
 <?php
 
 return array (
-  'CONTENTS' => NULL,
-  'IDENTIFIED_BY' => NULL,
-  'PASSPHRASE' => NULL,
+  'JWT_CONTENTS' => NULL,
+  'JWT_IDENTIFIED_BY' => NULL,
+  'JWT_PASSPHRASE' => NULL,
+  'MYSQL_PASS' => NULL,
+  'MYSQL_USER' => NULL,
+  'RABBIT_PASS' => NULL,
+  'RABBIT_USER' => NULL,
 );
