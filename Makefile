@@ -185,7 +185,7 @@ prod-start: \
 	db-create \
 	db-migrate
 
-stop-all: stop
+stop-all: stop-prod
 
 # Start supervisord to monitor consumer
 prod-start dev-start: supervisord

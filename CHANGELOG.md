@@ -14,16 +14,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-## [0.3.10] - 2021-05-06
+## [0.3.11] - 2021-05-06
 ### Added
-- APP_SECRET in vault
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
 - CI/CD
-- Monolog level log in env files
-- Makefile targets
+### Security
+
+
+
+## [0.3.10] - 2021-05-06
+### Added
+- Logging input request
+### Changed
+- Rabbit secrets
+### Deprecated
+### Removed
+### Fixed
+- Fix env CORS_ALLOW_ORIGIN
+- Fix Rabbit dns
 ### Security
 
 
@@ -273,6 +284,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.3.11]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.10...v0.3.11
+[0.3.10]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.9...v0.3.10
 [0.3.9]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.8...v0.3.9
 [0.3.8]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.6...v0.3.7
