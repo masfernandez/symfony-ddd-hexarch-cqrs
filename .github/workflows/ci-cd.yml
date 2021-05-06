@@ -89,4 +89,5 @@ jobs:
                             apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
                             apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
                         "
-                        make stop-prod; make prod-start
+                        docker-compose -f docker-compose.prod.yml down
+                        docker-compose -f docker-compose.prod.yml up -d
