@@ -11,8 +11,10 @@
 # ./php composer update
 # ____________________________________________________________________________________________
 
-if [ ! "$(docker ps -a | grep docker-symfony-php)" ]; then
-  make dev-start
+ENV="${ENV:-prod}"
+
+if [ ! "$(docker ps | grep docker-symfony-php)" ]; then
+  make $ENV-start
 fi
 
 docker exec -it docker-symfony-php $@
