@@ -14,7 +14,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-## [0.3.9] - 2021-05-01
+## [0.3.10] - 2021-05-06
+### Added
+- APP_SECRET in vault
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- CI/CD
+- Monolog level log in env files
+- Makefile targets
+### Security
+
+
+
+## [0.3.9] - 2021-05-04
 ### Added
 - Logging input request
 ### Changed
@@ -28,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-## [0.3.8] - 2021-05-01
+## [0.3.8] - 2021-05-03
 ### Added
 - Github action file
 - New preprod env

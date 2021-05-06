@@ -19,7 +19,7 @@ services:
             - ./docker/php/usr/local/etc/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
             - ./docker/php/usr/local/etc/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
         networks:
-            - php
+            - musiclabel
 
 networks:
-    php:
+    musiclabel:

@@ -82,9 +82,11 @@ jobs:
                         git pull origin -X theirs
                         docker exec -i docker-symfony-php sh -c "\
                             composer install --no-progress --prefer-dist --optimize-autoloader && \
+                            rm -rf apps/MusicLabelApp/backend/.env.prod.local
                             apps/MusicLabelApp/backend/bin/console secrets:decrypt-to-local --force --env=prod && \
                             apps/MusicLabelApp/backend/bin/console app:dump-env prod --env=prod && \
                             apps/MusicLabelApp/backend/bin/console cache:clear && \
                             apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
                             apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
                         "
+                        docker-compose down; docker-compose up -d
