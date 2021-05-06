@@ -27,13 +27,13 @@ debug-paths:
 ## —— envs —————————————————————————————————————————————————————————————————
 #@todo improve envs generation and delete app:dump-env command
 dump-dev:
-	./console app:dump-env dev --env=dev
+	ENV=dev ./console app:dump-env dev --env=dev
 
 dump-test:
-	./console app:dump-env test --env=test
+	ENV=test ./console app:dump-env test --env=test
 
 dump-prod:
-	./console app:dump-env prod --env=prod
+	ENV=prod ./console app:dump-env prod --env=prod
 
 ## —— development env ————————————————————————————————————————————————————————
 db-create-sqlite:
@@ -63,14 +63,20 @@ up-test:
 up-dev:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
 
-up-pre-prod:
+up-preprod:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml up -d --remove-orphans
 
 up-prod:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.prod.yml up -d --remove-orphans
 
-stop:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml stop
+stop-test:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.test.yml stop
+
+stop-dev:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml stop
+
+stop-prod:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.prod.yml stop
 
 down:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml down --remove-orphans
@@ -94,32 +100,32 @@ composer-update:
 
 phpcs: up-test phpcs-testsuite
 phpcs-testsuite:
-	./php vendor/bin/phpcs -p --colors --extensions=php --standard=PSR12  src tests
+	ENV=test ./php vendor/bin/phpcs -p --colors --extensions=php --standard=PSR12  src tests
 
 phpcs-build: up-test phpcs-build-testsuite
 phpcs-build-testsuite:
-	./php vendor/bin/phpcbf -p --colors --extensions=php --standard=PSR12 src tests
+	ENV=test ./php vendor/bin/phpcbf -p --colors --extensions=php --standard=PSR12 src tests
 
 rector: up-test rector-testsuite
 rector-testsuite:
-	./php vendor/bin/rector process --dry-run --clear-cache
+	ENV=test ./php vendor/bin/rector process --dry-run --clear-cache
 
 rector-build: up-test rector-build-testsuite
 rector-build-testsuite:
-	./php vendor/bin/rector process
+	ENV=test ./php vendor/bin/rector process
 
 phpstan: up-test phpstan-testsuite
 phpstan-testsuite:
-	./php vendor/bin/phpstan analyse -c phpstan.neon
+	ENV=test ./php vendor/bin/phpstan analyse -c phpstan.neon
 
 psalm: up-test psalm-testsuite
 psalm-testsuite:
-	./php vendor/bin/psalm --long-progress --no-cache --no-file-cache
+	ENV=test ./php vendor/bin/psalm --long-progress --no-cache --no-file-cache
 
 phpunit: up-test dump-test db-drop db-create-sqlite phpunit-testsuite
 phpunit-testsuite:
 	rm -rf build/test
-	./php vendor/bin/phpunit \
+	ENV=test ./php vendor/bin/phpunit \
 		--exclude-group='disabled' \
 		--log-junit build/test/phpunit/junit.xml tests
 
@@ -138,7 +144,7 @@ phpunit-coverage-testsuite:
 
 behat: up-test dump-test db-drop db-create-sqlite behat-testsuite
 behat-testsuite:
-	./php vendor/bin/behat -f progress
+	ENV=test ./php vendor/bin/behat -f progress
 
 ## —— elastic  ————————————————————————————————————————————————————————————
 filebeat-dashboards:
@@ -149,12 +155,35 @@ create-demo-user:
 	./console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: up-test dump-test db-drop db-create-sqlite rector-testsuite phpcs-testsuite psalm-testsuite phpstan-testsuite behat-testsuite phpunit-testsuite phpunit-coverage-testsuite
-coverage: phpunit-coverage
-
-dev-start: up-dev dump-dev db-create db-migrate
-pre-prod-start: up-pre-prod dump-prod db-create db-migrate
-prod-start: up-prod dump-prod db-create db-migrate
+test: \
+	up-test \
+	dump-test \
+	db-drop \
+	db-create-sqlite \
+	rector-testsuite \
+	phpcs-testsuite \
+	psalm-testsuite \
+	phpstan-testsuite \
+	behat-testsuite \
+	phpunit-testsuite \
+	phpunit-coverage-testsuite
+coverage: \
+	phpunit-coverage
+dev-start: \
+	up-dev \
+	dump-dev \
+	db-create \
+	db-migrate
+preprod-start: \
+	up-preprod \
+	dump-prod \
+	db-create \
+	db-migrate
+prod-start: \
+	up-prod \
+	dump-prod \
+	db-create \
+	db-migrate
 
 stop-all: stop
 
