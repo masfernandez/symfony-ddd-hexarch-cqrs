@@ -23,7 +23,7 @@ services:
             # config
             - ./docker/nginx/etc/nginx/conf.d/00-log-settings.conf:/etc/nginx/conf.d/00-log-settings.conf
         networks:
-            - php
+            - musiclabel
 
     php:
         image: masfernandez/symfony-php-fpm:latest
@@ -34,11 +34,11 @@ services:
             - ./docker/php/usr/local/etc/php/conf.d/symfony.prod.ini:/usr/local/etc/php/conf.d/symfony.ini
             - ./docker/php/etc/supervisor/conf.d:/etc/supervisor.d
         depends_on:
-            - mysql
+            - mysql80
             - rabbitmq
         networks:
+            - musiclabel
             - db
-            - php
             - redis
 
     redis:
@@ -49,7 +49,7 @@ services:
         networks:
             - redis
 
-    mysql:
+    mysql80:
         container_name: ${COMPOSE_PROJECT_NAME}-mysql
         image: mysql:8.0
         command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;'
@@ -77,7 +77,7 @@ services:
             - RABBITMQ_DEFAULT_USER=root
             - RABBITMQ_DEFAULT_PASS=toor
         networks:
-            - php
+            - musiclabel
 
     elasticsearch:
         container_name: ${COMPOSE_PROJECT_NAME}-elasticsearch
@@ -137,7 +137,7 @@ services:
             - kibana
 
 networks:
+    musiclabel:
     db:
     redis:
-    php:
     elk:

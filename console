@@ -9,8 +9,13 @@
 # ./console debug:router
 # ____________________________________________________________________________________________
 
-if [ ! "$(docker ps -a | grep docker-symfony-php)" ]; then
-  make dev-start
+# FOO="${VARIABLE:-default}"  # If variable not set or null, use default.
+# FOO="${VARIABLE:=default}"  # If variable not set or null, set it to default.
+
+ENV="${ENV:-prod}"
+
+if [ ! "$(docker ps | grep docker-symfony-php)" ]; then
+  make $ENV-start
 fi
 
 docker exec -it docker-symfony-php apps/MusicLabelApp/backend/bin/console $@
