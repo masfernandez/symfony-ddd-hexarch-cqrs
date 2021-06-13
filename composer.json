@@ -64,7 +64,7 @@
         "php-coveralls/php-coveralls": "^2.4",
         "phpstan/phpstan": "^0.12.64",
         "phpunit/phpunit": "^9.5",
-        "rector/rector": "^0.10",
+        "rector/rector": "^0.11",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^3.5.8",
         "symfony/maker-bundle": "^1.26",
