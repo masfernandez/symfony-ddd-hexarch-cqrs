@@ -23,8 +23,8 @@ final class Client implements CacheInMemory
         return $this->redis->set($key, $value, $timeout);
     }
 
-    public function del(...$otherKeys): int
+    public function del(...$keys): int
     {
-        return $this->redis->del($otherKeys);
+        return $this->redis->del($keys);
     }
 }

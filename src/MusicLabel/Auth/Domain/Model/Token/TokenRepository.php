@@ -8,5 +8,5 @@ interface TokenRepository
 {
     public function save(Token $token);
 
-    public function getByValue(TokenValue $getToken): ?Token;
+    public function getByValue(TokenValue $token): ?Token;
 }
