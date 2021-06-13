@@ -1,6 +1,7 @@
 monolog:
     handlers:
-        # See deprecations.yaml file
+        # deprecation:
+        #    See deprecations.yaml file
         filter: # filter 404 and 405 codes
             type: fingers_crossed
             action_level: '%env(LOG_LEVEL_MAIN)%'
