@@ -17,6 +17,7 @@ class TransactionalApplicationServiceDecoratorTest extends TestCase
 {
     /**
      * @test
+     * @throws \Masfernandez\Shared\Application\Service\TransactionalApplicationService
      */
     public function itShouldExecuteTransactionalOperation(): void
     {

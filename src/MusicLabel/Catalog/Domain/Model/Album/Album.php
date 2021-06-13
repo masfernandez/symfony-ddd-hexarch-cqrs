@@ -99,14 +99,6 @@ class Album extends Aggregate implements Stringable
         }
     }
 
-    public function compareToAlbum(self $album): bool
-    {
-        return $this->id === $album->id &&
-            $this->title === $album->title &&
-            $this->publishing_date === $album->publishing_date &&
-            $this->countEvents() === $album->countEvents();
-    }
-
     public function __toString(): string
     {
         return $this::class . ':' . $this->id->value();
@@ -115,5 +107,13 @@ class Album extends Aggregate implements Stringable
     public function getId(): AlbumId
     {
         return $this->id;
+    }
+
+    public function equals(self $album): bool
+    {
+        return $this->id->value() === $album->id->value() &&
+            $this->title->value() === $album->title->value() &&
+            $this->publishing_date->value() === $album->publishing_date->value()
+            ;
     }
 }

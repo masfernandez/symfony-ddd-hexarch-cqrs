@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 
+## [0.3.12] - 2021-06-13
+### Added
+### Changed 
+### Deprecated
+### Removed
+### Fixed
+- Move Redis cache logic to proper place (near repository, infrastructure)
+### Security
+
+
 
 ## [0.3.11] - 2021-05-06
 ### Added
@@ -284,6 +294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.3.12]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.11...v0.3.12
 [0.3.11]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.10...v0.3.11
 [0.3.10]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.9...v0.3.10
 [0.3.9]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.8...v0.3.9

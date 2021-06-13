@@ -21,10 +21,10 @@ final class Client implements CacheInMemory
         return true;
     }
 
-    public function del(...$otherKeys): int
+    public function del(...$keys): int
     {
         $i = 0;
-        foreach ($otherKeys as $key) {
+        foreach ($keys as $key) {
             unset($this->data[$key]);
             $i++;
         }

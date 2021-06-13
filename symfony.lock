@@ -35,9 +35,6 @@
     "composer/xdebug-handler": {
         "version": "1.4.5"
     },
-    "danielstjules/stringy": {
-        "version": "3.1.0"
-    },
     "dnoegel/php-xdg-base-dir": {
         "version": "v0.1.1"
     },
@@ -162,9 +159,6 @@
     "hamcrest/hamcrest-php": {
         "version": "v2.0.1"
     },
-    "jean85/pretty-package-versions": {
-        "version": "1.5.1"
-    },
     "justinrainbow/json-schema": {
         "version": "5.2.10"
     },
@@ -213,21 +207,6 @@
     "netresearch/jsonmapper": {
         "version": "v2.1.0"
     },
-    "nette/caching": {
-        "version": "v3.1.1"
-    },
-    "nette/finder": {
-        "version": "v2.5.2"
-    },
-    "nette/neon": {
-        "version": "v3.2.1"
-    },
-    "nette/robot-loader": {
-        "version": "v3.3.1"
-    },
-    "nette/utils": {
-        "version": "v3.2.0"
-    },
     "nikic/php-parser": {
         "version": "v4.10.2"
     },
@@ -258,14 +237,8 @@
     "phpspec/prophecy": {
         "version": "1.12.2"
     },
-    "phpstan/phpdoc-parser": {
-        "version": "0.4.10"
-    },
     "phpstan/phpstan": {
         "version": "0.12.64"
-    },
-    "phpstan/phpstan-phpunit": {
-        "version": "0.12.17"
     },
     "phpunit/php-code-coverage": {
         "version": "9.2.5"
@@ -334,27 +307,6 @@
     },
     "rector/rector": {
         "version": "0.8.56"
-    },
-    "rector/rector-cakephp": {
-        "version": "0.10.1"
-    },
-    "rector/rector-doctrine": {
-        "version": "0.10.0"
-    },
-    "rector/rector-installer": {
-        "version": "0.10.1"
-    },
-    "rector/rector-laravel": {
-        "version": "0.10.0"
-    },
-    "rector/rector-nette": {
-        "version": "0.10.1"
-    },
-    "rector/rector-phpunit": {
-        "version": "0.10.2"
-    },
-    "rector/rector-symfony": {
-        "version": "0.10.0"
     },
     "roave/security-advisories": {
         "version": "dev-master"
@@ -613,6 +565,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.20.0"
     },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
+    },
     "symfony/polyfill-uuid": {
         "version": "v1.20.0"
     },
@@ -698,53 +653,8 @@
     "symfony/yaml": {
         "version": "v5.2.1"
     },
-    "symplify/astral": {
-        "version": "9.0.45"
-    },
-    "symplify/autowire-array-parameter": {
-        "version": "8.3.48"
-    },
-    "symplify/composer-json-manipulator": {
-        "version": "8.3.48"
-    },
-    "symplify/console-color-diff": {
-        "version": "8.3.48"
-    },
-    "symplify/console-package-builder": {
-        "version": "9.0.24"
-    },
-    "symplify/easy-testing": {
-        "version": "8.3.48"
-    },
-    "symplify/package-builder": {
-        "version": "8.3.48"
-    },
-    "symplify/rule-doc-generator-contracts": {
-        "version": "v9.2.14"
-    },
-    "symplify/set-config-resolver": {
-        "version": "8.3.48"
-    },
-    "symplify/simple-php-doc-parser": {
-        "version": "9.0.23"
-    },
-    "symplify/skipper": {
-        "version": "9.0.23"
-    },
-    "symplify/smart-file-system": {
-        "version": "8.3.48"
-    },
-    "symplify/symfony-php-config": {
-        "version": "9.0.23"
-    },
-    "symplify/symplify-kernel": {
-        "version": "8.3.48"
-    },
     "theseer/tokenizer": {
         "version": "1.2.0"
-    },
-    "tracy/tracy": {
-        "version": "v2.8.4"
     },
     "vimeo/psalm": {
         "version": "4.3.2"

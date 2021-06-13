@@ -46,7 +46,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::DEAD_CODE,
         SetList::TYPE_DECLARATION,
         SetList::CODE_QUALITY,
-        SetList::CONTRIBUTTE_TO_SYMFONY,
         SetList::PHP_80,
     ]);
 
