@@ -1,0 +1,38 @@
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                dbname: '%env(MYSQL_DBNAME)%'
+                host: '%env(MYSQL_HOST)%'
+                port: '%env(MYSQL_PORT)%'
+                user: '%env(MYSQL_USER)%'
+                password: '%env(MYSQL_PASS)%'
+                driver: pdo_mysql
+                server_version: 'mariadb-10.6.4'
+                charset: utf8mb4
+                logging: '%kernel.debug%'
+
+    orm:
+        auto_generate_proxy_classes: true
+        entity_managers:
+            default:
+                auto_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                connection: default
+                mappings:
+                    # MusicLabel / Catalog
+                    Masfernandez\MusicLabel\Catalog\Domain:
+                        is_bundle: false
+                        type: xml
+                        dir: '%kernel.project_dir%/config/doctrine/catalog'
+                        prefix: 'Masfernandez\MusicLabel\Catalog\Domain'
+                        alias: Masfernandez\MusicLabel\Catalog\Domain
+                    # MusicLabel / Auth
+                    Masfernandez\MusicLabel\Auth\Domain:
+                        is_bundle: false
+                        type: xml
+                        dir: '%kernel.project_dir%/config/doctrine/auth/user'
+                        prefix: 'Masfernandez\MusicLabel\Auth\Domain\User'
+                        alias: Masfernandez\MusicLabel\Auth\Domain\User
+                    # Others bounded contexts here...

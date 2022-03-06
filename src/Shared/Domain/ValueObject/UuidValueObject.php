@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Shared\Domain\ValueObject;
+namespace Masfernandez\MusicLabel\Shared\Domain\ValueObject;
 
 use Stringable;
 use Symfony\Component\Uid\Uuid;

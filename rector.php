@@ -13,21 +13,24 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
         __DIR__ . '/tests',
-        __DIR__ . '/apps/MusicLabelApp/backend/src',
+        __DIR__ . '/apps/MusicLabelApp/api/src',
     ]);
 
+    // todo Fix bellow classes and remove Skip
     $parameters->set(Option::SKIP, [
         __DIR__ . '/src/Shared/Domain/ValueObject/UuidValueObject.php',
+        __DIR__ . '/src/Auth/Domain/User/Token.php',
+        __DIR__ . '/src/Auth/Domain/User/User.php',
     ]);
 
     $parameters->set(Option::AUTOLOAD_PATHS, [
-        'apps/MusicLabelApp/backend/config/bootstrap.php',
+        'apps/MusicLabelApp/api/config/bootstrap.php',
     ]);
 
     // SYMFONY CONTAINER
-    $path = __DIR__ . '/apps/MusicLabelApp/backend/var/cache';
-    $kernel_dev_file = $path . '/dev/Masfernandez_MusicLabelApp_Infrastructure_Backend_KernelDevDebugContainer.xml';
-    $kernel_test_file = $path . '/test/Masfernandez_MusicLabelApp_Infrastructure_Backend_KernelTestDebugContainer.xml';
+    $path = __DIR__ . '/apps/MusicLabelApp/api/var/cache';
+    $kernel_dev_file = $path . '/dev/Masfernandez_MusicLabelApp_Infrastructure_Api_KernelDevDebugContainer.xml';
+    $kernel_test_file = $path . '/test/Masfernandez_MusicLabelApp_Infrastructure_Api_KernelTestDebugContainer.xml';
     if (file_exists($kernel_dev_file)) {
         $container = $kernel_dev_file;
     } else if (file_exists($kernel_test_file)) {
@@ -41,13 +44,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         $container
     );
 
-    // Define what rule sets will be applied
-    $parameters->set(Option::SETS, [
-        SetList::DEAD_CODE,
-        SetList::TYPE_DECLARATION,
-        SetList::CODE_QUALITY,
-        SetList::PHP_80,
-    ]);
+    $containerConfigurator->import(SetList::DEAD_CODE);
+    $containerConfigurator->import(SetList::TYPE_DECLARATION);
+    $containerConfigurator->import(SetList::CODE_QUALITY);
+    $containerConfigurator->import(SetList::PHP_80);
 
     $parameters->set(Option::ENABLE_CACHE, true);
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, getcwd() . '/phpstan.neon');

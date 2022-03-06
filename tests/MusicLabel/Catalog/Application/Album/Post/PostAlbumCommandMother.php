@@ -6,23 +6,23 @@ namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Post;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Post\PostAlbumCommand;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenValueMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumIdMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDateMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumTitleMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumIdMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumReleaseDateMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumTitleMother;
 
 class PostAlbumCommandMother
 {
     public static function create(
         ?string $id = null,
         ?string $title = null,
-        ?string $publishing_date = null,
-        ?string $token = null
+        ?string $releaseDate = null,
+        ?string $token = null,
     ): PostAlbumCommand {
         return new PostAlbumCommand(
-            $id ?? AlbumIdMother::create()->value(),
-            $title ?? AlbumTitleMother::create()->value(),
-            $publishing_date ?? AlbumPublishingDateMother::create()->value(),
-            $token ?? TokenValueMother::create()->value()
+            id:             $id ?? AlbumIdMother::create()->value(),
+            title:          $title ?? AlbumTitleMother::create()->value(),
+            releaseDate: $releaseDate ?? AlbumReleaseDateMother::create()->value(),
+            token:          $token ?? TokenValueMother::create()->value(),
         );
     }
 }

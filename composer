@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# ____________________________________________________________________________________________
+# How to use this script?
+#
+# Execute at root:
+# ./composer <command to execute at container>
+#
+# Examples:
+# ./composer -V
+# ./composer install
+# ./composer req <package>
+# ./composer update <package>
+# ____________________________________________________________________________________________
+
+ENV="${ENV:-prod}"
+
+if [ ! "$(docker ps | grep docker-symfony-php)" ]; then
+  make $ENV-start
+fi
+
+docker exec -it docker-symfony-php composer $@

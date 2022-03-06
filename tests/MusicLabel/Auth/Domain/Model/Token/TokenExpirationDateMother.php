@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token;
 
-use Masfernandez\MusicLabel\Auth\Domain\Model\Token\TokenExpirationDate;
+use DateTimeInterface;
+use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenExpirationDate;
 
 class TokenExpirationDateMother
 {
-    public static function create(?\DateTimeInterface $date = null): TokenExpirationDate
+    public static function create(?DateTimeInterface $date = null): TokenExpirationDate
     {
         return new TokenExpirationDate(
-            $date ??
-            date(TokenExpirationDate::FORMAT, strtotime(TokenExpirationDate::VALIDITY_PERIOD))
+            value: $date ??
+                   date(TokenExpirationDate::FORMAT, strtotime(TokenExpirationDate::VALIDITY_PERIOD))
         );
     }
 }

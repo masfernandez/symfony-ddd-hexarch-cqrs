@@ -31,9 +31,11 @@ dump-dev:
 	ENV=dev ./console app:dump-env dev --env=dev
 
 dump-test:
+	ENV=test ./console secrets:decrypt-to-local --force --env=test
 	ENV=test ./console app:dump-env test --env=test
 
 dump-prod:
+	ENV=prod ./console secrets:decrypt-to-local --force --env=prod
 	ENV=prod ./console app:dump-env prod --env=prod
 
 ## —— development env ————————————————————————————————————————————————————————
@@ -59,43 +61,52 @@ clean-logs:
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-test:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.test.yml up -d --remove-orphans
-
-up-dev:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
 
+up-dev-arm:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.dev.arm.yml up -d --remove-orphans
+
+up-dev:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.dev.yml up -d --remove-orphans
+
 up-preprod:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.yml up -d --remove-orphans
 
 up-prod:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.prod.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
 
 stop-test:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.test.yml stop
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.dev.yml stop
 
 stop-dev:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml stop
 
+stop-dev-arm:
+	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.dev.arm.yml stop
+
 stop-prod:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.prod.yml stop
+	$(DOCKER_COMPOSE-EXEC)  -f docker-compose.yml -f docker-compose.prod.yml stop
 
 down:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml down --remove-orphans
+
+stop: stop-prod
 
 logs:
 	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml logs -f
 
 ## —— Consumer  ————————————————————————————————————————————————————————
+
 supervisord:
-	./php supervisord --configuration /etc/supervisor.d/supervisord.ini
+	docker exec -it docker-symfony-php supervisord --configuration /etc/supervisor.d/supervisord.ini
 
 ## —— Composer ————————————————————————————————————————————————————————————
 
 composer-install:
-	@./php composer install
+	@./composer install
 
 composer-update:
-	@./php composer update
+	@./composer update
 
 ## —— PHP tests ————————————————————————————————————————————————————————————
 
@@ -156,7 +167,7 @@ create-demo-user:
 	./console app:create-user 'test@email.com' '1234567890'
 
 ## —— RUN  ————————————————————————————————————————————————————————————
-test: \
+tests: \
 	up-test \
 	dump-test \
 	db-drop \
@@ -175,6 +186,11 @@ dev-start: \
 	dump-dev \
 	db-create \
 	db-migrate
+dev-start-arm: \
+	up-dev-arm \
+	dump-dev \
+	db-create \
+	db-migrate
 preprod-start: \
 	up-preprod \
 	dump-prod \
@@ -189,4 +205,4 @@ prod-start: \
 stop-all: stop-prod
 
 # Start supervisord to monitor consumer
-prod-start dev-start: supervisord
+prod-start dev-start dev-start-arm: supervisord

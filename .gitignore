@@ -2,13 +2,13 @@
 !.idea/runConfigurationsShared/
 
 # Symfony MusicLabelApp
-apps/MusicLabelApp/backend/.env.local
-apps/MusicLabelApp/backend/.env.local.php
-apps/MusicLabelApp/backend/.env.*.local
-apps/MusicLabelApp/backend/config/secrets/prod/prod.decrypt.private.php
-apps/MusicLabelApp/backend/config/secrets/preprod/preprod.decrypt.private.php
-apps/MusicLabelApp/backend/public/bundles/
-apps/MusicLabelApp/backend/var/
+apps/MusicLabelApp/api/.env.local
+apps/MusicLabelApp/api/.env.local.php
+apps/MusicLabelApp/api/.env.*.local
+apps/MusicLabelApp/api/config/secrets/prod/prod.decrypt.private.php
+apps/MusicLabelApp/api/config/secrets/preprod/preprod.decrypt.private.php
+apps/MusicLabelApp/api/public/bundles/
+apps/MusicLabelApp/api/var/
 
 # project
 build/
@@ -18,6 +18,8 @@ vendor/
 phpunit.xml
 
 # docker
+.env*
+!.env.dist
 supervisord.pid
 
 # other
