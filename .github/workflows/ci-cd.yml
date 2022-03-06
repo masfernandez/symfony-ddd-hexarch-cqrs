@@ -89,5 +89,7 @@ jobs:
                             apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
                             apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
                         "
+                        sudo chown -R 82:82 var/log/symfony apps/MusicLabelApp/backend/var
+                        sudo chmod -R 777 var apps/MusicLabelApp/backend/var
                         docker-compose -f docker-compose.prod.yml down
                         docker-compose -f docker-compose.prod.yml up -d
