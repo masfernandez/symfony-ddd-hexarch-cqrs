@@ -5,12 +5,14 @@
  * @noinspection PhpUnhandledExceptionInspection
  */
 
+declare(strict_types=1);
+
 namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Delete;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Delete\AlbumDeleter;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumNotFound;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 

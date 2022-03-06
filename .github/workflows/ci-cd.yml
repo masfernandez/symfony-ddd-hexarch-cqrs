@@ -34,13 +34,13 @@ jobs:
                 run: composer install --no-progress --prefer-dist --optimize-autoloader
 
             -   name: Dump env vars
-                run: php apps/MusicLabelApp/backend/bin/console app:dump-env test --env test
+                run: php apps/MusicLabelApp/api/bin/console app:dump-env test --env test
 
             -   name: Run database commands
                 run: |
-                    php apps/MusicLabelApp/backend/bin/console doctrine:database:drop --force --quiet
-                    php apps/MusicLabelApp/backend/bin/console doctrine:database:create --no-interaction --quiet
-                    php apps/MusicLabelApp/backend/bin/console doctrine:schema:update --force --no-interaction --quiet
+                    php apps/MusicLabelApp/api/bin/console doctrine:database:drop --force --quiet
+                    php apps/MusicLabelApp/api/bin/console doctrine:database:create --no-interaction --quiet
+                    php apps/MusicLabelApp/api/bin/console doctrine:schema:update --force --no-interaction --quiet
 
             -   name: Run rector
                 run: vendor/bin/rector process --dry-run --clear-cache
@@ -82,12 +82,12 @@ jobs:
                         git pull origin -X theirs
                         docker exec -i docker-symfony-php sh -c "\
                             composer install --no-progress --prefer-dist --optimize-autoloader && \
-                            rm -rf apps/MusicLabelApp/backend/.env.prod.local
-                            apps/MusicLabelApp/backend/bin/console secrets:decrypt-to-local --force --env=prod && \
-                            apps/MusicLabelApp/backend/bin/console app:dump-env prod --env=prod && \
-                            apps/MusicLabelApp/backend/bin/console cache:clear && \
-                            apps/MusicLabelApp/backend/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
-                            apps/MusicLabelApp/backend/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
+                            rm -rf apps/MusicLabelApp/api/.env.prod.local
+                            apps/MusicLabelApp/api/bin/console secrets:decrypt-to-local --force --env=prod && \
+                            apps/MusicLabelApp/api/bin/console app:dump-env prod --env=prod && \
+                            apps/MusicLabelApp/api/bin/console cache:clear && \
+                            apps/MusicLabelApp/api/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
+                            apps/MusicLabelApp/api/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
                         "
                         sudo chown -R 82:82 var/log/symfony apps/MusicLabelApp/backend/var
                         sudo chmod -R 777 var apps/MusicLabelApp/backend/var

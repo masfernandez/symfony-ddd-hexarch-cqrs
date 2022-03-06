@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Get;
 
-use Masfernandez\MusicLabel\Catalog\Application\Album\Get\AlbumAssembler;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumIdMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDateMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumTitleMother;
+use Masfernandez\MusicLabel\Catalog\Application\Album\AlbumAssembler;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\Album;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumIdMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumReleaseDateMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumTitleMother;
 use PHPUnit\Framework\TestCase;
 
 class AlbumAssemblerTest extends TestCase
@@ -19,11 +19,11 @@ class AlbumAssemblerTest extends TestCase
      */
     public function itShouldReturnAnAlbum(): void
     {
-        AlbumAssembler::fromArray(
+        AlbumAssembler::fromArrayPrimitivesToEntity(
             [
-                Album::ID => AlbumIdMother::create()->value(),
-                Album::TITLE => AlbumTitleMother::create()->value(),
-                Album::PUBLISHING_DATE => AlbumPublishingDateMother::create()->value()
+                Album::ID              => AlbumIdMother::create()->value(),
+                Album::TITLE           => AlbumTitleMother::create()->value(),
+                Album::RELEASE_DATE => AlbumReleaseDateMother::create()->value()
             ]
         );
     }
@@ -33,6 +33,6 @@ class AlbumAssemblerTest extends TestCase
      */
     public function itShouldReturnAnArray(): void
     {
-        AlbumAssembler::toArray(AlbumMother::create());
+        AlbumAssembler::fromEntityToArray(AlbumMother::create());
     }
 }

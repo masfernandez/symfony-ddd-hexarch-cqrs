@@ -6,14 +6,14 @@ Feature: Updating (PUT) Albums
 
   Scenario: Update an album
     Given There are some albums stored in database:
-      |  id                                     | title        | publishing_date        |
+      |  id                                     | title        | release_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
 
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -41,7 +41,7 @@ Feature: Updating (PUT) Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "404"
@@ -70,7 +70,7 @@ Feature: Updating (PUT) Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -99,7 +99,7 @@ Feature: Updating (PUT) Albums
       """
       {
           "title": "",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -128,7 +128,7 @@ Feature: Updating (PUT) Albums
       """
       {
           "title": "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghija",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -157,7 +157,7 @@ Feature: Updating (PUT) Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": ""
+          "release_date": ""
       }
       """
     Then the response status code should be "400"
@@ -168,7 +168,7 @@ Feature: Updating (PUT) Albums
           "errors":[
               {
                   "source":{
-                      "pointer": "/data/attributes/publishing_date"
+                      "pointer": "/data/attributes/release_date"
                   },
                   "detail": "This value should not be blank."
               }
@@ -186,7 +186,7 @@ Feature: Updating (PUT) Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00a"
+          "release_date": "1969-01-13 09:00:00a"
       }
       """
     Then the response status code should be "400"
@@ -197,7 +197,7 @@ Feature: Updating (PUT) Albums
           "errors":[
               {
                   "source":{
-                      "pointer": "/data/attributes/publishing_date"
+                      "pointer": "/data/attributes/release_date"
                   },
                   "detail": "This value is not a valid datetime."
               }
@@ -214,7 +214,7 @@ Feature: Updating (PUT) Albums
     When I send a "PUT" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -233,7 +233,7 @@ Feature: Updating (PUT) Albums
       }
       """
 
-  Scenario: Update an album without publishing_date field
+  Scenario: Update an album without release_date field
     Given There is a user stored in database with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
     Given There is VALID a JwToken for the user with id "332e7e35-d179-492d-a5f3-8702143fd777" email "test@email.com" password "1234567890"
 
@@ -253,7 +253,7 @@ Feature: Updating (PUT) Albums
           "errors":[
               {
                   "source":{
-                      "pointer": "/data/attributes/publishing_date"
+                      "pointer": "/data/attributes/release_date"
                   },
                   "detail": "This field is missing."
               }

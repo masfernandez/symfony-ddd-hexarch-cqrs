@@ -6,14 +6,14 @@ Feature: Patching Albums
 
   Scenario: Patch an album
     Given There are some albums stored in database:
-      |  id                                     | title        | publishing_date        |
+      |  id                                     | title        | release_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
 
     When I send a "PATCH" request to "/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2" with body:
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "204"
@@ -26,7 +26,7 @@ Feature: Patching Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "404"
@@ -50,7 +50,7 @@ Feature: Patching Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -74,7 +74,7 @@ Feature: Patching Albums
       """
       {
           "title": "",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -98,7 +98,7 @@ Feature: Patching Albums
       """
       {
           "title": "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghija",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
       }
       """
     Then the response status code should be "400"
@@ -122,7 +122,7 @@ Feature: Patching Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": ""
+          "release_date": ""
       }
       """
     Then the response status code should be "400"
@@ -133,7 +133,7 @@ Feature: Patching Albums
           "errors":[
               {
                   "source":{
-                      "pointer": "/data/attributes/publishing_date"
+                      "pointer": "/data/attributes/release_date"
                   },
                   "detail": "This value should not be blank."
               }
@@ -146,7 +146,7 @@ Feature: Patching Albums
       """
       {
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00a"
+          "release_date": "1969-01-13 09:00:00a"
       }
       """
     Then the response status code should be "400"
@@ -157,7 +157,7 @@ Feature: Patching Albums
           "errors":[
               {
                   "source":{
-                      "pointer": "/data/attributes/publishing_date"
+                      "pointer": "/data/attributes/release_date"
                   },
                   "detail": "This value is not a valid datetime."
               }

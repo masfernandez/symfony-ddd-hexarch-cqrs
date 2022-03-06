@@ -1,0 +1,35 @@
+parameters:
+
+services:
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Private services by default
+
+
+    # Redis
+    Redis: '@snc_redis.default'
+    Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\Redis\Client:
+        public : true
+        autowire: true
+        arguments: ['@snc_redis.default']
+
+
+    # Aliases dev
+    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner:
+        class: Masfernandez\Tests\Shared\Infrastructure\Persistence\MySql\MySqlCleaner
+
+
+    # Aliases common
+    Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventPublisher:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\RabbitMq\RabbitMqEventPublisher
+
+
+    # Catalog
+    Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineAlbumRepository
+
+    Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\Redis\Client

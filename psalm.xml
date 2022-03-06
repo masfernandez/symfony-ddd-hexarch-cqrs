@@ -2,14 +2,13 @@
 <psalm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-       phpVersion="8.0.3"
        errorLevel="4"
-       autoloader="apps/MusicLabelApp/backend/config/bootstrap.php"
+       autoloader="apps/MusicLabelApp/api/config/bootstrap.php"
 >
     <!-- @todo errorLevel="1" -->
 
     <projectFiles>
-        <directory name="apps/MusicLabelApp/backend/src/"/>
+        <directory name="apps/MusicLabelApp/api/src/"/>
         <directory name="src/"/>
         <directory name="tests/"/>
         <ignoreFiles>
@@ -22,24 +21,15 @@
 
         <RedundantPropertyInitializationCheck>
             <errorLevel type="suppress">
-                <file name="src/MusicLabel/Shared/Domain/Model/Album/AlbumId.php"/>
-                <file name="src/MusicLabel/Catalog/Domain/Model/Album/AlbumTitle.php"/>
-                <file name="src/MusicLabel/Catalog/Domain/Model/Album/AlbumPublishingDate.php"/>
-                <file name="src/MusicLabel/Catalog/Domain/Model/Album/AlbumPublishingDate.php"/>
+                <file name="src/Shared/Domain/Album/AlbumId.php"/>
             </errorLevel>
         </RedundantPropertyInitializationCheck>
 
         <InvalidScalarArgument>
             <errorLevel type="suppress">
-                <file name="src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/Repository/DoctrineAlbumRepository.php"/>
+                <file name="apps/MusicLabelApp/api/src/Repository/Catalog/DoctrineAlbumRepository.php"/>
             </errorLevel>
         </InvalidScalarArgument>
-
-        <LessSpecificImplementedReturnType>
-            <errorLevel type="suppress">
-                <directory name="src/MusicLabel/Catalog/Infrastructure/Persistence/Doctrine/Repository/"/>
-            </errorLevel>
-        </LessSpecificImplementedReturnType>
 
         <!-- TESTS -->
         <InvalidArgument>
@@ -70,7 +60,7 @@
 
         <UnimplementedInterfaceMethod>
             <errorLevel type="suppress">
-                <file name="apps/MusicLabelApp/backend/src/Kernel.php"/>
+                <file name="apps/MusicLabelApp/api/src/Kernel.php"/>
             </errorLevel>
         </UnimplementedInterfaceMethod>
 

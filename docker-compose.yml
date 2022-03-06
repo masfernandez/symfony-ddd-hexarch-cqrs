@@ -6,135 +6,21 @@ version: "3.9"
 
 services:
 
-    nginx:
-        image: masfernandez/symfony-nginx:latest
-        container_name: ${COMPOSE_PROJECT_NAME}-nginx
-        ports:
-            - "80:80"
-            - "443:443"
-        depends_on:
-            - php
-        volumes:
-            - .:/var/www/html
-            - ./docker/nginx/etc/nginx/certs/prod:/etc/nginx/certs:ro
-            - ./var/log/nginx:/var/log/nginx
-            # vhost
-            - ./docker/nginx/etc/nginx/conf.d/backend.127.0.0.1.xip.io.conf:/etc/nginx/conf.d/wildcard.127.0.0.1.xip.io.conf
-            # config
-            - ./docker/nginx/etc/nginx/conf.d/00-log-settings.conf:/etc/nginx/conf.d/00-log-settings.conf
-        networks:
-            - musiclabel
-
     php:
-        image: masfernandez/symfony-php-fpm:latest
+        image: masfernandez/${COMPOSE_PROJECT_NAME}-php-${ENV}:${VERSION}
+        build:
+            context: ./docker/php
+            target: ${ENV}
+            args:
+                PHP_VERSION: ${PHP_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}-php
         volumes:
             - .:/var/www/html
-            # config
-            - ./docker/php/usr/local/etc/php/conf.d/symfony.prod.ini:/usr/local/etc/php/conf.d/symfony.ini
             - ./docker/php/etc/supervisor/conf.d:/etc/supervisor.d
-        depends_on:
-            - mysql80
-            - rabbitmq
         networks:
             - musiclabel
             - db
             - redis
-
-    redis:
-        container_name: ${COMPOSE_PROJECT_NAME}-redis
-        image: redis:latest
-#        ports:
-#            - 6379:6379
-        networks:
-            - redis
-
-    mysql80:
-        container_name: ${COMPOSE_PROJECT_NAME}-mysql
-        image: mysql:8.0
-        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;'
-        volumes:
-            - ./var/db/mysql/data:/var/lib/mysql
-            - ./docker/mysql/etc/mysql/conf.d:/etc/mysql/conf.d
-        environment:
-            - MYSQL_HOST=localhost
-            - MYSQL_ROOT_HOST=%
-            - MYSQL_ROOT_USER=root
-            - MYSQL_ROOT_PASSWORD=toor
-        ports:
-            - 3306:3306
-        cap_add:
-            - SYS_NICE  # CAP_SYS_NICE: fix mbind operation not permitted in mysql error log
-        networks:
-            - db
-
-    rabbitmq:
-        container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
-        image: rabbitmq:3.7-management
-        ports:
-            - 15672:15672
-        environment:
-            - RABBITMQ_DEFAULT_USER=root
-            - RABBITMQ_DEFAULT_PASS=toor
-        networks:
-            - musiclabel
-
-    elasticsearch:
-        container_name: ${COMPOSE_PROJECT_NAME}-elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
-        volumes:
-            - ./var/elasticsearch:/usr/share/elasticsearch/data
-        environment:
-            discovery.type: "single-node"
-            ES_JAVA_OPTS: "-Xmx500m -Xms500m"
-            ELASTIC_USERNAME: "root"
-            ELASTIC_PASSWORD: "toor"
-        ports:
-            - "9200:9200"
-        networks:
-            - elk
-
-    logstash:
-        container_name: ${COMPOSE_PROJECT_NAME}-logstash
-        image: docker.elastic.co/logstash/logstash:7.12.0
-        environment:
-            - "LS_JAVA_OPTS=-Xmx500m -Xms500m"
-        depends_on:
-            - elasticsearch
-        volumes:
-            - ./docker/elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
-            - ./docker/elk/logstash/conf.d:/etc/logstash/conf.d
-            - ./var/log:/tmp/app/logs
-        networks:
-            - elk
-
-    kibana:
-        container_name: ${COMPOSE_PROJECT_NAME}-kibana
-        depends_on:
-            - elasticsearch
-        image: docker.elastic.co/kibana/kibana:7.12.0
-        environment:
-            SERVER_NAME: localhost
-            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-            ELASTICSEARCH_USERNAME: root
-            ELASTICSEARCH_PASSWORD: toor
-        networks:
-            - elk
-        ports:
-            - "5601:5601"
-
-    filebeat:
-        container_name: ${COMPOSE_PROJECT_NAME}-filebeat
-        image: docker.elastic.co/beats/filebeat:7.12.0
-        command: filebeat -e -strict.perms=false
-        volumes:
-            - ./docker/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-            - ./var/log:/tmp/app/logs
-        networks:
-            - elk
-        depends_on:
-            - elasticsearch
-            - kibana
 
 networks:
     musiclabel:
