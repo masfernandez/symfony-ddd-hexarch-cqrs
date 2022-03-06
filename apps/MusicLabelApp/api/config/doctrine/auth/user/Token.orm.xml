@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlDefaultAttributeValue -->
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Masfernandez\MusicLabel\Auth\Domain\User\Token"
+            repository-class="Masfernandez\MusicLabel\Auth\Domain\User\TokenRepository"
+            table="token">
+
+        <id name="id" type="TokenId" column="id">
+            <generator strategy="AUTO"/>
+            <sequence-generator sequence-name="token_seq" allocation-size="100" initial-value="1"/>
+        </id>
+        <field name="value" type="TokenValue" column="value" length="64" nullable="false"/>
+        <field name="expiration_date" type="TokenExpirationDate" column="expiration_date"/>
+
+        <many-to-one field="user" target-entity="Masfernandez\MusicLabel\Auth\Domain\User\User"
+                     inversed-by="tokens">
+            <join-column name="user_id" referenced-column-name="id" nullable="false"/>
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>

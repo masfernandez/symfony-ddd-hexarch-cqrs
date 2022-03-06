@@ -166,13 +166,13 @@ curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
 --data-raw '{
     "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
     "title": "Abbey Road",
-    "publishing_date": "1969-09-26 00:00:00"  
+    "release_date": "1969-09-26 00:00:00"  
 }'
 ```
 
 **Verifying the Album created**:
 ```bash
-curl -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,publishing_date'
+curl -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,release_date'
 ```
 
 **We need a JWToken to make PUT operations on Albums, so let's get one**:
@@ -225,7 +225,7 @@ curl -i -X PUT 'https://backend.127.0.0.1.xip.io/albums/0da69030-3ed7-42b5-8aa5-
 -H 'Cookie: signature=GFZiEgVkKIbv5YszK_5wKmhLpqlkhYUUS1N1nCLLavs' \
 --data-raw '{
     "title": "New album value here",
-    "publishing_date": "2021-04-02 00:00:00"
+    "release_date": "2021-04-02 00:00:00"
 }'
 ```
 
@@ -243,7 +243,7 @@ strict-transport-security: max-age=31536000
 
 **Verifying the Album updated**:
 ```bash
-curl -i -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,publishing_date'
+curl -i -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,release_date'
 ```
 
 Response:
@@ -262,7 +262,7 @@ strict-transport-security: max-age=31536000
         {
             "id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
             "title": "New album value here",
-            "publishing_date": "2021-04-02 00:00:00"
+            "release_date": "2021-04-02 00:00:00"
         }
     ],
     "links": {
@@ -305,7 +305,7 @@ Kibana Symfony logs configuration:
   
 * Create a index pattern at [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create)
 
-  * Step 1. Write "logstash" as index pattern and press "Next" button
+  * Step 1. Write "logstash*" as index pattern and press "Next" button
   * Step 2. Select @timestamp for Time field and press "Create index" button
     
 * Configure logs

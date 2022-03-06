@@ -1,0 +1,58 @@
+parameters:
+
+services:
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Private services by default
+
+
+    #
+    # Include Tests
+    #
+    Masfernandez\Tests\:
+        resource: '%project.root_path%/tests/'
+
+    #
+    # Behatch services
+    #
+    Behatch\HttpCall\Request:
+        arguments:
+            - '@behat.mink'
+
+    Behatch\Context\RestContext:
+        arguments:
+            - '@Behatch\HttpCall\Request'
+
+    Behatch\HttpCall\HttpCallResultPool:
+        class: Behatch\HttpCall\HttpCallResultPool
+
+    Behatch\Context\JsonContext:
+        arguments:
+            - '@Behatch\HttpCall\HttpCallResultPool'
+
+
+    #
+    # Aliases tests
+    #
+    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner:
+        class: Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner
+
+
+    #
+    # Aliases common
+    #
+    Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventPublisher:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\InMemory\InMemoryEventPublisher
+
+
+    #
+    # Catalog
+    #
+    Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineAlbumRepository
+
+    Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\InMemory\Client

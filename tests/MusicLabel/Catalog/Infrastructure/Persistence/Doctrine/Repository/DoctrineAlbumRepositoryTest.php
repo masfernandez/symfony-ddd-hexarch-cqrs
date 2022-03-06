@@ -8,13 +8,12 @@ namespace Masfernandez\Tests\MusicLabel\Catalog\Infrastructure\Persistence\Doctr
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumIdMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDateMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumTitleMother;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Infrastructure\Api\Kernel;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumIdMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumReleaseDateMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumTitleMother;
 use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -62,17 +61,21 @@ class DoctrineAlbumRepositoryTest extends KernelTestCase
     public function itShouldPatchAnAlbum(): void
     {
         $id    = AlbumIdMother::create();
-        $album = AlbumMother::create($id);
+        $album = AlbumMother::create(id: $id);
         $album->dropEvents();
         $this->albumRepository->post($album);
         $this->entityManager->clear();
 
         $albumExpected = $this->albumRepository->getById($id);
-        $albumExpected->update(AlbumTitleMother::create(), AlbumPublishingDateMother::create());
+        $albumExpected->update(
+            AlbumTitleMother::create(),
+            AlbumReleaseDateMother::create()
+        );
         $this->albumRepository->patch($albumExpected);
         $this->entityManager->clear();
 
         $albumActual = $this->albumRepository->getById($id);
+        $albumActual->dropEvents();
         self::assertObjectEquals($albumActual, $albumExpected);
     }
 
@@ -96,7 +99,7 @@ class DoctrineAlbumRepositoryTest extends KernelTestCase
         $this->entityManager->clear();
 
         $albumExpected = $this->albumRepository->getById($id);
-        $albumExpected->update(AlbumTitleMother::create(), AlbumPublishingDateMother::create());
+        $albumExpected->update(AlbumTitleMother::create(), AlbumReleaseDateMother::create());
         $this->albumRepository->put($albumExpected);
         $this->entityManager->clear();
 

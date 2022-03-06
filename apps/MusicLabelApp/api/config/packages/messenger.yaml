@@ -1,0 +1,35 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        failure_transport: failed
+
+        # The bus that is going to be injected when injecting MessageBusInterface
+        default_bus: default.bus
+
+        buses:
+            default.bus:
+
+            command.bus:
+                middleware:
+                    - doctrine_transaction
+
+            query.bus:
+                middleware:
+                    - doctrine_transaction
+
+            event.bus:
+                #default_middleware: allow_no_handlers
+                middleware:
+                #- validation
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async: '%env(ASYNC_TRANSPORT_DSN)%'
+            failed: '%env(FAILED_TRANSPORT_DSN)%'
+            sync: '%env(SYNC_TRANSPORT_DSN)%'
+
+        routing:
+            'Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand': sync
+            'Masfernandez\MusicLabel\Infrastructure\Api\Bus\Query\SyncQuery': sync
+            'Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\AsyncEvent': async
+            'Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\SyncEvent': sync

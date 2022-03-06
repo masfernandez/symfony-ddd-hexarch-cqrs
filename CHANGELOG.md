@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 
+## [0.4.0] - 2022-03-16
+### Added
+- Symfony 5.4 support
+- New structure for User aggregate
+- mariadb
+### Changed
+- Docker 
+### Deprecated
+### Removed
+- 'Model' folder for Domain
+- 'App' sufix from namespace
+### Fixed
+### Security
+
+
+
 ## [0.3.12] - 2021-06-13
 ### Added
 ### Changed 
@@ -294,6 +310,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.4.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.4.0...v0.3.12
 [0.3.12]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.11...v0.3.12
 [0.3.11]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.10...v0.3.11
 [0.3.10]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.9...v0.3.10

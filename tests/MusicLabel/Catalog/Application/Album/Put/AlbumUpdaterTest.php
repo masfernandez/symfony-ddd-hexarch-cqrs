@@ -7,9 +7,9 @@ declare(strict_types=1);
 namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Put;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Put\AlbumUpdater;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumNotFound;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +17,7 @@ class AlbumUpdaterTest extends TestCase
 {
     /**
      * @test
-     * @throws \Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumNotFound
+     * @throws \Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumNotFound
      */
     public function itShouldReplaceAnAlbum(): void
     {

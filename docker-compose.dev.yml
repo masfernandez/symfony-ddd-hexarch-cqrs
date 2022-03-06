@@ -7,13 +7,7 @@ version: "3.9"
 
 services:
 
-    nginx:
-        image: masfernandez/symfony-nginx:latest-dev
-        volumes:
-            - ./docker/nginx/etc/nginx/certs/dev:/etc/nginx/certs:ro
-
     php:
-        image: masfernandez/symfony-php-fpm:latest-dev
         # Uncomment and configure as needed when testing/debugging
 #        environment:
 #            XDEBUG_CONFIG: xdebug.start_with_request=yes

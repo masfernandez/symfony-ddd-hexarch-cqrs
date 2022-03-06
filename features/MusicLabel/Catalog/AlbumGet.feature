@@ -6,7 +6,7 @@ Feature: Getting Albums
 
   Scenario: Get single album. There are 2 o more albums stored
     Given There are some albums stored in database:
-      |  id                                     | title        | publishing_date        |
+      |  id                                     | title        | release_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
       |  9be8b428-12ff-4312-806e-22547ea98dcb   |  Let It Be   | 1970-05-08 09:00:00    |
 
@@ -19,7 +19,7 @@ Feature: Getting Albums
         "data": {
           "id": "9be8b428-12ff-4312-806e-22547ea98dcb",
           "title": "Let It Be",
-          "publishing_date": "1970-05-08 09:00:00"
+          "release_date": "1970-05-08 09:00:00"
         }
       }
       """
