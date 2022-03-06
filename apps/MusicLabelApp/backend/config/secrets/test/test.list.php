@@ -6,6 +6,4 @@ return array (
   'JWT_PASSPHRASE' => NULL,
   'MYSQL_PASS' => NULL,
   'MYSQL_USER' => NULL,
-  'RABBIT_PASS' => NULL,
-  'RABBIT_USER' => NULL,
 );

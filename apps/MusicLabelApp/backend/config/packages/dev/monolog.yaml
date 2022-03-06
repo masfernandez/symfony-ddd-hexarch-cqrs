@@ -1,8 +1,12 @@
 monolog:
     handlers:
-        deprecation:
+        # deprecation:
+        #    See deprecations.yaml file
+        events:
             type: stream
-            path: "%project.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.deprecations.log"
+            level: '%env(LOG_LEVEL_EVENTS)%'
+            path: "%project.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.events.log"
+            channels: ["event"]
         main:
             type: rotating_file
             level: '%env(LOG_LEVEL_MAIN)%'
