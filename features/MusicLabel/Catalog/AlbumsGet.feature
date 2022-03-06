@@ -6,7 +6,7 @@ Feature: Getting Albums paginated
 
   Scenario: Get all albums. Default order and fields. There are 2 albums stored
     Given There are some albums stored in database:
-      |  id                                     | title        | publishing_date        |
+      |  id                                     | title        | release_date        |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   |  Abbey Road  | 1969-09-26 09:00:00    |
       |  9be8b428-12ff-4312-806e-22547ea98dcb   |  Let It Be   | 1970-05-08 09:00:00    |
 
@@ -20,12 +20,12 @@ Feature: Getting Albums paginated
 		  {
 			"id": "0da69030-3ed7-42b5-8aa5-25fb61dab1b2",
 			"title": "Abbey Road",
-			"publishing_date": "1969-09-26 09:00:00"
+			"release_date": "1969-09-26 09:00:00"
 		  },
 		  {
 			"id": "9be8b428-12ff-4312-806e-22547ea98dcb",
 			"title": "Let It Be",
-			"publishing_date": "1970-05-08 09:00:00"
+			"release_date": "1970-05-08 09:00:00"
 		  }
 		],
 		"links": {
@@ -58,7 +58,7 @@ Feature: Getting Albums paginated
 
   Scenario: Get two albums from second page. Default order and fields. There are 4 albums stored
     Given There are some albums stored in database:
-      |  id                                     | title             | publishing_date         |
+      |  id                                     | title             | release_date         |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   | Abbey Road        | 1969-09-26 09:00:00     |
       |  9be8b428-12ff-4312-806e-22547ea98dcb   | Let It Be         | 1970-05-08 09:00:00     |
       |  35d05db7-e52d-46f1-9ab9-201f0c0de42d   | Yellow Submarine  | 1969-01-13 09:00:00     |
@@ -74,12 +74,12 @@ Feature: Getting Albums paginated
         {
           "id": "1fb41120-03f5-44d1-8d61-a6dc7c243869",
           "title": "Revolver",
-          "publishing_date": "1966-08-05 09:00:00"
+          "release_date": "1966-08-05 09:00:00"
         },
         {
           "id": "35d05db7-e52d-46f1-9ab9-201f0c0de42d",
           "title": "Yellow Submarine",
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
         }
       ],
       "links": {
@@ -95,16 +95,16 @@ Feature: Getting Albums paginated
     }
     """
 
-  Scenario: Get three albums from first page. Ordered by publishing_date DESC.
-    Show only publishing_date field. There are 4 o more albums stored
+  Scenario: Get three albums from first page. Ordered by release_date DESC.
+    Show only release_date field. There are 4 o more albums stored
     Given There are some albums stored in database:
-      |  id                                     | title             | publishing_date         |
+      |  id                                     | title             | release_date         |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   | Abbey Road        | 1969-09-26 09:00:00     |
       |  9be8b428-12ff-4312-806e-22547ea98dcb   | Let It Be         | 1970-05-08 09:00:00     |
       |  35d05db7-e52d-46f1-9ab9-201f0c0de42d   | Yellow Submarine  | 1969-01-13 09:00:00     |
       |  1fb41120-03f5-44d1-8d61-a6dc7c243869   | Revolver          | 1966-08-05 09:00:00     |
 
-    When I send a "GET" request to "/albums?page[number]=1&page[size]=3&fields[albums]=publishing_date&sort=-publishing_date"
+    When I send a "GET" request to "/albums?page[number]=1&page[size]=3&fields[albums]=release_date&sort=-release_date"
     Then the response status code should be "200"
     And the header "Content-Type" should contain "application/json"
     And the JSON response should be equal to:
@@ -112,13 +112,13 @@ Feature: Getting Albums paginated
     {
       "data": [
         {
-          "publishing_date": "1970-05-08 09:00:00"
+          "release_date": "1970-05-08 09:00:00"
         },
         {
-          "publishing_date": "1969-09-26 09:00:00"
+          "release_date": "1969-09-26 09:00:00"
         },
         {
-          "publishing_date": "1969-01-13 09:00:00"
+          "release_date": "1969-01-13 09:00:00"
         }
       ],
       "links": {
@@ -134,16 +134,16 @@ Feature: Getting Albums paginated
     }
     """
 
-  Scenario: Get one album from third page. Ordered by publishing_date ASC.
+  Scenario: Get one album from third page. Ordered by release_date ASC.
     Show only id field. There are 4 albums stored
     Given There are some albums stored in database:
-      |  id                                     | title             | publishing_date         |
+      |  id                                     | title             | release_date         |
       |  0da69030-3ed7-42b5-8aa5-25fb61dab1b2   | Abbey Road        | 1969-09-26 09:00:00     |
       |  9be8b428-12ff-4312-806e-22547ea98dcb   | Let It Be         | 1970-05-08 09:00:00     |
       |  35d05db7-e52d-46f1-9ab9-201f0c0de42d   | Yellow Submarine  | 1969-01-13 09:00:00     |
       |  1fb41120-03f5-44d1-8d61-a6dc7c243869   | Revolver          | 1966-08-05 09:00:00     |
 
-    When I send a "GET" request to "/albums?page[number]=3&page[size]=1&fields[albums]=id&sort=publishing_date"
+    When I send a "GET" request to "/albums?page[number]=3&page[size]=1&fields[albums]=id&sort=release_date"
     Then the response status code should be "200"
     And the header "Content-Type" should contain "application/json"
     And the JSON response should be equal to:

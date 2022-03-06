@@ -7,12 +7,12 @@ declare(strict_types=1);
 namespace Masfernandez\Tests\MusicLabel\Catalog\Application\Album\Post;
 
 use Masfernandez\MusicLabel\Catalog\Application\Album\Post\AlbumCreator;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\Album;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumCreatedDomainEvent;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumRepository;
-use Masfernandez\Shared\Domain\Bus\Event\EventPublisher;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumCreatedDomainEventMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\Album;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumCreatedDomainEvent;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventPublisher;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumCreatedDomainEventMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
 use Mockery;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -20,16 +20,16 @@ class AlbumCreatorTest extends KernelTestCase
 {
     /**
      * @test
-     * @throws \Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumAlreadyExists
+     * @throws \Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumAlreadyExists
      */
     public function itShouldCreateAnAlbum(): void
     {
         $command       = PostAlbumCommandMother::create();
         $album         = AlbumMother::create($command->getId(), $command->getTitle(), $command->getPublishingDate());
         $eventExpected = AlbumCreatedDomainEventMother::create(
-            $command->getId(),
-            $command->getTitle(),
-            $command->getPublishingDate()
+            id:             $command->getId(),
+            title:          $command->getTitle(),
+            releaseDate: $command->getPublishingDate(),
         );
 
         // mocks

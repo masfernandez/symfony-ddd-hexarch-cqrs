@@ -1,0 +1,36 @@
+filebeat.modules:
+- module: nginx
+  access:
+      enabled: true
+      var.paths: ["/tmp/app/logs/nginx/*access.log*"]
+  error:
+      enabled: true
+      var.paths: ["/tmp/app/logs/nginx/*error.log*"]
+
+- module: mysql
+  error:
+      enabled: true
+      var.paths: ["/tmp/app/logs/mysql80/mysql_error.log"]
+  slowlog:
+      enabled: true
+      var.paths: ["/tmp/app/logs/mysql80/slow-mysql-query.log"]
+
+- module: mysql
+  error:
+    enabled: true
+    var.paths: ["/tmp/app/logs/mariadb/mysql_error.log"]
+  slowlog:
+    enabled: true
+    var.paths: ["/tmp/app/logs/mariadb/slow-mysql-query.log"]
+
+setup.template.name: "filebeat-"
+setup.template.pattern: "filebeat-*"
+
+output.elasticsearch:
+    hosts: ["http://host.docker.internal:9200"]
+    username: '${ES_USERNAME}'
+    password: '${ES_PASSWORD}'
+    index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
+
+setup.kibana:
+    host: http://host.docker.internal:5601

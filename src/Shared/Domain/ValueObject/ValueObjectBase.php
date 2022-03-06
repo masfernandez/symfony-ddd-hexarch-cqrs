@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Shared\Domain\ValueObject;
+namespace Masfernandez\MusicLabel\Shared\Domain\ValueObject;
 
 use RuntimeException;
 use Symfony\Component\Validator\Validation;
 
 abstract class ValueObjectBase
 {
-    protected $value;
+    protected mixed $value;
 
     public function __construct($value)
     {

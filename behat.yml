@@ -3,10 +3,10 @@ default:
     extensions:
 
         FriendsOfBehat\SymfonyExtension:
-            bootstrap: apps/MusicLabelApp/backend/config/bootstrap.php
+            bootstrap: apps/MusicLabelApp/api/config/bootstrap.php
             kernel:
-                class: Masfernandez\MusicLabelApp\Infrastructure\Backend\Kernel
-                path: apps/MusicLabelApp/backend/src/Kernel.php
+                class: Masfernandez\MusicLabel\Infrastructure\Api\Kernel
+                path: apps/MusicLabelApp/api/src/Kernel.php
                 environment: test
 
         Behatch\Extension: ~
@@ -23,7 +23,7 @@ default:
 
         # examples:
         # vendor/bin/behat -s Auth features/MusicLabel/Auth
-        # vendor/bin/behat -s Auth features/MusicLabel/Auth/Token.feature
+        # vendor/bin/behat -s Auth features/MusicLabel/Auth/Token.feature:7
         Auth:
             paths: [ features/MusicLabel/Auth ]
             contexts:

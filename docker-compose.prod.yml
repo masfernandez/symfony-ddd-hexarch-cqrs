@@ -7,36 +7,208 @@ version: "3.9"
 services:
 
     nginx:
-        image: masfernandez/symfony-nginx:latest
+        image: masfernandez/${COMPOSE_PROJECT_NAME}-nginx-${ENV}:${VERSION}
+        build:
+            context: ./docker/nginx
+            target: ${ENV}
+            args:
+                NGINX_VERSION: ${NGINX_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}-nginx
+        ports:
+            - "80:80"
+            - "443:443"
         depends_on:
             - php
-        environment:
-            VIRTUAL_HOST: api.musiclabel.masfernandez.com
         volumes:
             - .:/var/www/html
+            # log
             - ./var/log/nginx:/var/log/nginx
             # vhost
-            - ./docker/nginx/etc/nginx/conf.d/api.musiclabel.masfernandez.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/etc/nginx/templates:/etc/nginx/templates
             # config
             - ./docker/nginx/etc/nginx/conf.d/00-log-settings.conf:/etc/nginx/conf.d/00-log-settings.conf
+        environment:
+            VIRTUAL_HOST: api.musiclabel.masfernandez.com
+            NGINX_HOST: ${NGINX_HOST}
+            NGINX_PORT: ${NGINX_PORT}
+            NGINX_DOC_ROOT: ${NGINX_DOC_ROOT}
         networks:
             - proxy
             - musiclabel
 
     php:
-        image: masfernandez/symfony-php-fpm:latest
-        container_name: ${COMPOSE_PROJECT_NAME}-php
         volumes:
-            - .:/var/www/html
-            # config
             - ./docker/php/usr/local/etc/php/conf.d/symfony.prod.ini:/usr/local/etc/php/conf.d/symfony.ini
-            - ./docker/php/etc/supervisor/conf.d:/etc/supervisor.d
+        depends_on:
+            - mysql80
+            - rabbitmq
         networks:
             - musiclabel
             - db
             - redis
             - elk
+
+    redis:
+        container_name: ${COMPOSE_PROJECT_NAME}-redis
+        image: redis:${REDIS_VERSION}
+        ports:
+            - "6379:6379"
+        networks:
+            - redis
+
+    mysql80:
+        container_name: ${COMPOSE_PROJECT_NAME}-mysql
+        image: mysql:${MYSQL_VERSION}
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES UTF8;'
+        volumes:
+            - ./var/db/mysql/data:/var/lib/mysql
+            - ./docker/mysql/etc/mysql/conf.d:/etc/mysql/conf.d
+            - ./var/log/mysql80:/var/log/mysql
+        environment:
+            - MYSQL_HOST=${MYSQL_HOST}
+            - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
+            - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        ports:
+            - "3306:3306"
+        cap_add:
+            - SYS_NICE  # CAP_SYS_NICE: fix mbind operation not permitted in mysql error log
+        networks:
+            - db
+
+    mariaDB:
+        image: mariadb:${MARIADB_VERSION}
+        container_name: ${COMPOSE_PROJECT_NAME}-mariaDB
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - ./var/db/mariadb/data:/var/lib/mysql
+            - ./docker/mariadb/etc/mysql/conf.d:/etc/mysql/conf.d
+            - ./var/log/mysql80:/var/log/mysql
+        ports:
+            - '10103:3306'
+        environment:
+            - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD:-toor}
+        networks:
+            - db
+
+    rabbitmq:
+        container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
+        image: rabbitmq:${RABBITMQ_VERSION}
+        ports:
+            - '15672:15672'
+        environment:
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+        networks:
+            - musiclabel
+
+    elasticsearch:
+        container_name: ${COMPOSE_PROJECT_NAME}-elasticsearch
+        build:
+            context: docker/elastic/elasticsearch/
+            args:
+                ELK_VERSION: ${ELK_VERSION}
+        volumes:
+            - type: bind
+              source: ./docker/elastic/elasticsearch/config/elasticsearch.${ENV}.yml
+              target: /usr/share/elasticsearch/config/elasticsearch.yml
+              read_only: true
+        #            - type: bind
+        #              source: ./var/elastic/elasticsearch/data
+        #              target: /usr/share/elasticsearch/data
+        ports:
+            - "9200:9200"
+            - "9300:9300"
+        environment:
+            ES_JAVA_OPTS: ${ES_JAVA_OPTS}
+            ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+            discovery.type: ${DISCOVERY_TYPE}
+        restart: ${ES_RESTART}
+        networks:
+            - elk
+
+    kibana:
+        container_name: ${COMPOSE_PROJECT_NAME}-kibana
+        build:
+            context: docker/elastic/kibana/
+            args:
+                ELK_VERSION: ${ELK_VERSION}
+        volumes:
+            - type: bind
+              source: ./docker/elastic/kibana/config/kibana.${ENV}.yml
+              target: /usr/share/kibana/config/kibana.yml
+              read_only: true
+        environment:
+            ES_KIBANA_USERNAME: ${ES_KIBANA_USERNAME}
+            ES_KIBANA_PASSWORD: ${ES_KIBANA_PASSWORD}
+            ES_USERNAME: ${ES_USERNAME}
+            ES_PASSWORD: ${ES_PASSWORD}
+        ports:
+            - "5601:5601"
+        restart: ${ES_RESTART}
+        networks:
+            - elk
+        depends_on:
+            - elasticsearch
+
+    logstash:
+        container_name: ${COMPOSE_PROJECT_NAME}-logstash
+        build:
+            context: docker/elastic/logstash/
+            args:
+                ELK_VERSION: ${ELK_VERSION}
+        volumes:
+            - type: bind
+              source: ./docker/elastic/logstash/config/logstash.yml
+              target: /usr/share/logstash/config/logstash.yml
+              read_only: true
+            - type: bind
+              source: ./docker/elastic/logstash/config/pipelines.yml
+              target: /usr/share/logstash/config/pipelines.yml
+              read_only: true
+            - type: bind
+              source: ./docker/elastic/logstash/conf.d
+              target: /etc/logstash/conf.d
+              read_only: true
+            # Logs
+            - ./var/log/symfony/MusicLabelApp:/tmp/app/logs/symfony/MusicLabelApp
+        #        ports:
+        #            - "5044:5044"
+        #            - "5000:5000/tcp"
+        #            - "5000:5000/udp"
+        #            - "9600:9600"
+        environment:
+            LS_JAVA_OPTS: ${LS_JAVA_OPTS}
+            ES_LOGSTASH_USERNAME: ${ES_LOGSTASH_USERNAME}
+            ES_LOGSTASH_PASSWORD: ${ES_LOGSTASH_PASSWORD}
+            ES_USERNAME: ${ES_USERNAME}
+            ES_PASSWORD: ${ES_PASSWORD}
+        restart: ${ES_RESTART}
+        networks:
+            - elk
+        depends_on:
+            - elasticsearch
+
+    filebeat:
+        container_name: ${COMPOSE_PROJECT_NAME}-filebeat
+        image: docker.elastic.co/beats/filebeat:${ELK_VERSION}
+        command: filebeat -e -strict.perms=false
+        env_file:
+            - .env
+        volumes:
+            # conf
+            - ./docker/elastic/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+            # nginx
+            - ./var/log/nginx:/tmp/app/logs/nginx
+            # mysql80
+            - ./var/log/mysql80:/tmp/app/logs/mysql80
+            # mariadb
+            - ./var/log/mariadb:/tmp/app/logs/mariadb
+        networks:
+            - elk
+        depends_on:
+            - elasticsearch
+            - kibana
 
 networks:
     musiclabel:

@@ -19,17 +19,17 @@ use Behat\Gherkin\Node\TableNode;
 use Behatch\Context\RestContext;
 use Behatch\HttpCall\Request;
 use JsonException;
-use Masfernandez\MusicLabel\Auth\Domain\Model\User\User;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumPublishingDate;
-use Masfernandez\MusicLabel\Catalog\Domain\Model\Album\AlbumTitle;
-use Masfernandez\MusicLabel\Shared\Domain\Model\Album\AlbumId;
+use Masfernandez\MusicLabel\Auth\Domain\User\User;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\ValueObject\AlbumReleaseDate;
+use Masfernandez\MusicLabel\Catalog\Domain\Album\ValueObject\AlbumTitle;
+use Masfernandez\MusicLabel\Shared\Domain\Album\AlbumId;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenValueMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserEmailMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserIdMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserMother;
 use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserPasswordMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Model\Album\AlbumMother;
+use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractRestContext extends RestContext
@@ -43,16 +43,16 @@ abstract class AbstractRestContext extends RestContext
     }
 
     /**
-     * @Given  There is already an Album in database with id :id title :title and publishing_date :publishing_date
+     * @Given  There is already an Album in database with id :id title :title and release_date :release_date
      */
-    public function thereIsAnAlbumInDatabase(string $id, string $title, string $publishing_date): void
+    public function thereIsAnAlbumInDatabase(string $id, string $title, string $release_date): void
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $em->persist(
             AlbumMother::create(
                 new AlbumId($id),
                 new AlbumTitle($title),
-                new AlbumPublishingDate($publishing_date)
+                new AlbumReleaseDate($release_date),
             )
         );
         $em->flush();
@@ -83,7 +83,7 @@ abstract class AbstractRestContext extends RestContext
                 AlbumMother::create(
                     new AlbumId($row['id']),
                     new AlbumTitle($row['title']),
-                    new AlbumPublishingDate($row['publishing_date'])
+                    new AlbumReleaseDate($row['release_date']),
                 )
             );
         }
@@ -147,16 +147,18 @@ abstract class AbstractRestContext extends RestContext
      */
     public function thereIsAValidJwTokenForTheUser(string $id, string $email, string $password): void
     {
-        $tokenGenerator = $this->container->get('Masfernandez\MusicLabel\Auth\Infrastructure\Jwt\Generator');
-        $user = UserMother::create(
+        $tokenGenerator                     = $this->container->get(
+            'Masfernandez\MusicLabel\Infrastructure\Api\Jwt\Generator'
+        );
+        $user                               = UserMother::create(
             UserIdMother::create($id),
             UserEmailMother::create($email),
             UserPasswordMother::create($password)
         );
-        $jwt = $tokenGenerator->create($user);
-        $jwtParts = explode('.', $jwt);
+        $jwt                                = $tokenGenerator->create($user);
+        $jwtParts                           = explode('.', $jwt);
         $this->headerAndPayloadInAuthHeader = $jwtParts[0] . '.' . $jwtParts[1];
-        $this->signatureInCookie = $jwtParts[2];
+        $this->signatureInCookie            = $jwtParts[2];
     }
 
     /**
