@@ -27,6 +27,7 @@ debug-paths:
 ## —— envs —————————————————————————————————————————————————————————————————
 #@todo improve envs generation and delete app:dump-env command
 dump-dev:
+	ENV=dev ./console secrets:decrypt-to-local --force --env=dev
 	ENV=dev ./console app:dump-env dev --env=dev
 
 dump-test:
