@@ -13,7 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 
 
-## [0.4.0] - 2022-03-16
+## [0.4.1] - 2022-03-06
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- Git CI/CD
+- Travis CI/CD
+### Security
+
+
+
+## [0.4.0] - 2022-03-06
 ### Added
 - Symfony 5.4 support
 - New structure for User aggregate
