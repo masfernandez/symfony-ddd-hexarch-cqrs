@@ -10,8 +10,8 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Request;
 
 final class GetJwtQuery implements Request
 {
-    private UserEmail $email;
-    private UserPassword $password;
+    private readonly UserEmail $email;
+    private readonly UserPassword $password;
 
     public function __construct(string $email, string $password)
     {

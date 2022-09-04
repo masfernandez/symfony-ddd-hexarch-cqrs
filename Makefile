@@ -16,7 +16,7 @@ DOCKER_COMPOSE-EXEC   	= docker-compose # todo: Docker Compose is now in the Doc
 ## —— folders —————————————————————————————————————————————————————————————————
 
 current-dir 		:= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-musiclabel-app-dir 	:= $(current-dir)apps/musiclabelApp
+musiclabel-app-dir 	:= $(current-dir)apps/MusicLabel
 musiclabel-backend 	:= $(musiclabel-app-dir)/backend
 
 debug-paths:
@@ -33,6 +33,10 @@ dump-dev:
 dump-test:
 	ENV=test ./console secrets:decrypt-to-local --force --env=test
 	ENV=test ./console app:dump-env test --env=test
+
+dump-preprod:
+	ENV=preprod ./console secrets:decrypt-to-local --force --env=preprod
+	ENV=preprod ./console app:dump-env preprod --env=preprod
 
 dump-prod:
 	ENV=prod ./console secrets:decrypt-to-local --force --env=prod
@@ -56,44 +60,95 @@ db-drop:
 	./console doctrine:database:drop --force --quiet
 
 clean-logs:
-	truncate -s 0 var/log/symfony/MusicLabelApp/*.log
+	truncate -s 0 var/log/symfony/MusicLabel/*.log
 	truncate -s 0 var/log/nginx/*.log
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-test:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml up -d --remove-orphans
-
-up-dev-arm:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.dev.arm.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-dev.yml \
+		up -d --remove-orphans
 
 up-dev:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.dev.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		-f docker-compose.local-dev.yml \
+		up -d --remove-orphans
 
 up-preprod:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.prod.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		up -d --remove-orphans
 
 up-prod:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml up -d --remove-orphans
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		up -d --remove-orphans
 
 stop-test:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.dev.yml stop
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-dev.yml \
+		stop
 
 stop-dev:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.dev.yml stop
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		-f docker-compose.local-dev.yml \
+		stop
 
-stop-dev-arm:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.dev.yml -f docker-compose.dev.arm.yml stop
+stop-preprod:
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		stop
 
 stop-prod:
-	$(DOCKER_COMPOSE-EXEC)  -f docker-compose.yml -f docker-compose.prod.yml stop
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		stop
 
-down:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml down --remove-orphans
-
+up: up-prod
 stop: stop-prod
 
+down:
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		down --remove-orphans
+
 logs:
-	$(DOCKER_COMPOSE-EXEC) -f docker-compose.yml logs -f
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		logs -f
+
+rebuild:
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		build php nginx \
+		--no-cache
+
+update:
+	$(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		pull \
+		redis \
+		mysql80 \
+		mariadb106 \
+		rabbitmq \
+		elasticsearch \
+		kibana \
+		logstash \
+		filebeat
 
 ## —— Consumer  ————————————————————————————————————————————————————————
 
@@ -133,6 +188,10 @@ phpstan-testsuite:
 psalm: up-test psalm-testsuite
 psalm-testsuite:
 	ENV=test ./php vendor/bin/psalm --long-progress --no-cache --no-file-cache
+
+psalm-build: up-test psalm-build-testsuite
+psalm-build-testsuite:
+	ENV=test ./php vendor/bin/psalm --alter --issues=InvalidReturnType,MissingParamType --dry-run
 
 phpunit: up-test dump-test db-drop db-create-sqlite phpunit-testsuite
 phpunit-testsuite:
@@ -186,11 +245,6 @@ dev-start: \
 	dump-dev \
 	db-create \
 	db-migrate
-dev-start-arm: \
-	up-dev-arm \
-	dump-dev \
-	db-create \
-	db-migrate
 preprod-start: \
 	up-preprod \
 	dump-prod \
@@ -205,4 +259,4 @@ prod-start: \
 stop-all: stop-prod
 
 # Start supervisord to monitor consumer
-prod-start dev-start dev-start-arm: supervisord
+prod-start dev-start: supervisord

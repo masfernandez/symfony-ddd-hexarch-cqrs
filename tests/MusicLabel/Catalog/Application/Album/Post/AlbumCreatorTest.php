@@ -51,14 +51,14 @@ class AlbumCreatorTest extends KernelTestCase
         $albumCreator->execute($command);
     }
 
-    private function compareAlbums(Album $albumExpected): callable
+    private function compareAlbums(Album $albumExpected): \Closure
     {
         return static function ($albumActual) use ($albumExpected): bool {
             return $albumExpected->equals($albumActual);
         };
     }
 
-    private function compareEvents(AlbumCreatedDomainEvent $eventExpected): callable
+    private function compareEvents(AlbumCreatedDomainEvent $eventExpected): \Closure
     {
         return static function ($eventActual) use ($eventExpected): bool {
             return $eventExpected->aggregateId() === $eventActual->aggregateId() &&

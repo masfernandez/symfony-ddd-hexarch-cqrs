@@ -10,9 +10,9 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\AsyncEvent;
 final class AlbumCreatedDomainEvent extends DomainEvent implements AsyncEvent
 {
     public function __construct(
-        private string $id,
-        private string $title,
-        private string $release_date,
+        private readonly string $id,
+        private readonly string $title,
+        private readonly string $release_date,
         string $eventId = null,
         string $eventDate = null
     ) {

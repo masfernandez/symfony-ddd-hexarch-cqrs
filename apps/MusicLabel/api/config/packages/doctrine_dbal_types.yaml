@@ -1,0 +1,22 @@
+doctrine:
+  dbal:
+    default_connection: ~
+    connections: []
+    types:
+      # Album
+      AlbumId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumId
+      AlbumTitle: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumTitle
+      AlbumReleaseDate: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumReleaseDate
+
+      # Artist
+      ArtistId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineArtistId
+
+      # User
+      UserId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineUserId
+      UserEmail: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineUserEmail
+      UserPassword: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineUserPassword
+
+      # Token
+      TokenId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineTokenId
+      TokenValue: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineTokenValue
+      TokenExpirationDate: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineTokenExpirationDate

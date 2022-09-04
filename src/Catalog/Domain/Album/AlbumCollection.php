@@ -9,7 +9,7 @@ use IteratorAggregate;
 
 final class AlbumCollection implements IteratorAggregate
 {
-    private int $size;
+    private readonly int $size;
 
     public function __construct(private array $albums)
     {

@@ -7,15 +7,19 @@ declare(strict_types=1);
 namespace Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;
 
 class SqliteCleaner implements RepositoryCleaner
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
+    /**
+     * @throws Exception
+     */
     public function truncateDataStored(): void
     {
         $connection = $this->entityManager->getConnection();
@@ -26,6 +30,7 @@ class SqliteCleaner implements RepositoryCleaner
 
     /**
      * @return mixed[]
+     * @throws Exception
      */
     private function tables(Connection $connection): array
     {

@@ -9,11 +9,11 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Query\SyncQuery;
 final class GetAlbumsQuery implements SyncQuery
 {
     public function __construct(
-        private int $page,
-        private int $size,
-        private array $fields,
-        private array $filters,
-        private array $sort
+        private readonly int $page,
+        private readonly int $size,
+        private readonly array $fields,
+        private readonly array $filters,
+        private readonly array $sort
     ) {
     }
 

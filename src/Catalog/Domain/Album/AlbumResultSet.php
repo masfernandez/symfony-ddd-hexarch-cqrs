@@ -12,8 +12,8 @@ final class AlbumResultSet
      * @param Album[]|array $albums
      */
     public function __construct(
-        private array $albums,
-        private int $total
+        private readonly array $albums,
+        private readonly int $total
     ) {
     }
 

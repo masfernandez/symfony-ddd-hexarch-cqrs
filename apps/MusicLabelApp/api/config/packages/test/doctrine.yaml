@@ -1,7 +1,0 @@
-doctrine:
-    dbal:
-        default_connection: default
-        connections:
-            default:
-                url: '%env(resolve:SQLITE_DB_URL)%'
-                driver: 'pdo_sqlite'

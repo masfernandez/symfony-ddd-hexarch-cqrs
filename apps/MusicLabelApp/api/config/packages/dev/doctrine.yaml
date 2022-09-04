@@ -1,5 +1,0 @@
-doctrine:
-    dbal:
-        connections:
-            default:
-                logging: true

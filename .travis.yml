@@ -6,10 +6,10 @@ before_script:
     - composer install
 script:
     - mkdir -p build/test
-    - apps/MusicLabelApp/api/bin/console app:dump-env test --env test
-    - apps/MusicLabelApp/api/bin/console doctrine:database:drop --force --quiet
-    - apps/MusicLabelApp/api/bin/console doctrine:database:create --no-interaction --quiet
-    - apps/MusicLabelApp/api/bin/console doctrine:schema:update --force --no-interaction --quiet
+    - apps/MusicLabel/api/bin/console app:dump-env test --env test
+    - apps/MusicLabel/api/bin/console doctrine:database:drop --force --quiet
+    - apps/MusicLabel/api/bin/console doctrine:database:create --no-interaction --quiet
+    - apps/MusicLabel/api/bin/console doctrine:schema:update --force --no-interaction --quiet
     - XDEBUG_MODE=coverage vendor/bin/phpunit -c phpunit.xml.dist
 after_success:
     - travis_retry php vendor/bin/php-coveralls

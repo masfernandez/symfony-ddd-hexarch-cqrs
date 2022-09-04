@@ -8,7 +8,7 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
 
 final class NewUserCommand implements Command
 {
-    public function __construct(private string $email, private string $password)
+    public function __construct(private readonly string $email, private readonly string $password)
     {
     }
 

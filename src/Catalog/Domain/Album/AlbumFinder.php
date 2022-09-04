@@ -8,7 +8,7 @@ use Masfernandez\MusicLabel\Shared\Domain\Album\AlbumId;
 
 final class AlbumFinder
 {
-    public function __construct(private AlbumRepository $albumRepository)
+    public function __construct(private readonly AlbumRepository $albumRepository)
     {
     }
 

@@ -16,7 +16,7 @@ use Masfernandez\MusicLabel\Shared\Domain\User\UserId;
 
 final class UserCreator implements ApplicationService
 {
-    public function __construct(private UserRepository $userRepository)
+    public function __construct(private readonly UserRepository $userRepository)
     {
     }
 

@@ -1,7 +1,0 @@
-monolog:
-    handlers:
-        main:
-            type: stream
-            path: "%project.root_path%/var/log/symfony/MusicLabelApp/%kernel.environment%.log"
-            level: '%env(LOG_LEVEL_MAIN)%'
-            channels: ["!event"]

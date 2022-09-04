@@ -7,9 +7,9 @@ namespace Masfernandez\MusicLabel\Catalog\Domain\Album;
 class Select
 {
     public function __construct(
-        private array $fields,
-        private ?string $alias = 'a',
-        private ?bool $fetchArray = false,
+        private readonly array $fields,
+        private readonly ?string $alias = 'a',
+        private readonly ?bool $fetchArray = false,
     ) {
     }
 

@@ -285,8 +285,8 @@ Several docker services will be available and ready for use when the app starts:
 **RabbitMQ** 
 
 > [http://localhost:15672](http://localhost:15672)\
-> user: root\
-> password: toor
+> user: rabbit_user\
+> password: rabbit_pass
 
 **Kibana**
 

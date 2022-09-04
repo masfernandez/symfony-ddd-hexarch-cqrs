@@ -6,15 +6,17 @@ namespace Masfernandez\MusicLabel\Catalog\Application\Album\Post;
 
 use Masfernandez\MusicLabel\Catalog\Domain\Album\Album;
 use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventPublisher;
 use Masfernandez\MusicLabel\Shared\Application\Service\ApplicationService;
 use Masfernandez\MusicLabel\Shared\Application\Service\Request;
 use Masfernandez\MusicLabel\Shared\Application\Service\Response;
-use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventPublisher;
 
 final class AlbumCreator implements ApplicationService
 {
-    public function __construct(private AlbumRepository $albumRepository, private EventPublisher $publisher)
-    {
+    public function __construct(
+        private readonly AlbumRepository $albumRepository,
+        private readonly EventPublisher $publisher
+    ) {
     }
 
     /**
@@ -23,8 +25,8 @@ final class AlbumCreator implements ApplicationService
     public function execute(PostAlbumCommand|Request $request): ?Response
     {
         $album = Album::create(
-            id:             $request->getId(),
-            title:          $request->getTitle(),
+            id:          $request->getId(),
+            title:       $request->getTitle(),
             releaseDate: $request->getPublishingDate(),
         );
         $this->albumRepository->post($album);

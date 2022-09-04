@@ -14,17 +14,17 @@ use Stringable;
 // It doesn't mean is open to inheritance...
 class Artist implements Stringable
 {
-    public const ID = 'id';
-    public const NAME = 'name';
-    public const SPECIALISATION = 'specialisation';
+    public final const ID = 'id';
+    public final const NAME = 'name';
+    public final const SPECIALISATION = 'specialisation';
 
-    private ArtistAddingDate $adding_date;
+    private readonly ArtistAddingDate $adding_date;
 
     public function __construct(
-        private ArtistId $id,
+        private readonly ArtistId $id,
         private ArtistName $name,
         private ArtistSpecialisation $specialisation,
-        private AlbumCollection $albums
+        private readonly AlbumCollection $albums
     ) {
         $this->adding_date = new ArtistAddingDate([]);
     }

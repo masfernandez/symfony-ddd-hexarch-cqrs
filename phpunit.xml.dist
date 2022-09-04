@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-         bootstrap="apps/MusicLabelApp/api/config/bootstrap.php"
+         bootstrap="apps/MusicLabel/api/config/bootstrap.php"
          colors="true" beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
          beStrictAboutTestsThatDoNotTestAnything="false">
@@ -21,6 +21,11 @@
 
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_SECRET" value="4e3faf7f6e5e9d5857f62dde5ce12b6e"/>
+        <!-- ###- symfony/framework-bundle ### -->
     </php>
 
     <testsuites>

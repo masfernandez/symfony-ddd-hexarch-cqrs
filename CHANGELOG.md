@@ -12,6 +12,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+## [0.5.0] - 2022-09-04
+### Added
+- Symfony 6.1 support
+- Update composer deps
+### Changed
+### Deprecated
+### Removed
+### Fixed
+- remove vault secrets
+### Security
+
+
 
 ## [0.4.1] - 2022-03-06
 ### Added
@@ -241,7 +253,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 ### Removed
 ### Fixed
-- Move Backend symfony app from Catalog to MusicLabelApp
+- Move Backend symfony app from Catalog to MusicLabel
 ### Security
 
 
@@ -322,6 +334,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.5.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.5.0...v0.4.1
+[0.4.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.4.1...v0.4.0
 [0.4.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.4.0...v0.3.12
 [0.3.12]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.11...v0.3.12
 [0.3.11]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.3.10...v0.3.11

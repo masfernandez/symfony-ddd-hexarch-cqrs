@@ -12,7 +12,7 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Request;
 final class AlbumSearcher implements ApplicationService
 {
     public function __construct(
-        private AlbumRepository $albumRepository
+        private readonly AlbumRepository $albumRepository
     ) {
     }
 

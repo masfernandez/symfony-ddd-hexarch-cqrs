@@ -14,8 +14,8 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Request;
 final class NewJwtCreator implements ApplicationService
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private JwTokenGenerator $tokenGenerator
+        private readonly UserRepository $userRepository,
+        private readonly JwTokenGenerator $tokenGenerator
     ) {
     }
 

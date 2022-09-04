@@ -9,7 +9,7 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
 
 class AuthenticateTokenCommand implements Command
 {
-    private TokenValue $token;
+    private readonly TokenValue $token;
 
     public function __construct(string $token)
     {

@@ -10,8 +10,8 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Query\Query;
 
 final class GetTokenQuery implements Query
 {
-    private UserEmail $email;
-    private UserPassword $password;
+    private readonly UserEmail $email;
+    private readonly UserPassword $password;
 
     public function __construct(string $email, string $password)
     {

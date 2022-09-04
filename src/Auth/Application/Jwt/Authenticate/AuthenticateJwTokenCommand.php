@@ -9,7 +9,7 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
 
 class AuthenticateJwTokenCommand implements Command
 {
-    private JwTokenValue $token;
+    private readonly JwTokenValue $token;
 
     public function __construct(?string $token)
     {
