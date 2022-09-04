@@ -9,7 +9,7 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Query\SyncQuery;
 
 final class GetAlbumQuery implements SyncQuery
 {
-    private AlbumId $id;
+    private readonly AlbumId $id;
 
     public function __construct(string $id)
     {

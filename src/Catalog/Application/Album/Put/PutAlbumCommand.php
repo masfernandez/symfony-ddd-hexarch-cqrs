@@ -12,9 +12,9 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand;
 
 final class PutAlbumCommand implements SyncCommand
 {
-    private AlbumId $id;
-    private AlbumTitle $title;
-    private AlbumReleaseDate $releaseDate;
+    private readonly AlbumId $id;
+    private readonly AlbumTitle $title;
+    private readonly AlbumReleaseDate $releaseDate;
 
     /**
      * @throws Exception

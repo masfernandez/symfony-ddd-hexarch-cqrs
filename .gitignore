@@ -1,14 +1,14 @@
 # IDE
 !.idea/runConfigurationsShared/
 
-# Symfony MusicLabelApp
-apps/MusicLabelApp/api/.env.local
-apps/MusicLabelApp/api/.env.local.php
-apps/MusicLabelApp/api/.env.*.local
-apps/MusicLabelApp/api/config/secrets/prod/prod.decrypt.private.php
-apps/MusicLabelApp/api/config/secrets/preprod/preprod.decrypt.private.php
-apps/MusicLabelApp/api/public/bundles/
-apps/MusicLabelApp/api/var/
+# Symfony MusicLabel
+apps/MusicLabel/api/.env.local
+apps/MusicLabel/api/.env.local.php
+apps/MusicLabel/api/.env.*.local
+apps/MusicLabel/api/config/secrets/prod/prod.decrypt.private.php
+apps/MusicLabel/api/config/secrets/preprod/preprod.decrypt.private.php
+apps/MusicLabel/api/public/bundles/
+apps/MusicLabel/api/var/
 
 # project
 build/

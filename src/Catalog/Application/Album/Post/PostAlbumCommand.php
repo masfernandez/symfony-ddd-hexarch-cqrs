@@ -13,10 +13,10 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
 
 final class PostAlbumCommand implements Command
 {
-    private AlbumId $id;
-    private AlbumTitle $title;
-    private AlbumReleaseDate $releaseDate;
-    private TokenValue $token;
+    private readonly AlbumId $id;
+    private readonly AlbumTitle $title;
+    private readonly AlbumReleaseDate $releaseDate;
+    private readonly TokenValue $token;
 
     /**
      * @throws Exception

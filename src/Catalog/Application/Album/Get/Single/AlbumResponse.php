@@ -11,7 +11,7 @@ final class AlbumResponse implements Response
     /**
      * @param mixed[] $album
      */
-    public function __construct(private array $album)
+    public function __construct(private readonly array $album)
     {
     }
 

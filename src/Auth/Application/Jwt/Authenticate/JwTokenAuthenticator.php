@@ -11,7 +11,7 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Response;
 
 class JwTokenAuthenticator implements ApplicationService
 {
-    public function __construct(private JwTokenValidator $tokenValidator)
+    public function __construct(private readonly JwTokenValidator $tokenValidator)
     {
     }
 

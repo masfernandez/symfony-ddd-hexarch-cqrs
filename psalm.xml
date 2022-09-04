@@ -3,12 +3,12 @@
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
        errorLevel="4"
-       autoloader="apps/MusicLabelApp/api/config/bootstrap.php"
+       autoloader="apps/MusicLabel/api/config/bootstrap.php"
 >
     <!-- @todo errorLevel="1" -->
 
     <projectFiles>
-        <directory name="apps/MusicLabelApp/api/src/"/>
+        <directory name="apps/MusicLabel/api/src/"/>
         <directory name="src/"/>
         <directory name="tests/"/>
         <ignoreFiles>
@@ -27,7 +27,7 @@
 
         <InvalidScalarArgument>
             <errorLevel type="suppress">
-                <file name="apps/MusicLabelApp/api/src/Repository/Catalog/DoctrineAlbumRepository.php"/>
+                <file name="apps/MusicLabel/api/src/Repository/Catalog/DoctrineAlbumRepository.php"/>
             </errorLevel>
         </InvalidScalarArgument>
 
@@ -60,7 +60,7 @@
 
         <UnimplementedInterfaceMethod>
             <errorLevel type="suppress">
-                <file name="apps/MusicLabelApp/api/src/Kernel.php"/>
+                <file name="apps/MusicLabel/api/src/Kernel.php"/>
             </errorLevel>
         </UnimplementedInterfaceMethod>
 

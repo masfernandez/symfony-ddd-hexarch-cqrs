@@ -15,10 +15,10 @@ final class AlbumsResponse implements Response
      * @param Album[] $albums
      */
     public function __construct(
-        private array $albums,
-        private int $total,
-        private int $page,
-        private int $size
+        private readonly array $albums,
+        private readonly int $total,
+        private readonly int $page,
+        private readonly int $size
     ) {
     }
 

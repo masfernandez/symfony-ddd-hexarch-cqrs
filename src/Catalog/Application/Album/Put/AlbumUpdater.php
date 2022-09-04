@@ -12,7 +12,7 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Response;
 
 final class AlbumUpdater implements ApplicationService
 {
-    public function __construct(private AlbumRepository $repository)
+    public function __construct(private readonly AlbumRepository $repository)
     {
     }
 

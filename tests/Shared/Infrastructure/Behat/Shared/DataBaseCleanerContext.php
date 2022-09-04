@@ -14,7 +14,7 @@ use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;
 
 final class DataBaseCleanerContext implements Context
 {
-    public function __construct(private RepositoryCleaner $repositoryCleaner)
+    public function __construct(private readonly RepositoryCleaner $repositoryCleaner)
     {
     }
 

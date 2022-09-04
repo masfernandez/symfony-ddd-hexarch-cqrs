@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class JwTokenValue extends ValueObjectBase
 {
-    public const JWT_PATTERN = '/^([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_\-\+\/=]*)/';
-    public const JWT_HEAD_AND_PAY_PATTERN = '/^([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)/';
+    public final const JWT_PATTERN = '/^([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_\-\+\/=]*)/';
+    public final const JWT_HEAD_AND_PAY_PATTERN = '/^([a-zA-Z0-9_=]+)\.([a-zA-Z0-9_=]+)/';
 
     /**
      * @return Constraint[]

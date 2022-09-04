@@ -8,7 +8,7 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Response;
 
 final class JwtResponse implements Response
 {
-    public function __construct(private string $token)
+    public function __construct(private readonly string $token)
     {
     }
 

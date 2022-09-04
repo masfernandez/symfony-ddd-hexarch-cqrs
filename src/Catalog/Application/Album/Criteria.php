@@ -9,14 +9,14 @@ use Doctrine\Common\Collections\Expr\Expression;
 
 class Criteria
 {
-    private CriteriaDoctrine $criteria;
+    private readonly CriteriaDoctrine $criteria;
 
     public function __construct(
         array $exp,
         array $sort,
         int $page,
         int $size,
-        private ?string $alias = 'a'
+        private readonly ?string $alias = 'a'
     ) {
         $page           = ($page - 1) * $size; // first result
         $this->criteria = new CriteriaDoctrine($this->buildExp($exp), $this->buildSort($sort), $page, $size);
@@ -40,7 +40,7 @@ class Criteria
         $results = [];
         foreach ($sort as $field) {
             $order          = ($field[0] === '-' ? CriteriaDoctrine::DESC : CriteriaDoctrine::ASC);
-            $name           = ($field[0] === '-' ? substr($field, 1, strlen($field)) : $field);
+            $name           = ($field[0] === '-' ? substr($field, 1, strlen((string) $field)) : $field);
             $results[$name] = $order;
         }
         return $results;

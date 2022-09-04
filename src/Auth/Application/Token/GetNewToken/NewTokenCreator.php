@@ -14,8 +14,10 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Request;
 
 final class NewTokenCreator implements ApplicationService
 {
-    public function __construct(private UserRepository $userRepository, private TokenRepository $tokenRepository)
-    {
+    public function __construct(
+        private readonly UserRepository $userRepository,
+        private readonly TokenRepository $tokenRepository
+    ) {
     }
 
     /** @throws UserNotFound

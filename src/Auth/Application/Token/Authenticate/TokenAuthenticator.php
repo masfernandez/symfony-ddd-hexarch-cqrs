@@ -12,7 +12,7 @@ use Masfernandez\MusicLabel\Shared\Application\Service\Response;
 
 class TokenAuthenticator implements ApplicationService
 {
-    public function __construct(private TokenRepository $tokenRepository)
+    public function __construct(private readonly TokenRepository $tokenRepository)
     {
     }
 

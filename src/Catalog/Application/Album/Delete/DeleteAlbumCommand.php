@@ -9,7 +9,7 @@ use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand;
 
 final class DeleteAlbumCommand implements SyncCommand
 {
-    private AlbumId $id;
+    private readonly AlbumId $id;
 
     public function __construct(string $id)
     {

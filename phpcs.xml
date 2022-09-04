@@ -7,8 +7,8 @@
 
     <exclude-pattern>var/</exclude-pattern>
     <exclude-pattern>vendor/</exclude-pattern>
-    <exclude-pattern>apps/MusicLabelApp/api/config/</exclude-pattern>
-    <exclude-pattern>apps/MusicLabelApp/api/migrations/</exclude-pattern>
+    <exclude-pattern>apps/MusicLabel/api/config/</exclude-pattern>
+    <exclude-pattern>apps/MusicLabel/api/migrations/</exclude-pattern>
 
     <arg value="ns"/>
     <rule ref="PSR12"/>

@@ -3,13 +3,13 @@ default:
     extensions:
 
         FriendsOfBehat\SymfonyExtension:
-            bootstrap: apps/MusicLabelApp/api/config/bootstrap.php
+            bootstrap: apps/MusicLabel/api/config/bootstrap.php
             kernel:
                 class: Masfernandez\MusicLabel\Infrastructure\Api\Kernel
-                path: apps/MusicLabelApp/api/src/Kernel.php
+                path: apps/MusicLabel/api/src/Kernel.php
                 environment: test
 
-        Behatch\Extension: ~
+#        Behatch\Extension: ~
 
         Behat\MinkExtension:
             sessions:

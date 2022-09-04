@@ -10,6 +10,7 @@ LABEL maintainer="Miguel Ángel Sánchez Fernández <mangel.sanfer@gmail.com>"
 RUN apk --update upgrade \
     && apk add --no-cache \
         bash \
+        git \
         make \
         supervisor
 
@@ -36,7 +37,7 @@ RUN install-php-extensions \
 
 COPY ./usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN curl -sS https://get.symfony.com/cli/installer | bash && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+RUN curl -sS https://get.symfony.com/cli/installer | bash && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 COPY ./usr/local/etc/php/conf.d/symfony.dev.ini /usr/local/etc/php/conf.d/symfony.ini

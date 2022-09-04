@@ -10,7 +10,7 @@ use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;
 
 class MySqlCleaner implements RepositoryCleaner
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
     }
 
