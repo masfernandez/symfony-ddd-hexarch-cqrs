@@ -14,9 +14,7 @@ services:
             args:
                 NGINX_VERSION: ${NGINX_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}-nginx
-        ports:
-            - "80:80"
-            - "443:443"
+        restart: unless-stopped
         depends_on:
             - php
         volumes:
@@ -44,6 +42,7 @@ services:
             args:
                 PHP_VERSION: ${PHP_VERSION}
         container_name: ${COMPOSE_PROJECT_NAME}-php
+        restart: unless-stopped
         environment:
             DATABASE_URL_MYSQL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${SYMFONY_MYSQL_DB_HOST}/${MYSQL_DATABASE}?serverVersion=8.0&charset=utf8
             DATABASE_URL_MARIADB: mysql://${MARIADB_USER}:${MARIADB_PASSWORD}@${SYMFONY_MARIADB_DB_HOST}/${MARIADB_DATABASE}?serverVersion=mariadb-10.6.4&charset=utf8

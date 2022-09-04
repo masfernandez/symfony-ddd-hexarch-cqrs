@@ -1,9 +1,9 @@
 dist: focal
 language: php
 php:
-    - 8.1.0
+    - 8.1.2
 before_script:
-    - composer install
+    - composer install --no-progress --prefer-dist --optimize-autoloader --ignore-platform-reqs
 script:
     - mkdir -p build/test
     - apps/MusicLabel/api/bin/console app:dump-env test --env test

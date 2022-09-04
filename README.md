@@ -14,11 +14,11 @@
 <h2 align="center">symfony-ddd-hexarch-cqrs</h3>
 <p align="center">
     Code examples and good practices using Domain Drive Development, Hexagonal Architecture, CQRS, 
-    Symfony 5, PHP8 and anything else I can think of... 
+    Symfony 6, PHP8 and anything else I can think of... 
     <br /><br />
-    <a href="https://symfony.com/"><img src="https://img.shields.io/badge/Symfony-5-42a7ff.svg?style=flat-square&logo=symfony" alt="Symfony 5"/></a>
+    <a href="https://symfony.com/"><img src="https://img.shields.io/badge/Symfony-6-42a7ff.svg?style=flat-square&logo=symfony" alt="Symfony 5"/></a>
     <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8-777BB4.svg?style=flat-square&logo=php" alt="PHP"/></a>
-    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/docker-3-2496ED.svg?style=flat-square&logo=docker" alt="Docker"/></a>
+    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/docker-20.10-2496ED.svg?style=flat-square&logo=docker" alt="Docker"/></a>
     <a href="https://www.mysql.com/"><img src="https://img.shields.io/badge/mysql-8-4479A1.svg?style=flat-square&logo=mysql" alt="MySql"/></a>
     <a href="https://www.sqlite.org/index.html"><img src="https://img.shields.io/badge/sqlite-3-003B57.svg?style=flat-square&logo=sqlite" alt="SQLite"/></a>
     <br /><br />
@@ -26,6 +26,11 @@
     ·
     <a href="https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/issues">Request Feature</a>
 </p>
+
+<br />
+
+[![Build Status](https://api.travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs.svg?branch=master)](https://app.travis-ci.com/github/masfernandez/symfony-ddd-hexarch-cqrs)
+[![Coverage Status](https://coveralls.io/repos/github/masfernandez/symfony-ddd-hexarch-cqrs/badge.svg?branch=master)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs?branch=master)
 
 <br />
 
@@ -323,9 +328,6 @@ make dev-start
 ```
 make test
 ```
-
-[![Build Status](https://travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs.svg?branch=master)](https://travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs)
-[![Coverage Status](https://coveralls.io/repos/github/masfernandez/symfony-ddd-hexarch-cqrs/badge.svg?branch=master)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs?branch=master)
 
 ### Docker info
 There are several services in the Docker stack for this project. All services are built from official docker images except:
