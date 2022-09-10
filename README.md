@@ -30,7 +30,7 @@
 <br />
 
 [![Build Status](https://api.travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs.svg?branch=master)](https://app.travis-ci.com/github/masfernandez/symfony-ddd-hexarch-cqrs)
-[![Coverage Status](https://coveralls.io/repos/github/masfernandez/symfony-ddd-hexarch-cqrs/badge.svg?branch=master)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs?branch=master)
+[![Coverage Status](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs)
 
 <br />
 
@@ -75,7 +75,7 @@ I will be adding more examples that I think are interesting and that provide an 
 **Features**
 
 - [x] PHP8
-- [x] Symfony 5
+- [x] Symfony 6
 - [x] DDD guidelines
 - [x] Hexagonal Architecture
 - [x] SOLID
@@ -137,7 +137,7 @@ make create-demo-user
 **Now, it's time to get a valid token**:
 
 ```bash
-curl -i -X POST 'https://backend.127.0.0.1.xip.io/authentication' \
+curl -i -X POST 'http://api.musiclabel.127.0.0.1.nip.io/authentication' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "email": "test@email.com",
@@ -165,7 +165,7 @@ Strict-Transport-Security: max-age=31536000
 **We can publish new Albums now**: (replace the value of the token here with the one you got before... obviously)
 
 ```bash
-curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
+curl -i -X POST 'http://api.musiclabel.127.0.0.1.nip.io/albums' \
 -H 'Authorization: Bearer 4ac71eeda13c8fe7f0e4c017412bd9f2d886288cb8c88331007f2a9c7652385b' \
 -H 'Content-Type: application/json' \
 --data-raw '{
@@ -177,12 +177,12 @@ curl -i -X POST 'https://backend.127.0.0.1.xip.io/albums' \
 
 **Verifying the Album created**:
 ```bash
-curl -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,release_date'
+curl -X GET 'http://api.musiclabel.127.0.0.1.nip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,release_date'
 ```
 
 **We need a JWToken to make PUT operations on Albums, so let's get one**:
 ```bash
-curl -i -X POST 'https://backend.127.0.0.1.xip.io/authentication/jwt' \
+curl -i -X POST 'http://api.musiclabel.127.0.0.1.nip.io/authentication/jwt' \
 -H 'Content-Type: application/json' \
 --data-raw '{
     "email": "test@email.com",
@@ -224,7 +224,7 @@ The client (React, Vue, Curl, Postman... whatever) should know how to re-constru
 
 Note: replace the values of the token here with the one you got before... obviously
 ```bash
-curl -i -X PUT 'https://backend.127.0.0.1.xip.io/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2' \
+curl -i -X PUT 'http://api.musiclabel.127.0.0.1.nip.io/albums/0da69030-3ed7-42b5-8aa5-25fb61dab1b2' \
 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5vcmciLCJqdGkiOiJlWFZocHBTR0JwZllTeHNZIiwiaWF0IjoxNjE3MzU1NTMyLjQyNzU3MSwibmJmIjoxNjE3MzU1NTMzLjQyNzU3MSwiZXhwIjoxNjE3MzU5MTMyLjQyNzU3MSwidWlkIjoiMGY4MzNjMjItZmVmZC00ZmFmLWE3YzItNGEwNzlhMjJjMzdjIn0' \
 -H 'Content-Type: application/json' \
 -H 'Cookie: signature=GFZiEgVkKIbv5YszK_5wKmhLpqlkhYUUS1N1nCLLavs' \
@@ -248,7 +248,7 @@ strict-transport-security: max-age=31536000
 
 **Verifying the Album updated**:
 ```bash
-curl -i -X GET 'https://backend.127.0.0.1.xip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,release_date'
+curl -i -X GET 'http://api.musiclabel.127.0.0.1.nip.io/albums?page[number]=1&page[size]=1&sort=title&fields[albums]=id,title,release_date'
 ```
 
 Response:
