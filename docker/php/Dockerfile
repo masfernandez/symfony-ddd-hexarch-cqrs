@@ -25,7 +25,7 @@ RUN install-php-extensions \
         redis \
         zip
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 # --------------------------------------------
 # development stage

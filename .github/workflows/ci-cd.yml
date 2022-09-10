@@ -84,7 +84,7 @@ jobs:
                         git pull origin -X theirs --allow-unrelated-histories
                         ./composer config --global github-oauth.github.com ${{ secrets.COMPOSER_TOKEN }}
                         ./composer update symfony/flex --no-plugins --no-scripts
-                        ./composer install --no-progress --prefer-dist --optimize-autoloader
+                        ./composer install --no-progress --prefer-dist --optimize-autoloader --no-dev
                         docker exec -i docker-symfony-php sh -c "\
                             rm -rf apps/MusicLabel/api/.env.prod.local
                             apps/MusicLabel/api/bin/console secrets:decrypt-to-local --force --env=prod && \
@@ -93,7 +93,8 @@ jobs:
                             apps/MusicLabel/api/bin/console doctrine:database:create --if-not-exists --no-interaction --quiet && \
                             apps/MusicLabel/api/bin/console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
                         "
-                        sudo chown -R 82:82 var/log/symfony apps/MusicLabel/api/var
+                        sudo chown -R 82:82 var/log/symfony var/log/nginx apps/MusicLabel/api/var
                         sudo chmod -R 777 var apps/MusicLabel/api/var
+                        docker-compose -f docker-compose.prod.yml build
                         docker-compose -f docker-compose.prod.yml down
                         docker-compose -f docker-compose.prod.yml up -d

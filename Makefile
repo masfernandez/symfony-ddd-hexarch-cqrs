@@ -25,6 +25,8 @@ debug-paths:
 	echo $(musiclabel-backend)
 
 ## —— envs —————————————————————————————————————————————————————————————————
+env-file:
+	@if [ ! -f .env ]; then cp .env.dist .env; fi
 #@todo improve envs generation and delete app:dump-env command
 dump-dev:
 	ENV=dev ./console secrets:decrypt-to-local --force --env=dev
@@ -227,6 +229,7 @@ create-demo-user:
 
 ## —— RUN  ————————————————————————————————————————————————————————————
 tests: \
+	env-file \
 	up-test \
 	dump-test \
 	db-drop \
@@ -241,6 +244,7 @@ tests: \
 coverage: \
 	phpunit-coverage
 dev-start: \
+	env-file \
 	up-dev \
 	dump-dev \
 	db-create \
