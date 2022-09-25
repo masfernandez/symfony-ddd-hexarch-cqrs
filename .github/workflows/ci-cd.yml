@@ -85,7 +85,7 @@ jobs:
                         ./composer config --global github-oauth.github.com ${{ secrets.COMPOSER_TOKEN }}
                         ./composer update symfony/flex --no-plugins --no-scripts
                         ./composer install --no-progress --prefer-dist --optimize-autoloader --no-dev
-                        docker exec -i docker-symfony-php sh -c "\
+                        ENV=prod docker exec -i docker-symfony-php sh -c "\
                             rm -rf apps/MusicLabel/api/.env.prod.local
                             apps/MusicLabel/api/bin/console secrets:decrypt-to-local --force --env=prod && \
                             apps/MusicLabel/api/bin/console app:dump-env prod --env=prod && \
@@ -95,7 +95,7 @@ jobs:
                         "
                         sudo chown -R 82:82 var/log/symfony var/log/nginx apps/MusicLabel/api/var
                         sudo chmod -R 777 var apps/MusicLabel/api/var
-                        docker-compose -f docker-compose.prod.yml build
-                        docker-compose -f docker-compose.prod.yml down
-                        docker-compose -f docker-compose.prod.yml up -d
-                        docker exec -it docker-symfony-php supervisord --configuration /etc/supervisor.d/supervisord.ini
+                        ENV=prod docker-compose -f docker-compose.prod.yml build
+                        ENV=prod docker-compose -f docker-compose.prod.yml down
+                        ENV=prod docker-compose -f docker-compose.prod.yml up -d
+                        ENV=prod docker exec -it docker-symfony-php supervisord --configuration /etc/supervisor.d/supervisord.ini
