@@ -12,7 +12,7 @@ services:
     #
     # Include Tests
     #
-    Masfernandez\Tests\:
+    Masfernandez\Tests\MusicLabel\:
         resource: '%project.root_path%/tests/'
 
     #
@@ -37,8 +37,8 @@ services:
     #
     # Aliases tests
     #
-    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner:
-        class: Masfernandez\Tests\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner
+    Masfernandez\Tests\MusicLabel\Shared\Domain\Persistence\RepositoryCleaner:
+        class: Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Persistence\Sqlite\SqliteCleaner
 
 
     #
@@ -51,8 +51,8 @@ services:
     #
     # Catalog
     #
-    Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\AlbumRepository:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineAlbumRepository
 
-    Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\CacheInMemory:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\InMemory\Client

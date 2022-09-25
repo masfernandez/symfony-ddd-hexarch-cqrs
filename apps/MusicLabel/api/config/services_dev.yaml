@@ -18,18 +18,33 @@ services:
 
 
     # Aliases dev
-    Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner:
-        class: Masfernandez\Tests\Shared\Infrastructure\Persistence\MySql\MySqlCleaner
+    Masfernandez\Tests\MusicLabel\Shared\Domain\Persistence\RepositoryCleaner:
+        class: Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Persistence\MySql\MySqlCleaner
 
 
     # Aliases common
     Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventPublisher:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\RabbitMq\RabbitMqEventPublisher
 
+    # Auth
+    Masfernandez\MusicLabel\Auth\Domain\User\TokenRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Auth\DoctrineTokenRepository
+
+    Masfernandez\MusicLabel\Auth\Domain\User\UserRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Auth\DoctrineUserRepository
 
     # Catalog
-    Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\AlbumRepository:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineAlbumRepository
 
-    Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\ArtistRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineArtistRepository
+
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Label\LabelRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineLabelRepository
+
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Track\TrackRepository:
+        class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineTrackRepository
+
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\CacheInMemory:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\Redis\Client

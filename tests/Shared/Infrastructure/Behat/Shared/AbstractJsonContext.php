@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Shared;
+namespace Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Shared;
 
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;

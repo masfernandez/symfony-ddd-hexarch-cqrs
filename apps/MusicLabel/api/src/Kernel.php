@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api;
 
+use App\Infrastructure\Persistence\Doctrine\Service\DoctrineConnection;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

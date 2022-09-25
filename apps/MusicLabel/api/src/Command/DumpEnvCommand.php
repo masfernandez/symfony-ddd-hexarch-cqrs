@@ -5,17 +5,21 @@ declare(strict_types=1);
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Command;
 
 use RuntimeException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Dotenv\Dotenv;
 
+#[AsCommand(
+    name: 'app:dump-env',
+    description: 'Compiles .env files to .env.local.php.',
+    aliases: ['app:dump-env'],
+    hidden: false
+)]
 class DumpEnvCommand extends Command
 {
-    /** @var string */
-    protected static $defaultName = 'app:dump-env';
-
     public function __construct(private readonly string $rootPath)
     {
         parent::__construct();
@@ -24,8 +28,6 @@ class DumpEnvCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName(self::$defaultName)
-            ->setDescription('Compiles .env files to .env.local.php.')
             ->addArgument('env', InputArgument::REQUIRED, 'The application environment to dump .env files for - e.g. "prod".')
             ->addArgument('path', InputArgument::OPTIONAL, 'The path to .env file from root dir.', '/');
     }

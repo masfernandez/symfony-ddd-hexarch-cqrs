@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\Persistence\MySql;
+namespace Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Persistence\MySql;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
-use Masfernandez\Tests\Shared\Domain\Persistence\RepositoryCleaner;
+use Masfernandez\Tests\MusicLabel\Shared\Domain\Persistence\RepositoryCleaner;
 
 class MySqlCleaner implements RepositoryCleaner
 {

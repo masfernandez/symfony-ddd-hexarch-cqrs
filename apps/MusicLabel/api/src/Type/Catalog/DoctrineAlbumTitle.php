@@ -4,33 +4,13 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\ValueObject\AlbumTitle;
-use Masfernandez\MusicLabel\Infrastructure\Api\Type\Shared\DoctrineAbstractType;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumTitle;
+use Masfernandez\MusicLabel\Infrastructure\Api\Type\Shared\DoctrineStringType;
 
-final class DoctrineAlbumTitle extends DoctrineAbstractType
+final class DoctrineAlbumTitle extends DoctrineStringType
 {
-    private const MY_TYPE = 'AlbumTitle';
-
-    public function getName(): string
+    protected function getFQCN(): string
     {
-        return self::MY_TYPE;
-    }
-
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
-    {
-        return $platform->getVarcharTypeDeclarationSQL($column);
-    }
-
-    protected function getNamespace(): string
-    {
-        return implode(
-            "\\",
-            array_slice(
-                explode("\\", AlbumTitle::class),
-                0,
-                -1
-            )
-        );
+        return AlbumTitle::class;
     }
 }

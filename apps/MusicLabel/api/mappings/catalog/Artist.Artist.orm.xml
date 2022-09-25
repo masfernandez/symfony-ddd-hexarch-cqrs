@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlDefaultAttributeValue -->
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\Artist"
+            repository-class="Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\ArtistRepository"
+            table="artist">
+
+        <id name="id" type="ArtistId" column="id"/>
+
+        <field name="name" type="string" column="name" length="255" nullable="false"/>
+
+        <one-to-many field="tracks"
+                     target-entity="Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\ArtistTrack"
+                     mapped-by="artist">
+        </one-to-many>
+        <one-to-many field="albums"
+                     target-entity="Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\ArtistAlbum"
+                     mapped-by="artist">
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

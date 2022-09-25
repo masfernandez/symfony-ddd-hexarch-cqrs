@@ -13,57 +13,62 @@ namespace Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query\QueryException;
 use Doctrine\ORM\TransactionRequiredException;
 use Doctrine\Persistence\ManagerRegistry;
 use JsonException;
-use Masfernandez\MusicLabel\Catalog\Application\Album\AlbumAssembler;
-use Masfernandez\MusicLabel\Catalog\Application\Album\Criteria;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\Album;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumResultSet;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumAlreadyExists;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\Select;
-use Masfernandez\MusicLabel\Shared\Domain\Album\AlbumId;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\Album;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\AlbumRepository;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\AlbumResultSet;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\Exception\AlbumAlreadyExists;
+use Masfernandez\MusicLabel\Shared\Application\Criteria;
+use Masfernandez\MusicLabel\Shared\Application\Select;
+use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
 
 final class DoctrineAlbumRepository extends ServiceEntityRepository implements AlbumRepository
 {
-    public function __construct(ManagerRegistry $registry, private readonly CacheInMemory $cache)
+    private EntityManager $em;
+
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Album::class);
+        $this->em = $this->getEntityManager();
     }
 
-    /**
-     * @throws OptimisticLockException
-     * @throws MissingMappingDriverImplementation
-     */
-    public function post(Album $album): void
+    public function add(Album $album, bool $flush = true): void
     {
+        $this->em->persist($album);
         try {
-            $this->_em->persist($album);
-            $this->_em->flush();
+            if ($flush) {
+                $this->em->flush();
+            }
         } catch (UniqueConstraintViolationException $ex) {
             throw new AlbumAlreadyExists('', $ex->getCode(), $ex);
         }
     }
 
-    public function getAll(): AlbumResultSet
+    public function remove(Album $album, bool $flush = true): void
     {
-        return new AlbumResultSet($this->findAll(), $this->count([]));
+        $this->em->remove($album);
+        if ($flush) {
+            $this->em->flush();
+        }
     }
 
     /**
      * @throws OptimisticLockException
      * @throws MissingMappingDriverImplementation
+     * @throws JsonException
      */
-    public function delete(Album $album): void
+    public function update(Album $album, bool $flush = true): void
     {
-        $this->_em->remove($album);
-        $this->_em->flush();
-        $this->cache->del($album->getId()->value());
+        $this->em->persist($album);
+        if ($flush) {
+            $this->em->flush();
+        }
     }
 
     /**
@@ -72,57 +77,36 @@ final class DoctrineAlbumRepository extends ServiceEntityRepository implements A
      * @throws TransactionRequiredException
      * @throws JsonException
      */
-    public function getById(AlbumId $id): ?Album
+    public function search(AlbumId $id): ?Album
     {
-        $cacheResponse = $this->cache->get($id->value());
-        if ($cacheResponse !== false) {
-            $albumArray = json_decode($cacheResponse, true, 512, JSON_THROW_ON_ERROR);
-            return AlbumAssembler::fromArrayPrimitivesToEntity($albumArray);
-        }
-
-        $album = $this->_em->find(Album::class, $id);
-
-        if (!empty($album)) {
-            $this->cache->set(
-                $album->getId()->value(),
-                json_encode(AlbumAssembler::fromEntityToArrayPrimitives($album), JSON_THROW_ON_ERROR)
-            );
-            return $album;
-        }
-
-        return null;
+        return $this->em->find(Album::class, $id);
     }
 
-    /**
-     * @throws OptimisticLockException
-     * @throws MissingMappingDriverImplementation
-     * @throws JsonException
-     */
-    public function put(Album $album): void
+    public function searchOneBy(array $criteria, array $orderBy = null): ?Album
     {
-        $this->_em->persist($album);
-        $this->_em->flush();
-
-        $this->cache->set(
-            $album->getId()->value(),
-            json_encode(AlbumAssembler::fromEntityToArrayPrimitives($album), JSON_THROW_ON_ERROR)
-        );
+        return $this->findOneBy($criteria, $orderBy);
     }
 
-    /**
-     * @throws OptimisticLockException
-     * @throws MissingMappingDriverImplementation
-     * @throws JsonException
-     */
-    public function patch(Album $album): void
+    /** @return object[] */
+    public function searchAll(): array
     {
-        $this->_em->persist($album);
-        $this->_em->flush();
+        return $this->findAll();
+    }
 
-        $this->cache->set(
-            $album->getId()->toString(),
-            json_encode(AlbumAssembler::fromEntityToArrayPrimitives($album), JSON_THROW_ON_ERROR)
-        );
+    /** @return object[] */
+    public function searchBy(array $criteria, array $orderBy = null, $limit = null, $offset = null): array
+    {
+        return $this->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    public function countBy(array $criteria): int
+    {
+        return $this->count($criteria);
+    }
+
+    public function getAll(): AlbumResultSet
+    {
+        return new AlbumResultSet($this->findAll(), $this->count([]));
     }
 
     /**

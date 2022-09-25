@@ -6,6 +6,7 @@ doctrine:
                 url: '%env(resolve:DATABASE_URL_MYSQL)%'
             mariadb106:
                 url: '%env(resolve:DATABASE_URL_MARIADB)%'
+
     orm:
         auto_generate_proxy_classes: true
         default_entity_manager: mysql80
@@ -15,18 +16,19 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
                 connection: default
                 mappings:
-                    # MusicLabel / Catalog
-                    Masfernandez\MusicLabel\Catalog\Domain:
-                        is_bundle: false
-                        type: xml
-                        dir: '%kernel.project_dir%/config/doctrine/catalog'
-                        prefix: 'Masfernandez\MusicLabel\Catalog\Domain'
-                        alias: Masfernandez\MusicLabel\Catalog\Domain
-                    # MusicLabel / Auth
+
+                    # MusicLabel / Store / Auth
                     Masfernandez\MusicLabel\Auth\Domain:
                         is_bundle: false
                         type: xml
-                        dir: '%kernel.project_dir%/config/doctrine/auth/user'
+                        dir: '%kernel.project_dir%/mappings/auth/user'
                         prefix: 'Masfernandez\MusicLabel\Auth\Domain\User'
                         alias: Masfernandez\MusicLabel\Auth\Domain\User
-                    # Others bounded contexts here...
+
+                    # MusicLabel / Backoffice / Catalog
+                    Masfernandez\MusicLabel\Backoffice\Catalog\Domain:
+                        is_bundle: false
+                        type: xml
+                        dir: '%kernel.project_dir%/mappings/catalog'
+                        prefix: 'Masfernandez\MusicLabel\Backoffice\Catalog\Domain'
+                        alias: Masfernandez\MusicLabel\Backoffice\Catalog\Domain

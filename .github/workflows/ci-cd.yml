@@ -98,3 +98,4 @@ jobs:
                         docker-compose -f docker-compose.prod.yml build
                         docker-compose -f docker-compose.prod.yml down
                         docker-compose -f docker-compose.prod.yml up -d
+                        docker exec -it docker-symfony-php supervisord --configuration /etc/supervisor.d/supervisord.ini

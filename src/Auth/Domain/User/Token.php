@@ -4,35 +4,64 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Auth\Domain\User;
 
+use DateTimeImmutable;
+use Exception;
+use Masfernandez\MusicLabel\Auth\Domain\User\Exception\SourceOfRandomnessNotFound;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenExpirationDate;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenValue;
-use Masfernandez\MusicLabel\Shared\Domain\Aggregate;
-use Masfernandez\MusicLabel\Shared\Domain\User\TokenId;
+use Masfernandez\MusicLabel\Shared\Domain\AggregateRoot;
+use ReflectionClass;
 use Stringable;
 
 // Cannot be final cause: Unable to create a proxy for a final exception
 // It doesn't mean is open to inheritance...
-class Token extends Aggregate implements Stringable
+class Token extends AggregateRoot implements Stringable
 {
-    public function __construct(
-        private User $user,
-        private TokenValue $value,
-        private TokenExpirationDate $expiration_date,
-        private TokenId $id
+    private const       BYTES_LENGTH    = 32;
+    final public const  HEX_LENGTH      = 64;
+    final public const  VALIDITY_PERIOD = '+5 days';
+
+    private function __construct(
+        private readonly User $user,
+        private readonly TokenValue $value,
+        private readonly TokenExpirationDate $expirationDate,
     ) {
     }
 
-    public static function create(User $user): self
-    {
-        // @todo handle exception
-        $value           = substr(bin2hex(random_bytes(TokenValue::BYTES_LENGTH)), 0, TokenValue::HEX_LENGTH);
-        $expiration_date = date(TokenExpirationDate::FORMAT, strtotime(TokenExpirationDate::VALIDITY_PERIOD));
-        return new self($user, new TokenValue($value), new TokenExpirationDate($expiration_date), new TokenId(null));
+    /** @noinspection PhpUnhandledExceptionInspection */
+    public static function create(
+        User $user,
+        ?string $value = null,
+    ): self {
+        $value           = $value ?? self::generateRandomTokenValue();
+        $expiration_date = date(DATE_W3C, strtotime(self::VALIDITY_PERIOD));
+
+        return new self(
+            user:           $user,
+            value:          new TokenValue($value),
+            expirationDate: new TokenExpirationDate($expiration_date),
+        );
     }
 
-    public function __toString(): string
+    /** @noinspection PhpUnhandledExceptionInspection */
+    private static function generateRandomTokenValue(): string
     {
-        return $this::class . ':' . $this->value->value();
+        try {
+            $randomBytes = random_bytes(length: self::BYTES_LENGTH);
+        } catch (Exception $e) {
+            throw new SourceOfRandomnessNotFound($e->getMessage(), (int)$e->getCode(), $e);
+        }
+        $hexBytes = bin2hex(string: $randomBytes);
+        return substr(
+            string: $hexBytes,
+            offset: 0,
+            length: self::HEX_LENGTH,
+        );
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
     }
 
     public function value(): string
@@ -40,8 +69,13 @@ class Token extends Aggregate implements Stringable
         return $this->value->value();
     }
 
-    public function getUser(): User
+    public function isExpired(): bool
     {
-        return $this->user;
+        return $this->expirationDate->value() < (new DateTimeImmutable());
+    }
+
+    public function __toString(): string
+    {
+        return (new ReflectionClass($this))->getShortName() . ":{$this->value()}";
     }
 }

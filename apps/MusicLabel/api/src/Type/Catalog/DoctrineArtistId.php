@@ -4,26 +4,13 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Masfernandez\MusicLabel\Shared\Domain\Artist\ArtistId;
-use Symfony\Bridge\Doctrine\Types\AbstractUidType;
+use Masfernandez\MusicLabel\Shared\Domain\Id\Artist;
+use Masfernandez\MusicLabel\Infrastructure\Api\Type\Shared\DoctrineUuidType;
 
-final class DoctrineArtistId extends AbstractUidType
+final class DoctrineArtistId extends DoctrineUuidType
 {
-    private const MY_TYPE = 'ArtistId';
-
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    protected function getFQCN(): string
     {
-        return parent::convertToDatabaseValue($value->value(), $platform);
-    }
-
-    public function getName(): string
-    {
-        return self::MY_TYPE;
-    }
-
-    protected function getUidClass(): string
-    {
-        return ArtistId::class;
+        return Artist::class;
     }
 }

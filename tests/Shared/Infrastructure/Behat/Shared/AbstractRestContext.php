@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Shared;
+namespace Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Shared;
 
 use Behat\Behat\Context\BehatContext;
 use Behat\Behat\Context\ClosuredContextInterface;
@@ -25,16 +25,16 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use JsonException;
 use Masfernandez\MusicLabel\Auth\Domain\User\User;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\ValueObject\AlbumReleaseDate;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\ValueObject\AlbumTitle;
-use Masfernandez\MusicLabel\Shared\Domain\Album\AlbumId;
-use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenMother;
-use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\Token\TokenValueMother;
-use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserEmailMother;
-use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserIdMother;
-use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserMother;
-use Masfernandez\Tests\MusicLabel\Auth\Domain\Model\User\UserPasswordMother;
-use Masfernandez\Tests\MusicLabel\Catalog\Domain\Album\AlbumMother;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumPrice;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumReleasedAtDate;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumTitle;
+use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
+use Masfernandez\Tests\MusicLabel\Auth\Domain\User\TokenMother;
+use Masfernandez\Tests\MusicLabel\Auth\Domain\User\ValueObject\UserEmailMother;
+use Masfernandez\Tests\MusicLabel\Backoffice\Catalog\Domain\Album\AlbumMother;
+use Masfernandez\Tests\MusicLabel\Shared\Domain\Id\UserIdMother;
+use Masfernandez\Tests\MusicLabel\Auth\Domain\User\UserMother;
+use Masfernandez\Tests\MusicLabel\Auth\Domain\User\ValueObject\UserPasswordMother;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -90,9 +90,9 @@ abstract class AbstractRestContext extends RestContext
     {
         $this->getEntityManager()->persist(
             AlbumMother::create(
-                new AlbumId($id),
-                new AlbumTitle($title),
-                new AlbumReleaseDate($release_date),
+                id:             new AlbumId($id),
+                title:          new AlbumTitle($title),
+                releasedAtDate: new AlbumReleasedAtDate($release_date),
             )
         );
         $this->getEntityManager()->flush();
@@ -104,8 +104,8 @@ abstract class AbstractRestContext extends RestContext
     public function thereIsAUserStoredInDatabase(string $id): void
     {
         $this->getEntityManager()->persist(
-            UserMother::create(
-                UserIdMother::create($id),
+            entity: UserMother::create(
+                id: UserIdMother::create($id),
             )
         );
         $this->getEntityManager()->flush();
@@ -119,9 +119,10 @@ abstract class AbstractRestContext extends RestContext
         foreach ($table as $row) {
             $this->getEntityManager()->persist(
                 AlbumMother::create(
-                    new AlbumId($row['id']),
-                    new AlbumTitle($row['title']),
-                    new AlbumReleaseDate($row['release_date']),
+                    id:             new AlbumId($row['id']),
+                    title:          new AlbumTitle($row['title']),
+                    releasedAtDate: new AlbumReleasedAtDate($row['release_date']),
+                    price:          new AlbumPrice((float)$row['price']),
                 )
             );
         }
@@ -133,13 +134,12 @@ abstract class AbstractRestContext extends RestContext
      */
     public function thereIsAValidTokenForTheUser(string $token_value, string $id): void
     {
-        $user = $this->getEntityManager()->find(User::class, $id);
-        $this->getEntityManager()->persist(
-            TokenMother::create(
-                $user,
-                TokenValueMother::create($token_value)
-            )
+        $user  = $this->getEntityManager()->find(User::class, $id);
+        $token = TokenMother::create(
+            user:  $user,
+            value: $token_value,
         );
+        $this->getEntityManager()->persist($token);
         $this->getEntityManager()->flush();
     }
 
@@ -169,10 +169,10 @@ abstract class AbstractRestContext extends RestContext
     public function thereIsAUserStoredInDatabaseWithIdEmailPassword(string $id, string $email, string $password): void
     {
         $this->getEntityManager()->persist(
-            UserMother::create(
-                UserIdMother::create($id),
-                UserEmailMother::create($email),
-                UserPasswordMother::create($password)
+            entity: UserMother::create(
+                id:       UserIdMother::create($id),
+                email:    UserEmailMother::create($email),
+                password: UserPasswordMother::create($password)
             )
         );
         $this->getEntityManager()->flush();
@@ -184,16 +184,18 @@ abstract class AbstractRestContext extends RestContext
     public function thereIsAValidJwTokenForTheUser(string $id, string $email, string $password): void
     {
         /** @noinspection ClassConstantCanBeUsedInspection */
-        $tokenGenerator                     = $this->driverContainer->get(
-            'Masfernandez\MusicLabel\Infrastructure\Api\Jwt\Generator'
+        $tokenGenerator = $this->driverContainer->get(
+            'Masfernandez\MusicLabel\Infrastructure\Api\JsonWebToken\Generator'
         );
-        $user                               = UserMother::create(
-            UserIdMother::create($id),
-            UserEmailMother::create($email),
-            UserPasswordMother::create($password)
+
+        $user = UserMother::create(
+            id:       UserIdMother::create($id),
+            email:    UserEmailMother::create($email),
+            password: UserPasswordMother::create($password)
         );
+
         $jwt                                = $tokenGenerator->create($user);
-        $jwtParts                           = explode('.', (string) $jwt);
+        $jwtParts                           = explode('.', (string)$jwt->getValue());
         $this->headerAndPayloadInAuthHeader = $jwtParts[0] . '.' . $jwtParts[1];
         $this->signatureInCookie            = $jwtParts[2];
     }

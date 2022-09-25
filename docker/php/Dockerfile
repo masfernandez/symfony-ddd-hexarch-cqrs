@@ -35,7 +35,10 @@ FROM base AS dev
 RUN install-php-extensions \
         xdebug
 
-COPY ./usr/local/etc/php/conf.d/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY ./usr/local/etc/php/conf.d/xdebug.ini  /usr/local/etc/php/conf.d/xdebug.ini
+COPY ./usr/local/bin/disable_xdebug.sh      /usr/local/bin/disable_xdebug
+COPY ./usr/local/bin/enable_xdebug.sh       /usr/local/bin/enable_xdebug
+RUN chmod u+x /usr/local/bin/disable_xdebug /usr/local/bin/enable_xdebug
 
 RUN curl -sS https://get.symfony.com/cli/installer | bash && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 

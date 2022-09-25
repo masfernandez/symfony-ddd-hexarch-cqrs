@@ -126,7 +126,7 @@ Feature: Managing Tokens
                   "source":{
                       "pointer": "/data/attributes/password"
                   },
-                  "detail": "This value should not be blank."
+                  "detail": "This value is too short. It should have 1 character or more."
               },
               {
                   "source":{
@@ -156,7 +156,7 @@ Feature: Managing Tokens
                   "source":{
                       "pointer": "/data/attributes/email"
                   },
-                  "detail": "This value should not be blank."
+                  "detail": "This value is too short. It should have 1 character or more."
               }
           ]
       }

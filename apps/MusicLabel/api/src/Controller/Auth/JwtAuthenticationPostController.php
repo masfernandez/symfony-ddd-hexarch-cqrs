@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Controller\Auth;
 
+use Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create\CreateJsonWebTokenCommand;
+use Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create\JsonWebTokenResponse;
 use Masfernandez\MusicLabel\Auth\Application\Jwt\NewToken\GetJwtQuery;
 use Masfernandez\MusicLabel\Auth\Application\Jwt\NewToken\JwtResponse;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\BusHandler;
@@ -23,9 +25,9 @@ class JwtAuthenticationPostController extends AbstractController
     #[Route(path: '/authentication/jwt', name: 'authentication_jwt_post', methods: ['POST'])]
     public function authenticate(JwtPostInputData $inputData): JsonResponse
     {
-        /** @var JwtResponse $tokenResponse */
+        /** @var JsonWebTokenResponse $tokenResponse */
         $tokenResponse = $this->bus->dispatch(
-            new GetJwtQuery(
+            new CreateJsonWebTokenCommand(
                 $inputData->getEmail(),
                 $inputData->getPassword()
             )
