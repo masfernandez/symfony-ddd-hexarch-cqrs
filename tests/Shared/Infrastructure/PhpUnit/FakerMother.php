@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\PhpUnit;
+namespace Masfernandez\Tests\MusicLabel\Shared\Infrastructure\PhpUnit;
 
 use Faker\Factory;
 use Faker\Generator;

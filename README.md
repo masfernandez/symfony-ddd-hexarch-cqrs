@@ -308,7 +308,7 @@ Kibana Nginx logs configuration:
 
 Kibana Symfony logs configuration:
   
-* Create a index pattern at [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create)
+* Create an index pattern at [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create)
 
   * Step 1. Write "logstash*" as index pattern and press "Next" button
   * Step 2. Select @timestamp for Time field and press "Create index" button

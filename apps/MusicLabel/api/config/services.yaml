@@ -26,6 +26,10 @@ services:
             $eventBus: '@event.bus'
             Redis $redis: '@snc_redis.default'
 
+    _instanceof:
+        Masfernandez\MusicLabel\Infrastructure\Api\Type\ValueObjectType:
+            tags: ['app.dbal_type']
+
     #
     # Symfony
     #
@@ -53,7 +57,7 @@ services:
     #
     # JWT
     #
-    JwtKey:
+    JsonWebTokenKey:
         class: 'Lcobucci\JWT\Signer\Key\InMemory'
         factory: [ 'Lcobucci\JWT\Signer\Key\InMemory','plainText' ]
         # JWT_CONTENTS, JWT_PASSPHRASE defined in vault -> ./console secrets:list --reveal
@@ -62,13 +66,13 @@ services:
     Signer:
         class: Lcobucci\JWT\Signer\Hmac\Sha256
 
-    Configuration:
+    LcobucciConfiguration:
         class: 'Lcobucci\JWT\Configuration'
         factory: [ 'Lcobucci\JWT\Configuration', 'forSymmetricSigner' ]
-        arguments: [ '@Signer','@JwtKey' ]
+        arguments: [ '@Signer','@JsonWebTokenKey' ]
 
-    TokenConfig:
-        class: 'Masfernandez\MusicLabel\Infrastructure\Api\Jwt\TokenConfig'
+    Configuration:
+        class: 'Masfernandez\MusicLabel\Infrastructure\Api\JsonWebToken\Configuration'
         arguments:
             - '%jwt.issued_by%'
             - '%jwt.identified_by%'
@@ -76,30 +80,31 @@ services:
             - '%jwt.be_used_after%'
             - '%jwt.expires_at%'
 
-    Masfernandez\MusicLabel\Infrastructure\Api\Jwt\Generator:
+    Masfernandez\MusicLabel\Infrastructure\Api\JsonWebToken\Generator:
         public: true
-        arguments: [ '@Configuration', '@TokenConfig' ]
+        arguments: [ '@LcobucciConfiguration', '@Configuration' ]
 
-    Masfernandez\MusicLabel\Infrastructure\Api\Jwt\Validator:
+    Masfernandez\MusicLabel\Infrastructure\Api\JsonWebToken\Validator:
         public: true
-        arguments: [ '@Configuration' , '@TokenConfig']
+        arguments: [ '@LcobucciConfiguration' , '@Configuration' ]
+
 
     #
     # Messenger handlers
     #
-    Masfernandez\MusicLabel\Auth\Application\Jwt\Authenticate\JwTokenAuthenticator:
+    Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Authenticate\JwTokenAuthenticator:
         tags:
-            - name: messenger.message_handler
-              bus: command.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Auth\Application\Jwt\Authenticate\AuthenticateJwTokenCommand
+            -   name: messenger.message_handler
+                bus: command.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Authenticate\AuthenticateJwTokenCommand
 
-    Masfernandez\MusicLabel\Auth\Application\Jwt\NewToken\NewJwtCreator:
+    Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create\JsonWebTokenCreator:
         tags:
-            - name: messenger.message_handler
-              bus: query.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Auth\Application\Jwt\NewToken\GetJwtQuery
+            -   name: messenger.message_handler
+                bus: query.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create\CreateJsonWebTokenCommand
 
     Masfernandez\MusicLabel\Auth\Application\Token\Authenticate\TokenAuthenticator:
         tags:
@@ -108,65 +113,65 @@ services:
               method: execute
               handles: Masfernandez\MusicLabel\Auth\Application\Token\Authenticate\AuthenticateTokenCommand
 
-    Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken\NewTokenCreator:
+    Masfernandez\MusicLabel\Auth\Application\Token\Create\TokenCreator:
         tags:
-            - name: messenger.message_handler
-              bus: query.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken\GetTokenQuery
+            -   name: messenger.message_handler
+                bus: query.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Auth\Application\Token\Create\CreateTokenCommand
 
-    Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser\UserCreator:
+    Masfernandez\MusicLabel\Auth\Application\User\Create\UserCreator:
         tags:
-            - name: messenger.message_handler
-              bus: command.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Auth\Application\User\CreateNewUser\NewUserCommand
+            -   name: messenger.message_handler
+                bus: command.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Auth\Application\User\Create\CreateUserCommand
 
-    Masfernandez\MusicLabel\Catalog\Application\Album\Delete\AlbumDeleter:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Delete\AlbumDeleter:
         tags:
-            - name: messenger.message_handler
-              bus: command.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Application\Album\Delete\DeleteAlbumCommand
+            -   name: messenger.message_handler
+                bus: command.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Delete\DeleteAlbumCommand
 
-    Masfernandez\MusicLabel\Catalog\Application\Album\Get\Collection\AlbumsSearcher:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Search\Collection\AlbumsSearcher:
         tags:
-            - name: messenger.message_handler
-              bus: query.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Application\Album\Get\Collection\GetAlbumsQuery
+            -   name: messenger.message_handler
+                bus: query.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Search\Collection\SearchAlbumsQuery
 
-    Masfernandez\MusicLabel\Catalog\Application\Album\Get\Single\AlbumSearcher:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Search\Single\AlbumSearcher:
         tags:
-            - name: messenger.message_handler
-              bus: query.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Application\Album\Get\Single\GetAlbumQuery
+            -   name: messenger.message_handler
+                bus: query.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Search\Single\SearchAlbumQuery
 
-    Masfernandez\MusicLabel\Catalog\Application\Album\Patch\AlbumPatcher:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Update\AlbumUpdater:
         tags:
-            - name: messenger.message_handler
-              bus: command.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Application\Album\Patch\PatchAlbumCommand
+            -   name: messenger.message_handler
+                bus: command.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Update\UpdateAlbumCommand
 
-    Masfernandez\MusicLabel\Catalog\Application\Album\Post\AlbumCreator:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Create\AlbumCreator:
         tags:
-            - name: messenger.message_handler
-              bus: command.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Application\Album\Post\PostAlbumCommand
+            -   name: messenger.message_handler
+                bus: command.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Create\CreateAlbumCommand
 
-    Masfernandez\MusicLabel\Catalog\Application\Album\Put\AlbumUpdater:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Replace\AlbumReplacer:
         tags:
-            - name: messenger.message_handler
-              bus: command.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Application\Album\Put\PutAlbumCommand
+            -   name: messenger.message_handler
+                bus: command.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Replace\ReplaceAlbumCommand
 
     Masfernandez\MusicLabel\Management\Application\Email\Send\EmailOnAlbumCreatedListener:
         tags:
-            - name: messenger.message_handler
-              bus: event.bus
-              method: execute
-              handles: Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumCreatedDomainEvent
+            -   name: messenger.message_handler
+                bus: event.bus
+                method: execute
+                handles: Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\Event\AlbumCreatedDomainEvent

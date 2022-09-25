@@ -4,24 +4,31 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Auth\Application\Token\Authenticate;
 
+use Masfernandez\MusicLabel\Auth\Domain\User\Exception\TokenExpired;
 use Masfernandez\MusicLabel\Auth\Domain\User\Exception\TokenNotFound;
-use Masfernandez\MusicLabel\Auth\Domain\User\TokenRepository;
+use Masfernandez\MusicLabel\Auth\Domain\User\UserRepository;
 use Masfernandez\MusicLabel\Shared\Application\Service\ApplicationService;
 use Masfernandez\MusicLabel\Shared\Application\Service\Request;
 use Masfernandez\MusicLabel\Shared\Application\Service\Response;
 
 class TokenAuthenticator implements ApplicationService
 {
-    public function __construct(private readonly TokenRepository $tokenRepository)
-    {
+    public function __construct(
+        private readonly UserRepository $userRepository,
+    ) {
     }
 
     /**
      * @throws TokenNotFound
+     * @throws TokenExpired
      */
-    public function execute(AuthenticateTokenCommand|Request $request): ?Response
+    public function execute(Request|AuthenticateTokenCommand $request): ?Response
     {
-        $this->tokenRepository->getByValue($request->getToken()) ?? throw new TokenNotFound();
+        $user = $this->userRepository->searchByToken($request->getToken()) ??
+            throw new TokenNotFound();
+
+        $user->authenticate();
+
         return null;
     }
 }

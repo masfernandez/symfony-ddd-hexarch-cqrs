@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\InMemory;
 
-use Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\CacheInMemory;
 
 final class Client implements CacheInMemory
 {

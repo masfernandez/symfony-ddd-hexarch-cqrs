@@ -27,25 +27,25 @@ default:
         Auth:
             paths: [ features/MusicLabel/Auth ]
             contexts:
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Shared\DataBaseCleanerContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenJsonContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenRestContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Auth\TokenMinkContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Shared\DataBaseCleanerContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Auth\TokenJsonContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Auth\TokenRestContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Auth\TokenMinkContext
 
         # examples:
         # vendor/bin/behat -s Catalog features/MusicLabel/Catalog
         # vendor/bin/behat -s Catalog features/MusicLabel/Catalog/AlbumGet.feature
         Catalog:
-            paths: [ features/MusicLabel/Catalog ]
+            paths: [ features/MusicLabel/Backoffice ]
             contexts:
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Shared\DataBaseCleanerContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumJsonContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Shared\DataBaseCleanerContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Catalog\AlbumJsonContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Catalog\AlbumMinkContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Catalog\AlbumRestContext
 
         # vendor/bin/behat -s OtherContext features/MusicLabel/Management
-        # (just an other context unfinished example, it will ask to generate steps...)
+        # (just another context unfinished example, it will ask to generate steps...)
         OtherContext:
             paths: [ features/MusicLabel/Management ]
             contexts:
-                - Masfernandez\Tests\Shared\Infrastructure\Behat\Management\OtherContext
+                - Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Management\OtherContext

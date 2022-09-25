@@ -9,8 +9,12 @@ use Throwable;
 
 final class BadRequest extends Exception
 {
-    public function __construct(private readonly array $errors = [], $message = "", $code = 0, Throwable $previous = null)
-    {
+    public function __construct(
+        private readonly array $errors = [],
+        $message = "",
+        $code = 0,
+        Throwable $previous = null
+    ) {
         parent::__construct($message, $code, $previous);
     }
 

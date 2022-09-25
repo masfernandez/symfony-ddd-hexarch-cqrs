@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Management\Application\Email\Send;
 
-use Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumCreatedDomainEvent;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\Event\AlbumCreatedDomainEvent;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Event\EventHandler;
 use Psr\Log\LoggerInterface;
 

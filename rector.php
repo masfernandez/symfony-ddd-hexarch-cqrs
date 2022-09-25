@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector;
+use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -25,11 +27,17 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->skip(
         [
-            __DIR__ . '/src/Shared/Domain/ValueObject/UuidValueObject.php',
-            __DIR__ . '/src/Auth/Domain/User/Token.php',
-            __DIR__ . '/src/Auth/Domain/User/User.php',
-            __DIR__ . '/src/Catalog/Domain/Album/Album.php',
+            // paths @todo
             __DIR__ . '/apps/MusicLabel/api/src/Repository/Cache/Redis/Client.php',
+            __DIR__ . '/src/Shared/Domain/ValueObject/UuidValueObject.php',
+            __DIR__ . '/src/Store/Auth/Domain/User/Token.php',
+            __DIR__ . '/src/Store/Auth/Domain/User/User.php',
+            __DIR__ . '/src/Backoffice/Catalog/Domain/Album/Album.php',
+            __DIR__ . '/src/Backoffice/Catalog/Domain/Album/Album.php',
+
+            // Rules @todo
+            RemoveUnusedPromotedPropertyRector::class,
+            ReadOnlyPropertyRector::class,
         ]
     );
 

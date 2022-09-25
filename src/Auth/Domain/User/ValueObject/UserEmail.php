@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Auth\Domain\User\ValueObject;
 
-use Masfernandez\MusicLabel\Shared\Domain\ValueObject\ValueObjectBase;
+use Masfernandez\ValueObject\StringValueObject;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 
-final class UserEmail extends ValueObjectBase
+final class UserEmail extends StringValueObject
 {
     /**
      * @return Constraint[]
      */
-    protected static function defineConstraints(): array
+    protected static function setConstraints(): array
     {
-        return [
-            new Constraints\NotBlank(),
-            new Constraints\Email()
-        ];
+        return array_merge(
+            parent::setConstraints(),
+            [
+                new Constraints\Email(),
+                new Constraints\Length(['max' => 255]),
+            ]
+        );
     }
 }

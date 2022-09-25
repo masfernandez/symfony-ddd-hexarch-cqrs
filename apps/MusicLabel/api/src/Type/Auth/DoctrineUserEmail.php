@@ -4,26 +4,13 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth;
 
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserEmail;
-use Masfernandez\MusicLabel\Infrastructure\Api\Type\Shared\DoctrineAbstractType;
+use Masfernandez\MusicLabel\Infrastructure\Api\Type\Shared\DoctrineStringType;
 
-final class DoctrineUserEmail extends DoctrineAbstractType
+final class DoctrineUserEmail extends DoctrineStringType
 {
-    private const MY_TYPE = 'UserEmail';
-
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
+    protected function getFQCN(): string
     {
-        return $platform->getVarcharTypeDeclarationSQL($column);
-    }
-
-    public function getName(): string
-    {
-        return self::MY_TYPE;
-    }
-
-    protected function getNamespace(): string
-    {
-        return implode("\\", array_slice(explode("\\", UserEmail::class), 0, -1));
+        return UserEmail::class;
     }
 }

@@ -23,8 +23,8 @@ services:
 
 
     # Catalog
-    Masfernandez\MusicLabel\Catalog\Domain\Album\AlbumRepository:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\AlbumRepository:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog\DoctrineAlbumRepository
 
-    Masfernandez\MusicLabel\Catalog\Domain\Album\CacheInMemory:
+    Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\CacheInMemory:
         class: Masfernandez\MusicLabel\Infrastructure\Api\Repository\Cache\Redis\Client

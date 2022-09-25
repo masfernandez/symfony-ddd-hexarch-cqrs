@@ -15,13 +15,14 @@
             <directory name="vendor/"/>
         </ignoreFiles>
     </projectFiles>
+
     <issueHandlers>
 
         <MissingPropertyType errorLevel="info"/>
 
         <RedundantPropertyInitializationCheck>
             <errorLevel type="suppress">
-                <file name="src/Shared/Domain/Album/AlbumId.php"/>
+                <file name="src/Shared/Domain/Id/AlbumId.php"/>
             </errorLevel>
         </RedundantPropertyInitializationCheck>
 
@@ -31,10 +32,11 @@
             </errorLevel>
         </InvalidScalarArgument>
 
-        <!-- TESTS -->
         <InvalidArgument>
             <errorLevel type="suppress">
                 <directory name="tests/"/>
+                <file name="src/Auth/Domain/User/User.php"/>
+                <file name="src/Backoffice/Catalog/Domain/Album/Album.php"/>
             </errorLevel>
         </InvalidArgument>
 
@@ -50,7 +52,6 @@
             </errorLevel>
         </UndefinedMethod>
 
-        <!-- INFRA -->
         <UndefinedInterfaceMethod>
             <errorLevel type="suppress">
                 <referencedMethod name="Symfony\Component\Messenger\Stamp\StampInterface::getResult"/>
@@ -66,8 +67,6 @@
 
         <RedundantPropertyInitializationCheck>
             <errorLevel type="suppress">
-                <file name="src/Shared/Domain/ValueObject/UuidValueObject.php"/>
-                <file name="src/Shared/Domain/ValueObject/ValueObjectBase.php"/>
             </errorLevel>
         </RedundantPropertyInitializationCheck>
 

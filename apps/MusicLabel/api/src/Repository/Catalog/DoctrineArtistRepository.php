@@ -6,15 +6,19 @@ namespace Masfernandez\MusicLabel\Infrastructure\Api\Repository\Catalog;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\ParameterType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
-use Masfernandez\MusicLabel\Catalog\Domain\Artist\Artist;
-use Masfernandez\MusicLabel\Catalog\Domain\Artist\ArtistRepository;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\Artist;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\ArtistRepository;
 
 final class DoctrineArtistRepository extends ServiceEntityRepository implements ArtistRepository
 {
+    private EntityManager $em;
+
     public function __construct(private readonly ManagerRegistry $registry)
     {
         parent::__construct($registry, Artist::class);
+        $this->em = $this->getEntityManager();
     }
 
     public function post(Artist $artist): void
@@ -25,14 +29,12 @@ final class DoctrineArtistRepository extends ServiceEntityRepository implements 
                 id,
                 name,
                 specialisation,
-                adding_date
             )
             VALUES
             (
                 :id,
                 :name,
                 :specialisation,
-                :adding_date
             )
         ";
 
@@ -40,17 +42,15 @@ final class DoctrineArtistRepository extends ServiceEntityRepository implements 
         $this->registry->getManager('default');
         $this->registry->getConnection('default');
 
-
         // Examples with em
         // $em = $this->getEntityManager();
+        // or just $this->em (see constructor);
 
-        $statement = $this->getEntityManager()->getConnection()->prepare($sql);
+        $statement = $this->em->getConnection()->prepare($sql);
         $fields    = $artist->toPrimitives();
 
         $statement->bindValue('id', $fields[Artist::ID], ParameterType::BINARY);
         $statement->bindValue('name', $fields[Artist::NAME], ParameterType::STRING);
-        $statement->bindValue('specialisation', $fields[Artist::SPECIALISATION], ParameterType::STRING);
-        $statement->bindValue('adding_date', $fields['adding_date'], ParameterType::STRING);
         $statement->executeStatement();
     }
 }

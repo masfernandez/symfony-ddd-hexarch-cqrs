@@ -1,0 +1,29 @@
+doctrine:
+    dbal:
+        types:
+            # Album
+            AlbumId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumId
+            AlbumTitle: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumTitle
+            AlbumReleasedAtDate: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumReleasedAtDate
+            AlbumPrice: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineAlbumPrice
+
+            # Artist
+            ArtistId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineArtistId
+
+            # Label
+            LabelId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineLabelId
+            LabelName: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineLabelName
+
+            # Token
+            TokenValue: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineTokenValue
+            TokenExpirationDate: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineTokenExpirationDate
+
+            # Track
+            TrackId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineTrackId
+            TrackName: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineTrackName
+            TrackPrice: Masfernandez\MusicLabel\Infrastructure\Api\Type\Catalog\DoctrineTrackPrice
+
+            # User
+            UserId: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineUserId
+            UserEmail: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineUserEmail
+            UserPassword: Masfernandez\MusicLabel\Infrastructure\Api\Type\Auth\DoctrineUserPassword

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Masfernandez\Tests\Shared\Infrastructure\Behat\Management;
+namespace Masfernandez\Tests\MusicLabel\Shared\Infrastructure\Behat\Management;
 
 use Behat\Behat\Context\Context;
 

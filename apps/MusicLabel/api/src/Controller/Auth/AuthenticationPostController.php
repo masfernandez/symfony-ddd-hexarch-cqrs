@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Controller\Auth;
 
-use Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken\GetTokenQuery;
-use Masfernandez\MusicLabel\Auth\Application\Token\GetNewToken\TokenResponse;
+use Masfernandez\MusicLabel\Auth\Application\Token\Create\CreateTokenCommand;
+use Masfernandez\MusicLabel\Auth\Application\Token\Create\TokenResponse;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\BusHandler;
 use Masfernandez\MusicLabel\Infrastructure\Api\Controller\Auth\InputRequest\TokenPostInputData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class AuthenticationPostController extends AbstractController
     {
         /** @var TokenResponse $tokenResponse */
         $tokenResponse = $this->bus->dispatch(
-            new GetTokenQuery(
+            new CreateTokenCommand(
                 $inputData->getEmail(),
                 $inputData->getPassword()
             )

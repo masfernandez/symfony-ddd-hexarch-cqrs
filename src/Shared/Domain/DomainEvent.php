@@ -9,14 +9,16 @@ use Symfony\Component\Uid\Uuid;
 
 abstract class DomainEvent
 {
-    public static string $dateFormat = 'Y-m-d H:i:s';
     private readonly string $eventId;
     private readonly string $eventDate;
 
-    public function __construct(private readonly string $aggregateId, string $eventId = null, string $eventDate = null)
-    {
+    public function __construct(
+        private readonly string $aggregateId,
+        string $eventId = null,
+        string $eventDate = null
+    ) {
         $this->eventId   = $eventId ?: Uuid::v4()->toRfc4122();
-        $this->eventDate = $eventDate ?: (new DateTime())->format(self::$dateFormat);
+        $this->eventDate = $eventDate ?: (new DateTime())->format(DATE_W3C);
     }
 
     abstract public static function fromPrimitives(

@@ -53,6 +53,8 @@ services:
         networks:
             - musiclabel
             - db
+            - redis
+            - rabbit
 
 networks:
     proxy:
@@ -60,4 +62,8 @@ networks:
     musiclabel:
         external: true
     db:
+        external: true
+    redis:
+        external: true
+    rabbit:
         external: true

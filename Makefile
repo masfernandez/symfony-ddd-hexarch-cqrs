@@ -25,8 +25,9 @@ debug-paths:
 	echo $(musiclabel-backend)
 
 ## —— envs —————————————————————————————————————————————————————————————————
-env-file:
+create-env-file:
 	@if [ ! -f .env ]; then cp .env.dist .env; fi
+
 #@todo improve envs generation and delete app:dump-env command
 dump-dev:
 	ENV=dev ./console secrets:decrypt-to-local --force --env=dev
@@ -44,22 +45,39 @@ dump-prod:
 	ENV=prod ./console secrets:decrypt-to-local --force --env=prod
 	ENV=prod ./console app:dump-env prod --env=prod
 
-## —— development env ————————————————————————————————————————————————————————
+enable-xdebug:
+	docker exec -it docker-symfony-php enable_xdebug
+
+disable-xdebug:
+	docker exec -it docker-symfony-php disable_xdebug
+
+## —— db ————————————————————————————————————————————————————————
 db-create-sqlite:
 	./console doctrine:database:create --no-interaction --quiet
 	./console doctrine:schema:update --force --no-interaction --quiet
 
+db-drop:
+	./console doctrine:database:drop --force --quiet
+
 db-create:
 	./console doctrine:database:create --if-not-exists --no-interaction --quiet
 
-db-update:
+schema-drop:
+	./console doctrine:schema:drop --force
+
+schema-update:
 	./console doctrine:schema:update --dump-sql --force --no-interaction --quiet
 
-db-migrate:
+migrations-migrate:
 	./console doctrine:migrations:migrate --all-or-nothing --no-interaction --quiet --allow-no-migration
 
-db-drop:
-	./console doctrine:database:drop --force --quiet
+migrations-diff:
+	./console doctrine:migrations:diff
+
+schema-validate:
+	./console doctrine:schema:validate
+
+## —— log  ————————————————————————————————————————————————————————
 
 clean-logs:
 	truncate -s 0 var/log/symfony/MusicLabel/*.log
@@ -67,51 +85,51 @@ clean-logs:
 
 ## —— Docker  ————————————————————————————————————————————————————————
 up-test:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=dev $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-dev.yml \
 		up -d --remove-orphans
 
 up-dev:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=dev $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		-f docker-compose.local-dev.yml \
 		up -d --remove-orphans
 
 up-preprod:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		up -d --remove-orphans
 
 up-prod:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		up -d --remove-orphans
 
 stop-test:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=dev $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-dev.yml \
 		stop
 
 stop-dev:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=dev $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		-f docker-compose.local-dev.yml \
 		stop
 
 stop-preprod:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		stop
 
 stop-prod:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		stop
@@ -120,7 +138,7 @@ up: up-prod
 stop: stop-prod
 
 down:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		down --remove-orphans
@@ -131,15 +149,23 @@ logs:
 		-f docker-compose.local-prod.yml \
 		logs -f
 
+rebuild-dev:
+	ENV=dev $(DOCKER_COMPOSE-EXEC) \
+		-f docker-compose.local.yml \
+		-f docker-compose.local-prod.yml \
+		-f docker-compose.local-dev.yml \
+		build php nginx \
+		--no-cache
+
 rebuild:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		build php nginx \
 		--no-cache
 
 update:
-	$(DOCKER_COMPOSE-EXEC) \
+	ENV=prod $(DOCKER_COMPOSE-EXEC) \
 		-f docker-compose.local.yml \
 		-f docker-compose.local-prod.yml \
 		pull \
@@ -165,6 +191,14 @@ composer-install:
 composer-update:
 	@./composer update
 
+packages-sl:
+	rm -rf vendor/masfernandez/message-bus
+	composer update masfernandez/message-bus --ignore-platform-reqs
+	rm -rf vendor/masfernandez/request-validator
+	composer update masfernandez/request-validator --ignore-platform-reqs
+	rm -rf vendor/masfernandez/value-object
+	composer update masfernandez/value-object --ignore-platform-reqs
+
 ## —— PHP tests ————————————————————————————————————————————————————————————
 
 phpcs: up-test phpcs-testsuite
@@ -181,7 +215,7 @@ rector-testsuite:
 
 rector-build: up-test rector-build-testsuite
 rector-build-testsuite:
-	ENV=test ./php vendor/bin/rector process
+	ENV=test ./php vendor/bin/rector process --clear-cache
 
 phpstan: up-test phpstan-testsuite
 phpstan-testsuite:
@@ -193,7 +227,7 @@ psalm-testsuite:
 
 psalm-build: up-test psalm-build-testsuite
 psalm-build-testsuite:
-	ENV=test ./php vendor/bin/psalm --alter --issues=InvalidReturnType,MissingParamType --dry-run
+	ENV=test ./php vendor/bin/psalm --alter --issues=InvalidReturnType,MissingParamType
 
 phpunit: up-test dump-test db-drop db-create-sqlite phpunit-testsuite
 phpunit-testsuite:
@@ -229,7 +263,7 @@ create-demo-user:
 
 ## —— RUN  ————————————————————————————————————————————————————————————
 tests: \
-	env-file \
+	create-env-file \
 	up-test \
 	dump-test \
 	db-drop \
@@ -243,22 +277,29 @@ tests: \
 	phpunit-coverage-testsuite
 coverage: \
 	phpunit-coverage
+test-start: \
+	create-env-file \
+	up-test \
+	dump-test \
+	db-drop \
+	db-create-sqlite
 dev-start: \
-	env-file \
+	create-env-file \
 	up-dev \
 	dump-dev \
+	schema-validate \
 	db-create \
-	db-migrate
+	migrations-migrate
 preprod-start: \
 	up-preprod \
 	dump-prod \
 	db-create \
-	db-migrate
+	migrations-migrate
 prod-start: \
 	up-prod \
 	dump-prod \
 	db-create \
-	db-migrate
+	migrations-migrate
 
 stop-all: stop-prod
 

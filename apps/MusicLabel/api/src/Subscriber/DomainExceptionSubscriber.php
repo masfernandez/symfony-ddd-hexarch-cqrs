@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Subscriber;
 
+use Masfernandez\MusicLabel\Auth\Domain\User\Exception\TokenExpired;
 use Masfernandez\MusicLabel\Auth\Domain\User\Exception\UserNotFound;
 use Masfernandez\MusicLabel\Auth\Domain\User\Exception\WrongPassword;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumAlreadyExists;
-use Masfernandez\MusicLabel\Catalog\Domain\Album\Exception\AlbumNotFound;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\Exception\AlbumAlreadyExists;
+use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\Exception\AlbumNotFound;
 use Masfernandez\MusicLabel\Shared\Domain\DomainException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,6 +43,7 @@ final class DomainExceptionSubscriber implements EventSubscriberInterface
             $domainException instanceof AlbumAlreadyExists => Response::HTTP_CONFLICT,
             $domainException instanceof WrongPassword => Response::HTTP_UNAUTHORIZED,
             $domainException instanceof UserNotFound => Response::HTTP_UNAUTHORIZED,
+            $domainException instanceof TokenExpired => Response::HTTP_UNAUTHORIZED,
             default => Response::HTTP_INTERNAL_SERVER_ERROR
         };
 

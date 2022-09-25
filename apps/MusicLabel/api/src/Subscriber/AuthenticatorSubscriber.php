@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Subscriber;
 
-use Masfernandez\MusicLabel\Auth\Application\Jwt\Authenticate\AuthenticateJwTokenCommand;
+use Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Authenticate\AuthenticateJwTokenCommand;
 use Masfernandez\MusicLabel\Auth\Application\Token\Authenticate\AuthenticateTokenCommand;
-use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\JwTokenValue;
+use Masfernandez\MusicLabel\Auth\Domain\User\JsonWebToken;
+use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\JsonWebTokenValue;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenValue;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\BusHandler;
 use Masfernandez\MusicLabel\Infrastructure\Api\Controller\InputRequest\BadRequest;
@@ -59,7 +60,7 @@ final class AuthenticatorSubscriber implements EventSubscriberInterface
             // validate input
             $violations = Validation::createValidator()->validate(
                 ['token' => $token],
-                new Assert\Collection(['token' => JwTokenValue::getConstraints()])
+                new Assert\Collection(['token' => JsonWebTokenValue::getConstraints()])
             );
 
             if ($violations->count() > 0) {
@@ -96,6 +97,6 @@ final class AuthenticatorSubscriber implements EventSubscriberInterface
 
     private function isHeaderAndPayPattern(?string $token): bool
     {
-        return 1 === preg_match(JwTokenValue::JWT_HEAD_AND_PAY_PATTERN, (string) $token);
+        return 1 === preg_match(JsonWebToken::JWT_HEAD_AND_PAYLOAD_PATTERN, (string)$token);
     }
 }

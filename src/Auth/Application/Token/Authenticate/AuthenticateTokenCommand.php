@@ -6,13 +6,18 @@ namespace Masfernandez\MusicLabel\Auth\Application\Token\Authenticate;
 
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenValue;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
+use Masfernandez\ValueObject\ValueObjectException;
 
 class AuthenticateTokenCommand implements Command
 {
     private readonly TokenValue $token;
 
-    public function __construct(string $token)
-    {
+    /**
+     * @throws ValueObjectException
+     */
+    public function __construct(
+        string $token,
+    ) {
         $this->token = new TokenValue($token);
     }
 
