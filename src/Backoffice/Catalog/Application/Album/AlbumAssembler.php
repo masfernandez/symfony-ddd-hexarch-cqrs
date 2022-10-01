@@ -9,7 +9,7 @@ use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumPri
 use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumReleasedAtDate;
 use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumTitle;
 use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class AlbumAssembler
 {

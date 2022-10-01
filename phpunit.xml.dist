@@ -2,9 +2,11 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
          bootstrap="apps/MusicLabel/api/config/bootstrap.php"
-         colors="true" beStrictAboutOutputDuringTests="true"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
-         beStrictAboutTestsThatDoNotTestAnything="false">
+         beStrictAboutTestsThatDoNotTestAnything="false"
+>
 
     <coverage processUncoveredFiles="true">
         <include>

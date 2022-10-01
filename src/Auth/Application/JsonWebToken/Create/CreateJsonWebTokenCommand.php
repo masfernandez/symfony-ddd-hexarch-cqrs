@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserPassword;
 use Masfernandez\MusicLabel\Shared\Application\Service\Request;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class CreateJsonWebTokenCommand implements Request
 {

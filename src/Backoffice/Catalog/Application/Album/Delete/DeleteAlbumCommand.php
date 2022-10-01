@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Delete;
 
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand;
 use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class DeleteAlbumCommand implements SyncCommand
 {

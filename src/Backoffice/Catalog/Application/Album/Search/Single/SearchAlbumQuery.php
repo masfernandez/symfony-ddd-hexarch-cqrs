@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\Search\Si
 
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Query\SyncQuery;
 use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class SearchAlbumQuery implements SyncQuery
 {

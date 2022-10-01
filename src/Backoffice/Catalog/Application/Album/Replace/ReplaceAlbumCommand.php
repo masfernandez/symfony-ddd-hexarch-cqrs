@@ -8,7 +8,7 @@ use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumRel
 use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Album\ValueObject\AlbumTitle;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand;
 use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class ReplaceAlbumCommand implements SyncCommand
 {

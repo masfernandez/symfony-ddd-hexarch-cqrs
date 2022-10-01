@@ -7,7 +7,7 @@ namespace Masfernandez\Tests\MusicLabel\Auth\Domain\User\ValueObject;
 use DateTimeInterface;
 use Masfernandez\MusicLabel\Auth\Domain\User\Token;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenExpirationDate;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 class TokenExpirationDateMother
 {

@@ -8,7 +8,7 @@ use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserPassword;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
 use Masfernandez\MusicLabel\Shared\Domain\Id\UserId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class CreateUserCommand implements Command
 {

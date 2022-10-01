@@ -6,7 +6,7 @@ namespace Masfernandez\MusicLabel\Auth\Application\Token\Authenticate;
 
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\TokenValue;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\Command;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 class AuthenticateTokenCommand implements Command
 {

@@ -287,9 +287,9 @@ dev-start: \
 	create-env-file \
 	up-dev \
 	dump-dev \
-	schema-validate \
 	db-create \
-	migrations-migrate
+	migrations-migrate \
+	schema-validate
 preprod-start: \
 	up-preprod \
 	dump-prod \

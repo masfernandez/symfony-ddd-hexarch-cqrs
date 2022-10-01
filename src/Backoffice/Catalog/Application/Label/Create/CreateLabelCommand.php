@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Backoffice\Catalog\Application\Label\Create;
 use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Label\ValueObject\LabelName;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand;
 use Masfernandez\MusicLabel\Shared\Domain\Id\LabelId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 class CreateLabelCommand implements SyncCommand
 {

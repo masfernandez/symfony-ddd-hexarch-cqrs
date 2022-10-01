@@ -25,7 +25,7 @@ abstract class DoctrineUuidType extends DoctrineType
         return new $className(Uuid::fromBinary($value)->toRfc4122());
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;

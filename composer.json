@@ -41,7 +41,7 @@
         "doctrine/orm": "^2.13",
         "lambdish/phunctional": "^2.1",
         "lcobucci/jwt": "^4.2",
-        "masfernandez/value-object": "^0.1",
+        "masfernandez/value-object": "^0.2",
         "nelmio/cors-bundle": "^2.2",
         "ramsey/uuid-doctrine": "^1.8",
         "sensio/framework-extra-bundle": "^6.2",
