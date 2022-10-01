@@ -81,6 +81,7 @@ jobs:
                     port: ${{ secrets.A2_PORT }}
                     script: |
                         cd workspace/symfony-ddd-hexarch-cqrs
+                        git clean -f
                         git pull origin -X theirs --allow-unrelated-histories
                         ./composer config --global github-oauth.github.com ${{ secrets.COMPOSER_TOKEN }}
                         ./composer update symfony/flex --no-plugins --no-scripts
@@ -98,4 +99,4 @@ jobs:
                         ENV=prod docker-compose -f docker-compose.prod.yml build
                         ENV=prod docker-compose -f docker-compose.prod.yml down
                         ENV=prod docker-compose -f docker-compose.prod.yml up -d
-                        ENV=prod docker exec -it docker-symfony-php supervisord --configuration /etc/supervisor.d/supervisord.ini
+                        ENV=prod docker exec -i docker-symfony-php supervisord --configuration /etc/supervisor.d/supervisord.ini
