@@ -6,7 +6,7 @@ namespace Masfernandez\Tests\MusicLabel\Backoffice\Catalog\Domain\Album;
 
 use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
 use Masfernandez\Tests\MusicLabel\Shared\Infrastructure\PhpUnit\FakerMother;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 class AlbumIdMother
 {

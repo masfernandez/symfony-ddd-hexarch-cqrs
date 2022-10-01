@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Auth\Application\Token\Create;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserEmail;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\UserPassword;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Query\Query;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 final class CreateTokenCommand implements Query
 {

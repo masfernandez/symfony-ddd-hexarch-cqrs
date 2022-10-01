@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist;
 use Doctrine\Common\Collections\Collection;
 use Masfernandez\MusicLabel\Backoffice\Catalog\Domain\Artist\ValueObject\ArtistName;
 use Masfernandez\MusicLabel\Shared\Domain\Id\ArtistId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 use Stringable;
 
 class Artist implements Stringable

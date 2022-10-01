@@ -10,7 +10,7 @@ use Masfernandez\MusicLabel\Auth\Domain\User\JsonWebToken;
 use Masfernandez\MusicLabel\Auth\Domain\User\JsonWebTokenGenerator;
 use Masfernandez\MusicLabel\Auth\Domain\User\User;
 use Masfernandez\MusicLabel\Auth\Domain\User\ValueObject\JsonWebTokenValue;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 class Generator implements JsonWebTokenGenerator
 {

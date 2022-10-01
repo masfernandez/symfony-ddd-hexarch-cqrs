@@ -7,7 +7,7 @@ namespace Masfernandez\MusicLabel\Backoffice\Catalog\Application\Album\AddLabelT
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\Command\SyncCommand;
 use Masfernandez\MusicLabel\Shared\Domain\Id\AlbumId;
 use Masfernandez\MusicLabel\Shared\Domain\Id\LabelId;
-use Masfernandez\ValueObject\ValueObjectException;
+use Masfernandez\ValueObject\Exception\ValueObjectException;
 
 class AddLabelToAlbumCommand implements SyncCommand
 {
