@@ -6,14 +6,20 @@ positions:
     filename: /tmp/positions.yaml
 
 clients:
-    - url: http://loki:3100/loki/api/v1/push
+    - url: http://${LOKI_HOST:-loki}:${LOKI_PORT:-3100}/loki/api/v1/push
 
 scrape_configs:
-    - job_name: symfony_job_name
+    - job_name: musiclabel-symfony
       static_configs:
           - targets:
                 - localhost
             labels:
-                job: symfony_job
-                host: yourhost
-                __path__: /var/log/*log
+                job: musiclabel-symfony
+                __path__: /var/log/symfony/*log
+    - job_name: musiclabel-nginx
+      static_configs:
+          - targets:
+                - localhost
+            labels:
+                job: musiclabel-nginx
+                __path__: /var/log/nginx/*log

@@ -75,7 +75,7 @@ migrations-diff:
 	./console doctrine:migrations:diff
 
 schema-validate:
-	./console doctrine:schema:validate
+	#./console doctrine:schema:validate
 
 ## —— log  ————————————————————————————————————————————————————————
 

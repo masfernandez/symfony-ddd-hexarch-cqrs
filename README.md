@@ -30,7 +30,7 @@
 <br />
 
 [![Build Status](https://api.travis-ci.com/masfernandez/symfony-ddd-hexarch-cqrs.svg?branch=master)](https://app.travis-ci.com/github/masfernandez/symfony-ddd-hexarch-cqrs)
-[![Coverage Status](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs)
+[![Coverage Status](https://coveralls.io/repos/github/masfernandez/symfony-ddd-hexarch-cqrs/badge.svg?branch=master)](https://coveralls.io/github/masfernandez/symfony-ddd-hexarch-cqrs?branch=master)
 
 <br />
 

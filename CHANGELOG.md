@@ -14,6 +14,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [0.7.0] - 2022-10-02
+### Added
+- Promtail log to a2 server
+- RequestLoggerSubscriber
+### Changed
+- Remove log traces from inputData
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+
+
 ## [0.6.3] - 2022-10-01
 ### Added
 ### Changed
@@ -410,6 +423,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/master...develop
+[0.7.0]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.7.0...v0.6.3
 [0.6.3]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.6.3...v0.6.2
 [0.6.2]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.6.2...v0.6.1
 [0.6.1]: https://github.com/masfernandez/symfony-ddd-hexarch-cqrs/compare/v0.6.1...v0.6.0
