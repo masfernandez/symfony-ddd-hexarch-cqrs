@@ -226,12 +226,23 @@ services:
             - kibana
 
     promtail:
-        image: grafana/promtail:2.5.0
-        container_name: ${COMPOSE_PROJECT_NAME}-promtail
+        image: grafana/promtail:latest
+        container_name: promtail
+        env_file:
+            - ./docker/promtail/.env
         volumes:
-            - ./var/log/symfony/MusicLabel:/var/log
+            # config file
             - ./docker/promtail/config.yaml:/etc/promtail/config.yml
-        command: -config.file=/etc/promtail/config.yml
+            # custom logs here
+            - ./var/log/symfony/MusicLabel:/var/log/symfony
+            - ./var/log/nginx:/var/log/nginx
+            - ./var/log/mysql80:/var/log/mysql80
+            - ./var/log/mariadb:/var/log/mariadb
+        restart: ${PROMTAIL_RESTART}
+        command: -config.file=/etc/promtail/config.yml -config.expand-env=true
+        environment:
+            - LOKI_HOST=${PROMTAIL_LOKI_HOST:-loki}
+            - LOKI_PORT=${PROMTAIL_LOKI_PORT:-3100}
         networks:
             - grafana
 

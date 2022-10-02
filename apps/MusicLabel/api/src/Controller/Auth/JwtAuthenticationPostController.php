@@ -6,8 +6,6 @@ namespace Masfernandez\MusicLabel\Infrastructure\Api\Controller\Auth;
 
 use Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create\CreateJsonWebTokenCommand;
 use Masfernandez\MusicLabel\Auth\Application\JsonWebToken\Create\JsonWebTokenResponse;
-use Masfernandez\MusicLabel\Auth\Application\Jwt\NewToken\GetJwtQuery;
-use Masfernandez\MusicLabel\Auth\Application\Jwt\NewToken\JwtResponse;
 use Masfernandez\MusicLabel\Infrastructure\Api\Bus\BusHandler;
 use Masfernandez\MusicLabel\Infrastructure\Api\Controller\Auth\InputRequest\JwtPostInputData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

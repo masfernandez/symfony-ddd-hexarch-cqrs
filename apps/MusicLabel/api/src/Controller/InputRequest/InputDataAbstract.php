@@ -6,7 +6,6 @@ declare(strict_types=1);
 
 namespace Masfernandez\MusicLabel\Infrastructure\Api\Controller\InputRequest;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,23 +17,9 @@ abstract class InputDataAbstract
     protected bool $isValid;
     private readonly ?Request $request;
 
-    public function __construct(RequestStack $requestStack, LoggerInterface $logger)
+    public function __construct(RequestStack $requestStack)
     {
         $this->request = $requestStack->getMainRequest();
-        $logger->debug(
-            sprintf(
-                '%s %s%s?%s',
-                $this->request->getMethod(),
-                $this->request->getHost(),
-                $this->request->getPathInfo(),
-                $this->request->getQueryString()
-            )
-        );
-        foreach ($this->request->headers->all() as $header => $value) {
-            $value = reset($value);
-            $logger->debug("$header: $value");
-        }
-        $logger->debug($this->request->getContent());
         $violations    = $this->extractAndValidateData(clone $this->request);
         $this->isValid = $violations->count() === 0;
         if ($violations->count() > 0) {
